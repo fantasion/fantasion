@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="invoice.css" media="all" />
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+        <img src="logo.png">
+      </div>
+      <div id="company">
+        <h2 id="name" class="name">FANTASION, z. s.</h2>
+        <div>Zborovská 512/40, Praha 5 Smíchov</div>
+        <div>150 00 Česká republika</div>
+        <div><a href="mailto:info@fantasion.cz">info@fantasion.cz</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        <div id="client">
+          <div class="to">ODBĚRATEL:</div>
+          <h2 class="name">{{name}}</h2>
+          <div class="address">{{address}}</div>
+          <div class="email">{{email}}</div>
+        </div>
+        <div id="invoice">
+          <h1>FAKTURA # {{variable_symbol}}</h1>
+          <div class="date">Datum vystavení: {{today}}</div>
+          <div class="date">Datum splatnosti: {{dueDate}}</div>
+        </div>
+      </div>
+      <table cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">#</th>
+            <th class="desc">POPIS</th>
+            <th class="unit">CENA</th>
+            <th class="qty">POČET</th>
+            <th class="disc">SLEVA</th>
+            <th class="total">CELKEM (KČ)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="no">1</td>
+            <td class="desc"><h3>Přihláška na tábor</h3>{{items[0].static_description}}</td>
+            <td class="unit">{{price}}</td>
+            <td class="qty">{{quantity}}</td>
+            <td class="disc">-{{discard}}</td>
+            <td class="total">{{total}}</td>
+          </tr>
+        </tbody>
+        <tfoot >
+           <tr>
+            <td colspan="3"></td>
+            <td colspan="2">CELKOVÁ CENA</td>
+            <td>{{total}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div id="qr-info">QR kód pro platbu:</div>
+      <div id="qr">
+        <img src="QRpayment.png" width="200">
+      </div>
+    </main>
+  </body>
+</html>

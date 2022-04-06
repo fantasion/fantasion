@@ -1,0 +1,174 @@
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  color: #472a7e;
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+  width: 21cm;  
+  height: 29.7cm; 
+  margin: 0 auto; 
+  color: #555555;
+  background: #FFFFFF; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px; 
+  /* font-family: 'Raleway'; */
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #AAAAAA;
+}
+
+#logo {
+  float: left;
+  margin-top: 8px;
+}
+
+#logo img {
+  height: 70px;
+}
+
+#name {
+  color: #472a7e;
+  font-weight:bold;
+  font-size: 1.5em;
+}
+
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#client {
+  padding-left: 6px;
+  border-left: 6px solid #472a7e;
+  float: left;
+  margin-top: 10px;
+}
+
+#client .to {
+  color: #777777;
+}
+
+h2.name {
+  font-size: 1.4em;
+  font-weight: normal;
+  margin: 0;
+}
+
+#qr {
+  text-align: center;
+}
+
+#qr-info {
+  text-align: center;
+  font-size: 1.4em;
+}
+
+#invoice {
+  float: right;
+  text-align: right;
+}
+
+#invoice h1 {
+  color: #472a7e;
+  font-size: 2.4em;
+  line-height: 1em;
+  font-weight: bold;
+  margin: 0  0 10px 0;
+}
+
+#invoice .date {
+  font-size: 1.1em;
+  color: #777777;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 10px;
+}
+
+table thead th {
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 20px;
+  background: #EEEEEE;
+  text-align: center;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+table th {
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table td {
+  text-align: right;
+}
+
+table td h3{
+  color: #472a7e;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 0 0.2em 0;
+}
+
+table .no {
+  font-size: 1.6em;
+  color: white;
+  background: #472a7e;
+}
+
+table .desc {
+  text-align: left;
+}
+
+table .unit,
+table .disc {
+  background: #DDDDDD;
+}
+
+table .total {
+  background: #472a7e;
+  color: white
+}
+
+table td.unit,
+table td.qty,
+table td.total,
+table td.disc {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+table tbody tr:last-child td {
+  border: none;
+}
+
+table tfoot td {
+  padding: 10px 20px;
+  background: #FFFFFF;
+  align-content: flex-end;
+  color: #472a7e;
+  border-bottom: none;
+  font-weight:bold;
+  font-size: 1.2em;
+  white-space: nowrap; 
+  border-top: 1px solid #AAAAAA; 
+}
+
