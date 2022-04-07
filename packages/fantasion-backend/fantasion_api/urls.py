@@ -87,6 +87,12 @@ router.register(
     basename='participants',
 )
 
+router.register(
+    r'signups',
+    signups.SignupCollection,
+    basename='signups',
+)
+
 urlpatterns = [
     path('', include(router.urls)),
     path('users/', include(users.urlpatterns)),

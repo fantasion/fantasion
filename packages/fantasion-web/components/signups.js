@@ -235,6 +235,12 @@ export const SignupWizzard = ({ defaultParticipants, onSubmit, ...props }) => {
     setParticipantId(participant.id)
     setActiveKey(2)
   }
+  const handleSubmit = (values) => {
+    return onSubmit({
+      ...values,
+      participantId,
+    })
+  }
 
   return (
     <Accordion {...props} activeKey={activeKey} alwaysOpen>
@@ -255,7 +261,7 @@ export const SignupWizzard = ({ defaultParticipants, onSubmit, ...props }) => {
           {t('signup-troop-selection')}
         </Accordion.Header>
         <Accordion.Body>
-          <SignupForm participantId={participantId} onSubmit={onSubmit} />
+          <SignupForm participantId={participantId} onSubmit={handleSubmit} />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
@@ -274,7 +280,11 @@ export const OrderSignupWizzard = ({
 }) => {
   const [order, setOrder] = useState(defaultOrder)
   console.log('order', order)
-  const [signups, setSignups] = useState(order?.items.filter(item => item.productType === 'fantasion_signups.Signup') || [])
+  const [signups, setSignups] = useState(
+    order?.items.filter(
+      (item) => item.productType === 'fantasion_signups.Signup'
+    ) || []
+  )
   const [addParticipant, setAddParticipant] = useState(signups.length === 0)
   const { t } = useTranslation()
   const fetch = useFetch()
@@ -282,8 +292,8 @@ export const OrderSignupWizzard = ({
     const s = await fetch.post('/signups', {
       body: {
         ...values,
-        orderId: order?.id
-      }
+        orderId: order?.id,
+      },
     })
   }
 
@@ -292,14 +302,19 @@ export const OrderSignupWizzard = ({
       {signups.map((signup) => (
         <OrderSignup signup={signup} key={signup.id} />
       ))}
-      {addParticipant ? 
+      {addParticipant ? (
         <SignupWizzard
           defaultParticipants={defaultParticipants}
           onSubmit={createSignup}
-        /> : <InteractiveButton
-          variant={signups.length === 0 ? 'primary':'secondary'}
+        />
+      ) : (
+        <InteractiveButton
+          variant={signups.length === 0 ? 'primary' : 'secondary'}
           onClick={() => setAddParticipant(true)}
-        >{t('signup-add-participant')}</InteractiveButton>}
+        >
+          {t('signup-add-participant')}
+        </InteractiveButton>
+      )}
     </div>
   )
 }

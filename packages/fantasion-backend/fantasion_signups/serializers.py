@@ -2,6 +2,7 @@ from rest_framework.serializers import ModelSerializer
 
 from . import models
 from fantasion_people.models import Family
+from fantasion_eshop import models as eshop
 from fantasion_expeditions.models import (
     AgeGroup,
     Expedition,
@@ -97,7 +98,7 @@ class TroopSerializer(ModelSerializer):
 
 class SignupSerializer(ModelSerializer):
     participant = ParticipantSerializer()
-    troop = TroopSerializer()
+    troop = TroopSerializer(read_only=True)
 
     class Meta:
         model = models.Signup
@@ -105,12 +106,14 @@ class SignupSerializer(ModelSerializer):
             'id',
             'note',
             'participant',
+            'participant_id',
             'price',
             'product_type',
             'status',
             'troop',
+            'troop_id',
         )
-        read_only_fields = ('id', 'product_type', 'price', 'status')
+        read_only_fields = ('id', 'product_type', 'price', 'status', 'participant', 'troop',)
 
 
     def get_or_create_order(self, order_id):
@@ -120,12 +123,12 @@ class SignupSerializer(ModelSerializer):
             order = eshop.Order.objects.filter(
                 owner=user,
                 order_id=order_id,
-                status=models.ORDER_STATUS_NEW
+                status=eshop.ORDER_STATUS_NEW
             ).first()
         else:
             order = eshop.Order.objects.filter(
                 owner=user,
-                status=models.ORDER_STATUS_NEW
+                status=eshop.ORDER_STATUS_NEW
             ).first()
         
         if not order:
@@ -135,8 +138,9 @@ class SignupSerializer(ModelSerializer):
 
 
     def create(self, data):
+        print(data, flush=True)
         order = self.get_or_create_order(data.get('order_id', None))
-        participant = Participant.objects.get(pk=data.get('participant_id'))
+        participant = models.Participant.objects.get(pk=data.get('participant_id'))
         troop = Troop.objects.get(pk=data.get('troop_id'))
         inst = models.Signup(
             **validated_data,

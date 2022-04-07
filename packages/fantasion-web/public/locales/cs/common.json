@@ -60,6 +60,7 @@
   "form-input-max-length": "Hodnota nesmí být delší než ${max} znaků",
   "form-input-min-length": "Hodnota musí být delší než ${min} znaků",
   "form-input-required": "Toto políčko musíte vyplnit",
+  "form-failed-to-submit": "Selhalo ukládání dat. Zkontrolujte prosím, zda jsou správně vyplněná všechna políčka.",
   "input-age-group": "Věková skupina",
   "input-date-of-birth": "Datum narození",
   "input-expedition-batch": "Turnus",
