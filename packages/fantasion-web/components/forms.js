@@ -242,6 +242,7 @@ export const FormControls = ({ submitLabel }) => {
   const { formState } = useFormContext()
   return (
     <>
+      <FormError />
       <div className="mt-3">
         <Submit inProgress={formState.isSubmitting}>{submitLabel}</Submit>
       </div>
