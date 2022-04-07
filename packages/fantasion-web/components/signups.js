@@ -2,6 +2,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import moment from 'moment'
 import React from 'react'
 
+import { InteractiveButton } from './buttons'
 import { formatDateRange } from './dates'
 import { Form, FormControls, Input } from './forms'
 import { useExpedition } from './expeditions'
@@ -184,7 +185,7 @@ export const ParticipantSelection = ({
         <Input
           type="radio"
           name="participantId"
-          value={participant.id}
+          value={String(participant.id)}
           key={participant.id}
           label={<UserName user={participant} />}
         />
@@ -213,12 +214,13 @@ export const SignupForm = ({ onSubmit }) => {
       <BatchSelection name="batchId" required />
       <TroopSelection name="batchAgeGroupId" required />
       <NoteInput name="note" />
+      <p className="mt-3 text-muted">{t('signup-will-be-added')}</p>
       <FormControls submitLabel={t('input-save-signup')} />
     </Form>
   )
 }
 
-export const SignupWizzard = ({ defaultParticipants }) => {
+export const SignupWizzard = ({ defaultParticipants, onSubmit, ...props }) => {
   const [participants, setParticipants] = useState(defaultParticipants)
   const [participantId, setParticipantId] = useState(null)
   const [activeKey, setActiveKey] = useState(1)
@@ -235,7 +237,7 @@ export const SignupWizzard = ({ defaultParticipants }) => {
   }
 
   return (
-    <Accordion activeKey={activeKey} alwaysOpen>
+    <Accordion {...props} activeKey={activeKey} alwaysOpen>
       <Accordion.Item eventKey={1}>
         <Accordion.Header onClick={() => setActiveKey(1)}>
           {t('signup-participant-selection')}
@@ -253,12 +255,51 @@ export const SignupWizzard = ({ defaultParticipants }) => {
           {t('signup-troop-selection')}
         </Accordion.Header>
         <Accordion.Body>
-          <SignupForm
-            participantId={participantId}
-            onSubmit={(values) => console.log(values)}
-          />
+          <SignupForm participantId={participantId} onSubmit={onSubmit} />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
+  )
+}
+
+const OrderSignup = ({ signup }) => {
+  return <div>{signup.id}</div>
+}
+
+export const OrderSignupWizzard = ({
+  defaultOrder,
+  defaultParticipants,
+  defaultSignups,
+  ...props
+}) => {
+  const [order, setOrder] = useState(defaultOrder)
+  console.log('order', order)
+  const [signups, setSignups] = useState(order?.items.filter(item => item.productType === 'fantasion_signups.Signup') || [])
+  const [addParticipant, setAddParticipant] = useState(signups.length === 0)
+  const { t } = useTranslation()
+  const fetch = useFetch()
+  const createSignup = async (values) => {
+    const s = await fetch.post('/signups', {
+      body: {
+        ...values,
+        orderId: order?.id
+      }
+    })
+  }
+
+  return (
+    <div {...props}>
+      {signups.map((signup) => (
+        <OrderSignup signup={signup} key={signup.id} />
+      ))}
+      {addParticipant ? 
+        <SignupWizzard
+          defaultParticipants={defaultParticipants}
+          onSubmit={createSignup}
+        /> : <InteractiveButton
+          variant={signups.length === 0 ? 'primary':'secondary'}
+          onClick={() => setAddParticipant(true)}
+        >{t('signup-add-participant')}</InteractiveButton>}
+    </div>
   )
 }

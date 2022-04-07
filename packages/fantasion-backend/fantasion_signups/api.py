@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q 
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
@@ -14,6 +14,21 @@ class ParticipantCollection(ModelViewSet):
         )
 
     serializer_class = serializers.ParticipantSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
+
+class SignupCollection(ModelViewSet):
+    def get_queryset(self):
+        return models.Signups.objects.filter(
+            order__owner=self.request.user
+        )
+
+    serializer_class = serializers.SignupSerializer
     permission_classes = [IsAuthenticated]
 
     def get_serializer_context(self):
