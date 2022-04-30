@@ -12,6 +12,10 @@ body {
   min-width: 320px;
 }
 
+body {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
