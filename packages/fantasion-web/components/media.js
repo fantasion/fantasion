@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 
 import { CloseIcon, NextIcon, PrevIcon } from './icons'
 import { HeadingLevelContext, useHeadingLevel } from './context'
-import { useEffect, useRef, useState } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import styles from './media.module.scss'
@@ -112,15 +112,18 @@ const MediaObject = ({ className, mediaObject, onDetail, ...props }) => {
 
 const isValid = (mediaObject) => Boolean(mediaObject.localPhoto)
 
-export const SlideShowGallery = ({
-  as: Component = 'div',
-  className,
-  media,
-  previewComponent,
-  size = 'galleryDecoration',
-  square,
-  ...props
-}) => {
+const ReflessSlideShowGallery = (
+  {
+    as: Component = 'div',
+    className,
+    media,
+    previewComponent,
+    size = 'galleryDecoration',
+    square,
+    ...props
+  },
+  ref
+) => {
   const validMedia = media.filter(isValid)
   const [activeIndex] = useRotatingIndex(validMedia, 6000)
   return (
@@ -128,6 +131,7 @@ export const SlideShowGallery = ({
       className={classnames(className, styles.slideShow, {
         [styles.squareLayout]: square,
       })}
+      ref={ref}
       {...props}
     >
       {validMedia.map((mediaObject, index) => (
@@ -144,6 +148,8 @@ export const SlideShowGallery = ({
     </Component>
   )
 }
+
+export const SlideShowGallery = forwardRef(ReflessSlideShowGallery)
 
 const LightBoxButton = ({ className, icon: Icon, onClick, ...props }) => (
   <Button
