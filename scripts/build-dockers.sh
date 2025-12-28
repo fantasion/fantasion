@@ -2,7 +2,7 @@
 
 set -e
 
-if [ $(which apk &> /dev/null) ]; then
+if which apk &> /dev/null; then
   apk add jq
 fi
 
@@ -49,6 +49,8 @@ for dir in $dirs; do
   if [[ "$env" != "" ]]; then
     docker push ${image_name}
   fi
+
+  cd - > /dev/null
 done
 
 set +x
