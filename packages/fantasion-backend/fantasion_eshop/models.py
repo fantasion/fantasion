@@ -111,7 +111,6 @@ def generate_payment_qr_png_data_uri(
     emv_header = "SPD*1.0*"
     code_vars = [
         f"ACC:{iban}",
-        f"BIC:{bic}",
         f"AM:{amount_formatted}",
         f"CC:{currency}",
         f"MSG:{message_escaped}",
