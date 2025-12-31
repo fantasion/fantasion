@@ -5,7 +5,7 @@ import FormCheck from 'react-bootstrap/FormCheck'
 import PhoneNumberInput from 'react-phone-input-2'
 
 import { FormProvider, useForm } from 'react-hook-form'
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useState } from 'react'
 import { InteractiveButton } from './buttons'
 import { object, setLocale } from 'yup'
 import { useFormContext } from 'react-hook-form'
@@ -363,27 +363,13 @@ export const PhoneInput = ({ name, label, helpText, required, ...props }) => {
   )
 }
 
-const shallowCompare = (obj1, obj2) => {
-  for (const key in obj2) {
-    if (obj2[key] !== obj1[key]) {
-      return false
-    }
-  }
-  return true
-}
-
-const AutosaveAgent = ({ defaultValues, onSubmit }) => {
-  const { handleSubmit, watch } = useFormContext()
-  const value = useRef(defaultValues)
-  const newData = watch()
-  const changed = !shallowCompare(value.current, newData)
-  const triggerSubmit = handleSubmit(onSubmit)
-  useEffect(() => {
-    if (changed) {
-      value.current = newData
-      triggerSubmit(newData)
-    }
-  }, [changed, newData, triggerSubmit])
+const AutosaveAgent = ({ onSubmit }) => {
+  const { trigger, watch } = useFormContext()
+  useAutoSubmit({
+    trigger: trigger,
+    watch: watch,
+    onSubmit: onSubmit,
+  })
   return null
 }
 
@@ -399,4 +385,36 @@ export const AutosaveForm = ({
       {children}
     </Form>
   )
+}
+
+export function useAutoSubmit({
+  trigger,
+  watch,
+  onSubmit,
+  excludeFields,
+  onValidationFailed,
+}) {
+  const [isSubmiting, setIsSubmiting] = useState(false)
+  useEffect(() => {
+    const subscription = watch((data, info) => {
+      if (info?.type !== 'change') {
+        return
+      }
+      if (info.name && excludeFields?.includes(info.name)) {
+        return
+      }
+      setIsSubmiting(true)
+      trigger()
+        .then((valid) => {
+          if (valid) {
+            onSubmit(data)
+          } else {
+            onValidationFailed?.()
+          }
+        })
+        .finally(() => setIsSubmiting(false))
+    })
+    return () => subscription.unsubscribe()
+  }, [excludeFields, watch, onSubmit, onValidationFailed, trigger])
+  return { isSubmiting }
 }
