@@ -87,10 +87,24 @@ def generate_payment_qr_png_data_uri(
     """
     Generate QR code as PNG and return as data URI for embedding in emails.
     """
+    if hasattr(amount, 'amount'):
+        amount_value = float(amount.amount)
+    elif hasattr(amount, '__float__'):
+        amount_value = float(amount)
+    else:
+        amount_str = str(amount).replace(' ', '').replace(',', '.').replace('Kč', '').replace('CZK', '').strip()
+        try:
+            amount_value = float(amount_str)
+        except (ValueError, TypeError):
+            amount_value = float(str(amount).replace(',', '.'))
+    
+    amount_formatted = f"{amount_value:.2f}"
+    
     emv_header = "SPD*1.0*"
     code_vars = [
-        f"ACC:{iban}+{bic}",
-        f"AM:{amount}",
+        f"ACC:{iban}",
+        f"BIC:{bic}",
+        f"AM:{amount_formatted}",
         f"CC:{currency}",
         f"RF:{variable_symbol}",
         f"MSG:{message}",
