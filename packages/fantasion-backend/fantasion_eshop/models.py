@@ -105,7 +105,7 @@ def generate_payment_qr_png_data_uri(
     )
     qr.add_data(code)
     qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
+    img = qr.make_image(fill_color="#472a7e", back_color="#fffaeb")
     img.save(buffer, format='PNG')
     buffer.seek(0)
     img_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
