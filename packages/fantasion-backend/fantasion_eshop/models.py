@@ -1,5 +1,6 @@
 from io import BytesIO
 import base64
+from PIL import Image
 import qrcode
 from datetime import date, timedelta
 
@@ -86,27 +87,49 @@ def generate_payment_qr_png_data_uri(
     """
     Generate QR code as PNG and return as data URI for embedding in emails.
     """
+    if hasattr(amount, 'amount'):
+        amount_value = float(amount.amount)
+    elif hasattr(amount, '__float__'):
+        amount_value = float(amount)
+    else:
+        amount_str = (
+            str(amount)
+            .replace(' ', '')
+            .replace(',', '.')
+            .replace('Kč', '')
+            .replace('CZK', '')
+            .strip()
+        )
+        try:
+            amount_value = float(amount_str)
+        except (ValueError, TypeError):
+            amount_value = float(str(amount).replace(',', '.'))
+
+    amount_formatted = f"{amount_value:.2f}"
+    message_escaped = str(message).replace('*', '%2A')
+
     emv_header = "SPD*1.0*"
     code_vars = [
-        f"ACC:{iban}+{bic}",
-        f"AM:{amount}",
+        f"ACC:{iban}",
+        f"AM:{amount_formatted}",
         f"CC:{currency}",
-        f"RF:{variable_symbol}",
-        f"MSG:{message}",
+        f"MSG:{message_escaped}",
         f"X-VS:{variable_symbol}",
     ]
     code = emv_header + "*".join(code_vars)
     buffer = BytesIO()
     qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_M,
-        box_size=10,
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=12,
         border=4,
     )
     qr.add_data(code)
     qr.make(fit=True)
     img = qr.make_image(fill_color="#472a7e", back_color="#fffaeb")
-    img.save(buffer, format='PNG')
+    if img.size[0] < 300:
+        img = img.resize((300, 300), resample=Image.LANCZOS)
+    img.save(buffer, format='PNG', optimize=False)
     buffer.seek(0)
     img_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
     return f"data:image/png;base64,{img_data}"
@@ -398,7 +421,7 @@ class Order(TimeStampedModel):
             bic=settings.BANK_ACCOUNT_BIC,
             currency="CZK",
             variable_symbol=self.variable_symbol,
-            message=f"Platba za objednávku: {self.id}",
+            message=f"Objednavka{self.id}",
         )
 
         body = render_to_string(

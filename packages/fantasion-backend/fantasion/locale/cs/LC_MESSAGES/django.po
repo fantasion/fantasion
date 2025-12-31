@@ -307,8 +307,8 @@ msgstr "Co dál?"
 #: fantasion/templates/mail/order_confirmation.html:50
 msgid "email-watch-on-media"
 msgstr ""
-"Abyste nepřišli o žádné novinky a akce, sledujte nás na Facebooku, "
-"Instagramu a TikToku!"
+"Abyste nepřišli o žádné novinky a akce, sledujte nás na Facebooku a "
+"Instagramu!"
 
 #: fantasion/templates/mail/order_confirmation.html:53
 msgid "email-fill-in-documents"
