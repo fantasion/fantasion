@@ -92,15 +92,22 @@ def generate_payment_qr_png_data_uri(
     elif hasattr(amount, '__float__'):
         amount_value = float(amount)
     else:
-        amount_str = str(amount).replace(' ', '').replace(',', '.').replace('Kč', '').replace('CZK', '').strip()
+        amount_str = (
+            str(amount)
+            .replace(' ', '')
+            .replace(',', '.')
+            .replace('Kč', '')
+            .replace('CZK', '')
+            .strip()
+        )
         try:
             amount_value = float(amount_str)
         except (ValueError, TypeError):
             amount_value = float(str(amount).replace(',', '.'))
-    
+
     amount_formatted = f"{amount_value:.2f}"
     message_escaped = str(message).replace('*', '%2A')
-    
+
     emv_header = "SPD*1.0*"
     code_vars = [
         f"ACC:{iban}",
