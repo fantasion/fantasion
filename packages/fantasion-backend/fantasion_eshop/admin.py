@@ -118,6 +118,7 @@ class OrderAdmin(BaseAdmin):
         'get_surcharge',
         'price',
         'promise',
+        'reference_number',
     )
     fields_add = (
         'owner',
@@ -128,6 +129,7 @@ class OrderAdmin(BaseAdmin):
         'owner',
         'invoice_address',
         'status',
+        'reference_number',
         'promise',
         'use_deposit_payment',
         'request_insurance',
