@@ -7,6 +7,7 @@ from django.db.models import (
     ForeignKey,
     Model,
     PositiveIntegerField,
+    Q,
     URLField,
     CASCADE,
     RESTRICT,
@@ -143,6 +144,18 @@ class ExpeditionBatch(VisibilityModel, TimeStampedModel):
             starts_at=self.starts_at,
             ends_at=self.ends_at,
         )
+
+    def get_sequence_number(self):
+        year = self.starts_at.year
+        count = (
+            self.__class__.objects.filter(starts_at__year=year)
+            .filter(
+                Q(created__lt=self.starts_at)
+                | (Q(created=self.starts_at) & Q(id__lt=self.id))
+            )
+            .count()
+        )
+        return count + 1
 
 
 class StaffRole(PublicModel):

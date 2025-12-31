@@ -6,7 +6,6 @@ from datetime import date, timedelta
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.db.models import Q, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_extensions.db.models import TimeStampedModel
@@ -29,10 +28,13 @@ from django.db.models import (
     CASCADE,
     RESTRICT,
     SET_NULL,
+    Q,
+    Sum,
 )
 
 from rest_framework.exceptions import PermissionDenied
 from fantasion.models import UserAddressBase
+from fantasion_eshop.order_reference import generate_reference_number_base
 from fantasion_generics.emails import get_lang, send_mail
 from fantasion_generics.models import MarkdownField, PublicModel
 from fantasion_generics.money import MoneyField
@@ -243,6 +245,12 @@ class Order(TimeStampedModel):
         verbose_name=_("Order Status"),
         default=ORDER_STATUS_NEW,
     )
+    reference_number = CharField(
+        verbose_name=_("Reference Number"),
+        null=True,
+        blank=True,
+        max_length=10,
+    )
     promise = ForeignKey(
         "fantasion_banking.Promise",
         null=True,
@@ -289,10 +297,7 @@ class Order(TimeStampedModel):
 
     @property
     def variable_symbol(self):
-        ident = str(self.id)
-        padding = "0" * (8 - len(ident))
-        year = date.today().strftime("%y")
-        return f"{year}{padding}{ident}"
+        return self.reference_number
 
     def calculate_price(self):
         data = self.order_items.aggregate(Sum('price'))
@@ -358,7 +363,8 @@ class Order(TimeStampedModel):
             title=str(self),
             amount=0,  # Prevents creating initial debt
             initial_amount=self.price,
-            variable_symbol=self.variable_symbol)
+            variable_symbol=self.reference_number,
+        )
         self.promise.save()
         if self.use_deposit_payment:
             self.create_deposit_debts()
@@ -372,7 +378,7 @@ class Order(TimeStampedModel):
         self.save()
 
     def notify_order_confirmed(self):
-        subject = (_("Order {number}")).format(number=self.variable_symbol)
+        subject = (_("Order {number}")).format(number=self.reference_number)
         total = self.deposit if self.use_deposit_payment else self.price
         status_url = f"{settings.APP_WEBSITE_URL}/{get_lang()}/prehled"
 
@@ -391,7 +397,7 @@ class Order(TimeStampedModel):
                 'account_number': settings.BANK_ACCOUNT_NUMBER,
                 'items': self.order_items.all(),
                 'total': total,
-                'variable_symbol': self.variable_symbol,
+                'variable_symbol': self.reference_number,
                 'status_url': status_url,
                 'website_url': settings.APP_WEBSITE_URL,
                 'qr_code_svg': escape(qr_code_svg),
@@ -414,6 +420,19 @@ class Order(TimeStampedModel):
         self.invoice_address.save()
         self.save()
 
+    def generate_reference_number(self):
+        """
+        The reference number marks unique identifier for the order. It is a
+        number of 10 digits. Digits 1 and 2 (first two) identify the year.
+        Digits 3 and 4 are reserved for order specific identification and the
+        last six digits are reserved for order identification.
+        """
+        number = generate_reference_number_base(self.id)
+        for item in self.order_items.all():
+            item.remarshall()
+            number = item.format_order_reference_number(number)
+        return number
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         for item in self.order_items.all():
@@ -422,6 +441,8 @@ class Order(TimeStampedModel):
         self.price = self.calculate_price()
         self.deposit = self.calculate_deposit()
         if self.status == ORDER_STATUS_CONFIRMED and not self.promise:
+            if not self.reference_number:
+                self.generate_reference_number()
             self.submitted_at = timezone.now()
             self.create_promise()
             self.notify_order_confirmed()
@@ -526,6 +547,13 @@ class OrderItem(TimeStampedModel):
 
     def recalculate(self):
         pass
+
+    def format_order_reference_number(self, ref: str) -> str:
+        """
+        Abstract method that allows specific order items types to alter the
+        order reference number (variabilni symbol)
+        """
+        return ref
 
     @property
     def static_description(self):

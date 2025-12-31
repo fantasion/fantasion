@@ -16,6 +16,10 @@ from django.db.models import (
     RESTRICT,
 )
 
+from fantasion_eshop.order_reference import (
+    get_order_specific_ident,
+    set_order_specific_ident,
+)
 from fantasion_generics.models import PublicModel
 from fantasion_generics.media import MediaParentField, MediaModelMixin
 from fantasion_generics.photos import PrivatePhotoModel
@@ -261,6 +265,17 @@ class Signup(OrderItem):
         if not self.submitted_at and self.was_submitted():
             self.submitted_at = datetime.now()
         super().save(*args, **kwargs)
+
+    def format_order_reference_number(self, ref: str) -> str:
+        """
+        Encode batch sequence number into order reference number, but only if
+        the order does not already have a higher specifier.
+        """
+        existing_ident = get_order_specific_ident(ref)
+        batch_ident = self.troop.batch.get_sequence_number()
+        if batch_ident > existing_ident:
+            return set_order_specific_ident(ref, batch_ident)
+        return ref
 
     def recalculate(self):
         if self.status == SIGNUP_STATUS_CANCELLED:

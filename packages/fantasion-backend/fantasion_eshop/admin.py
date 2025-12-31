@@ -107,6 +107,7 @@ class OrderAdmin(BaseAdmin):
     )
     search_fields = (
         'pk',
+        'reference_number',
         'promise__variable_symbol',
         'owner__first_name',
         'owner__last_name',
