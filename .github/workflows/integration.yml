@@ -58,7 +58,7 @@ jobs:
         with:
           name: frontend-dist
           path: |
-            packages/fantasion-web/.next
+            packages/fantasion-web/.next/**
             packages/fantasion-web/*.tgz
             packages/fantasion-web/package-lock.json
 
@@ -213,10 +213,6 @@ jobs:
         with:
           name: frontend-dist
           path: packages/fantasion-web/
-      - uses: actions/download-artifact@v4
-        with:
-          name: frontend-dist
-          path: packages/fantasion-web/.next
       - name: Deploy app
         working-directory: ./terraform
         env:
