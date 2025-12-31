@@ -99,6 +99,7 @@ def generate_payment_qr_png_data_uri(
             amount_value = float(str(amount).replace(',', '.'))
     
     amount_formatted = f"{amount_value:.2f}"
+    message_escaped = str(message).replace('*', '%2A')
     
     emv_header = "SPD*1.0*"
     code_vars = [
@@ -106,8 +107,7 @@ def generate_payment_qr_png_data_uri(
         f"BIC:{bic}",
         f"AM:{amount_formatted}",
         f"CC:{currency}",
-        f"RF:{variable_symbol}",
-        f"MSG:{message}",
+        f"MSG:{message_escaped}",
         f"X-VS:{variable_symbol}",
     ]
     code = emv_header + "*".join(code_vars)
