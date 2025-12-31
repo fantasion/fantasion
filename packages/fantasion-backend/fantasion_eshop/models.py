@@ -429,8 +429,8 @@ class Order(TimeStampedModel):
         """
         number = generate_reference_number_base(self.id)
         for item in self.order_items.all():
-            item.remarshall()
-            number = item.format_order_reference_number(number)
+            actual = item.remarshall()
+            number = actual.format_order_reference_number(number)
         return number
 
     def save(self, *args, **kwargs):
