@@ -4,9 +4,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ("fantasion_eshop", "0029_alter_order_price_alter_productprice_price"),
+        ("fantasion_eshop", "0030_alter_promotioncode_code_and_more"),
     ]
 
     operations = [
