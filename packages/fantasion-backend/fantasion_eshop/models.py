@@ -297,7 +297,7 @@ class Order(TimeStampedModel):
 
     @property
     def variable_symbol(self):
-        return self.reference_number
+        return self.reference_number or self.promise.variable_symbol
 
     def calculate_price(self):
         data = self.order_items.aggregate(Sum('price'))
