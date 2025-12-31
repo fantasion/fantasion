@@ -422,7 +422,7 @@ class Order(TimeStampedModel):
             bic=settings.BANK_ACCOUNT_BIC,
             currency="CZK",
             variable_symbol=self.variable_symbol,
-            message=f"Objednavka: {self.id}",
+            message=f"Objednavka{self.id}",
         )
 
         body = render_to_string(
