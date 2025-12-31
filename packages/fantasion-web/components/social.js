@@ -2,16 +2,12 @@ import {
   EmailContactIcon,
   FacebookIcon,
   InstagramIcon,
-  TiktokIcon,
-  TwitterIcon,
 } from './icons'
 
 const icons = {
   email: EmailContactIcon,
   facebook: FacebookIcon,
   instagram: InstagramIcon,
-  tiktok: TiktokIcon,
-  twitter: TwitterIcon,
 }
 
 const linkToNewWindow = (e) => {
@@ -32,11 +28,6 @@ export const SocialNetworks = ({ subscribable, ...props }) => {
   return (
     <div {...props}>
       <SocialIcon service="facebook" link="https://fb.com/fantasioncz" />
-      <SocialIcon service="twitter" link="https://twitter.com/fantasion_cz" />
-      <SocialIcon
-        service="tiktok"
-        link="https://www.tiktok.com/@fantasion_tabory"
-      />
       <SocialIcon
         service="instagram"
         link="https://www.instagram.com/fantasion_cz/"

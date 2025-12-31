@@ -24,8 +24,6 @@ import {
   FaClock,
   FaFacebook,
   FaInstagram,
-  FaTiktok,
-  FaTwitter,
 } from 'react-icons/fa'
 
 /* These are icon bindings. Make sure that all icons used in the application
@@ -57,8 +55,6 @@ export const SecureIcon = MdGppGood
 export const SecurityWarningIcon = MdGppMaybe
 export const SignupIcon = FaCampground
 export const StoryIcon = GiJourney
-export const TiktokIcon = FaTiktok
-export const TwitterIcon = FaTwitter
 
 export const IconLabel = ({ icon: Icon, text }) => (
   <>
