@@ -440,12 +440,14 @@ class Order(TimeStampedModel):
             Model.objects.get(pk=item.pk).save(avoid_order_save=True)
         self.price = self.calculate_price()
         self.deposit = self.calculate_deposit()
-        if self.status == ORDER_STATUS_CONFIRMED and not self.promise:
+        if self.status == ORDER_STATUS_CONFIRMED:
             if not self.reference_number:
-                self.generate_reference_number()
-            self.submitted_at = timezone.now()
-            self.create_promise()
-            self.notify_order_confirmed()
+                self.reference_number = self.generate_reference_number()
+                super().save(*args, **kwargs)
+            if not self.promise:
+                self.submitted_at = timezone.now()
+                self.create_promise()
+                self.notify_order_confirmed()
         super().save(*args, **kwargs)
 
     def sync_with_promise(self, promise=None):
