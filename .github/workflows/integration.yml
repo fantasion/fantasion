@@ -58,7 +58,7 @@ jobs:
         with:
           name: frontend-dist
           path: |
-            packages/fantasion-web/.next/**
+            packages/fantasion-web/.next/
             packages/fantasion-web/*.tgz
             packages/fantasion-web/package-lock.json
 
