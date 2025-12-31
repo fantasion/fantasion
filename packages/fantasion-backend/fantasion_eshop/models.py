@@ -1,6 +1,6 @@
 from io import BytesIO
+import base64
 import qrcode
-import qrcode.image.svg
 from datetime import date, timedelta
 
 from django.apps import apps
@@ -12,7 +12,6 @@ from django_extensions.db.models import TimeStampedModel
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.utils.html import escape
 from django.core.validators import (
     MaxValueValidator,
     MinLengthValidator,
@@ -81,9 +80,12 @@ ORDER_CAN_BE_CANCELLED = (
 )
 
 
-def generate_payment_qr_svg(
+def generate_payment_qr_png_data_uri(
     amount, iban, bic, currency, variable_symbol, message
 ):
+    """
+    Generate QR code as PNG and return as data URI for embedding in emails.
+    """
     emv_header = "SPD*1.0*"
     code_vars = [
         f"ACC:{iban}+{bic}",
@@ -94,12 +96,20 @@ def generate_payment_qr_svg(
         f"X-VS:{variable_symbol}",
     ]
     code = emv_header + "*".join(code_vars)
-    factory = qrcode.image.svg.SvgImage
     buffer = BytesIO()
-    qr = qrcode.make(code, image_factory=factory)
-    qr.save(buffer)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(code)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save(buffer, format='PNG')
     buffer.seek(0)
-    return buffer.getvalue().decode('utf-8')
+    img_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    return f"data:image/png;base64,{img_data}"
 
 
 class EnabledField(BooleanField):
@@ -382,7 +392,7 @@ class Order(TimeStampedModel):
         total = self.deposit if self.use_deposit_payment else self.price
         status_url = f"{settings.APP_WEBSITE_URL}/{get_lang()}/prehled"
 
-        qr_code_svg = generate_payment_qr_svg(
+        qr_code_data_uri = generate_payment_qr_png_data_uri(
             amount=total,
             iban=settings.BANK_ACCOUNT_IBAN,
             bic=settings.BANK_ACCOUNT_BIC,
@@ -400,7 +410,7 @@ class Order(TimeStampedModel):
                 'variable_symbol': self.reference_number,
                 'status_url': status_url,
                 'website_url': settings.APP_WEBSITE_URL,
-                'qr_code_svg': escape(qr_code_svg),
+                'qr_code_data_uri': qr_code_data_uri,
             },
         )
         send_mail([self.owner.email], subject, body)
