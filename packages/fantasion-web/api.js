@@ -1,6 +1,7 @@
 import fetch from 'cross-fetch'
-import { Agent } from 'http'
 import getConfig from 'next/config'
+import { Agent as HttpAgent } from 'http'
+import { Agent as HttpsAgent } from 'https'
 
 import { resolveApiErrorClass } from './errors'
 
@@ -10,7 +11,12 @@ const { apiUrl } = publicRuntimeConfig
 export const TOKEN_COOKIE = 'authToken'
 export const TOKEN_HEADER = 'Authorization'
 
-const agent = new Agent({ keepAlive: process.env.NODE_ENV === 'local' })
+const httpAgent = new HttpAgent({ keepAlive: true })
+const httpsAgent = new HttpsAgent({ keepAlive: true })
+
+function getAgent(url) {
+  return url.startsWith('https:') ? httpsAgent : httpAgent
+}
 
 const resolveHeaders = (options) => {
   const headers = options.headers || {}
@@ -24,9 +30,10 @@ const resolveBody = (options) =>
   options.body ? JSON.stringify(options.body) : undefined
 
 export const apiFetch = async (path, options = {}) => {
-  const res = await fetch(`${apiUrl}${path}`, {
+  const fullUrl = `${apiUrl}${path}`
+  const res = await fetch(fullUrl, {
     ...options,
-    agent: agent,
+    agent: getAgent(fullUrl),
     body: resolveBody(options),
     headers: resolveHeaders(options),
   })
