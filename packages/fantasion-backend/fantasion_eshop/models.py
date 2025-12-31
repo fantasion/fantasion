@@ -102,7 +102,7 @@ def generate_payment_qr_png_data_uri(
         version=None,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=12,
-        border=4, 
+        border=4,
     )
     qr.add_data(code)
     qr.make(fit=True)
@@ -121,6 +121,7 @@ class EnabledField(BooleanField):
         kwargs.setdefault("default", True)
         kwargs.setdefault("verbose_name", _("Enabled"))
         super().__init__(*args, **kwargs)
+
 
 class PriceLevel(PublicModel):
     """

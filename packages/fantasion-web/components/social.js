@@ -1,8 +1,4 @@
-import {
-  EmailContactIcon,
-  FacebookIcon,
-  InstagramIcon,
-} from './icons'
+import { EmailContactIcon, FacebookIcon, InstagramIcon } from './icons'
 
 const icons = {
   email: EmailContactIcon,
