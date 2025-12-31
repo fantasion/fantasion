@@ -1,5 +1,6 @@
 from io import BytesIO
 import base64
+from PIL import Image
 import qrcode
 from datetime import date, timedelta
 
@@ -98,15 +99,17 @@ def generate_payment_qr_png_data_uri(
     code = emv_header + "*".join(code_vars)
     buffer = BytesIO()
     qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_M,
-        box_size=10,
-        border=4,
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=12,
+        border=4, 
     )
     qr.add_data(code)
     qr.make(fit=True)
     img = qr.make_image(fill_color="#472a7e", back_color="#fffaeb")
-    img.save(buffer, format='PNG')
+    if img.size[0] < 300:
+        img = img.resize((300, 300), resample=Image.LANCZOS)
+    img.save(buffer, format='PNG', optimize=False)
     buffer.seek(0)
     img_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
     return f"data:image/png;base64,{img_data}"
@@ -118,7 +121,6 @@ class EnabledField(BooleanField):
         kwargs.setdefault("default", True)
         kwargs.setdefault("verbose_name", _("Enabled"))
         super().__init__(*args, **kwargs)
-
 
 class PriceLevel(PublicModel):
     """
