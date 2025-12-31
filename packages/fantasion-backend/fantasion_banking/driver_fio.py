@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
-from djmoney.money import Money
 from django.utils import timezone
+from djmoney.money import Money
 from fiobank import FioBank
 
 from .statements import Statement
@@ -14,9 +14,14 @@ def get(src, attr, default=None):
 def sync(account, scrape, *args, **kwargs):
     last = account.get_last_scrape_statement()
     client = FioBank(token=account.fio_readonly_key)
+    max_age = timedelta(days=60)
+    earliest_date = timezone.now() - max_age
 
     if last:
-        gen = client.last(from_id=last.ident)
+        if last.received_at and last.received_at < earliest_date:
+            gen = client.last(from_date=earliest_date.strftime('%Y-%m-%d'))
+        else:
+            gen = client.last(from_id=last.ident)
     else:
         gen = client.last(from_date='2022-04-01')
 
