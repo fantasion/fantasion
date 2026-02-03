@@ -1,0 +1,305 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// OVERLAY
+// Generic positioned overlay container
+// ============================================
+
+.overlay {
+  position: absolute;
+  z-index: $zindex-dropdown;
+  animation: overlayFadeIn $transition-fast;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// DROPDOWN
+// ============================================
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownToggle {
+  // Toggle button styles are inherited from Button
+  // This class just marks it as a dropdown trigger
+}
+
+.dropdownMenu {
+  position: absolute;
+  z-index: $zindex-dropdown;
+  display: none;
+  min-width: 10rem;
+  padding: $spacer-sm 0;
+  margin: 0;
+  font-size: $font-size-base;
+  color: var(--fui-color-text);
+  text-align: left;
+  list-style: none;
+  background-color: var(--fui-dropdown-bg);
+  background-clip: padding-box;
+  border: $border-width solid var(--fui-dropdown-border-color);
+  border-radius: $border-radius;
+  box-shadow: var(--fui-shadow);
+  animation: dropdownSlideIn $transition-fast;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownMenuShow {
+  display: block;
+}
+
+.dropdownMenuEnd {
+  right: 0;
+  left: auto;
+}
+
+// ============================================
+// DROPDOWN ITEM
+// ============================================
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: $spacer-xs $spacer-md;
+  clear: both;
+  font-weight: $font-weight-normal;
+  color: var(--fui-color-text);
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  transition: background-color $transition-fast, color $transition-fast;
+
+  &:hover,
+  &:focus {
+    color: var(--fui-color-text);
+    background-color: var(--fui-color-gray-100);
+  }
+
+  &:active {
+    color: var(--fui-color-text-inverse);
+    background-color: var(--fui-color-primary);
+  }
+}
+
+.dropdownItemActive {
+  color: var(--fui-color-text-inverse);
+  background-color: var(--fui-color-primary);
+}
+
+.dropdownItemDisabled {
+  color: var(--fui-color-text-muted);
+  pointer-events: none;
+  background-color: transparent;
+}
+
+// ============================================
+// DROPDOWN DIVIDER
+// ============================================
+
+.dropdownDivider {
+  height: 0;
+  margin: $spacer-sm 0;
+  overflow: hidden;
+  border-top: $border-width solid var(--fui-color-border-muted);
+  list-style: none;
+}
+
+// ============================================
+// DROPDOWN HEADER
+// ============================================
+
+.dropdownHeader {
+  display: block;
+  padding: $spacer-sm $spacer-md;
+  margin-bottom: 0;
+  font-size: $font-size-sm;
+  color: var(--fui-color-text-muted);
+  white-space: nowrap;
+  list-style: none;
+}
+
+// ============================================
+// DROPDOWN TEXT
+// ============================================
+
+.dropdownText {
+  display: block;
+  padding: $spacer-xs $spacer-md;
+  color: var(--fui-color-text-muted);
+  list-style: none;
+}
+
+// ============================================
+// POPOVER
+// ============================================
+
+.popover {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: block;
+  max-width: 276px;
+  font-size: $font-size-sm;
+  background-color: var(--fui-color-surface);
+  background-clip: padding-box;
+  border: $border-width solid var(--fui-color-border);
+  border-radius: $border-radius-lg;
+  box-shadow: var(--fui-shadow);
+  animation: popoverFadeIn $transition-fast;
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popoverArrow {
+  position: absolute;
+  display: block;
+  width: grid(4);
+  height: grid(2);
+
+  &::before,
+  &::after {
+    position: absolute;
+    display: block;
+    content: '';
+    border-color: transparent;
+    border-style: solid;
+    border-width: 0;
+  }
+}
+
+.popoverHeader {
+  padding: $spacer-sm $spacer-md;
+  margin-bottom: 0;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  background-color: var(--fui-color-gray-100);
+  border-bottom: $border-width solid var(--fui-color-border);
+  border-top-left-radius: calc($border-radius-lg - $border-width);
+  border-top-right-radius: calc($border-radius-lg - $border-width);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.popoverBody {
+  padding: $spacer-md;
+  color: var(--fui-color-text);
+}
+
+// ============================================
+// POPOVER PLACEMENTS
+// ============================================
+
+.popoverTop {
+  .popoverArrow {
+    bottom: calc(-#{grid(2)} - $border-width);
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      bottom: 0;
+      border-width: grid(2) grid(2) 0;
+      border-top-color: var(--fui-color-border);
+    }
+
+    &::after {
+      bottom: $border-width;
+      border-width: grid(2) grid(2) 0;
+      border-top-color: var(--fui-color-surface);
+    }
+  }
+}
+
+.popoverBottom {
+  .popoverArrow {
+    top: calc(-#{grid(2)} - $border-width);
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      top: 0;
+      border-width: 0 grid(2) grid(2);
+      border-bottom-color: var(--fui-color-border);
+    }
+
+    &::after {
+      top: $border-width;
+      border-width: 0 grid(2) grid(2);
+      border-bottom-color: var(--fui-color-gray-100);
+    }
+  }
+}
+
+.popoverLeft {
+  .popoverArrow {
+    right: calc(-#{grid(2)} - $border-width);
+    top: 50%;
+    transform: translateY(-50%);
+    width: grid(2);
+    height: grid(4);
+
+    &::before {
+      right: 0;
+      border-width: grid(2) 0 grid(2) grid(2);
+      border-left-color: var(--fui-color-border);
+    }
+
+    &::after {
+      right: $border-width;
+      border-width: grid(2) 0 grid(2) grid(2);
+      border-left-color: var(--fui-color-surface);
+    }
+  }
+}
+
+.popoverRight {
+  .popoverArrow {
+    left: calc(-#{grid(2)} - $border-width);
+    top: 50%;
+    transform: translateY(-50%);
+    width: grid(2);
+    height: grid(4);
+
+    &::before {
+      left: 0;
+      border-width: grid(2) grid(2) grid(2) 0;
+      border-right-color: var(--fui-color-border);
+    }
+
+    &::after {
+      left: $border-width;
+      border-width: grid(2) grid(2) grid(2) 0;
+      border-right-color: var(--fui-color-surface);
+    }
+  }
+}

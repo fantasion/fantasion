@@ -1,0 +1,150 @@
+@use 'sass:map';
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+// ============================================
+// GRID SYSTEM
+// Flexbox-based 12-column grid
+// ============================================
+
+// Row
+.fui-row {
+  @include make-row;
+}
+
+// Remove gutters
+.fui-row--no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .fui-col,
+  > [class*='fui-col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+// Column base
+.fui-col {
+  @include make-col-ready;
+}
+
+// Auto-width column
+.fui-col--auto {
+  flex: 1 0 0%;
+  @include make-col-ready;
+  @include make-col-auto;
+}
+
+// Generate column classes for each size
+@for $i from 1 through $grid-columns {
+  .fui-col-#{$i} {
+    flex: 1 0 0%;
+    @include make-col-ready;
+    @include make-col($i);
+  }
+}
+
+// Generate offset classes
+@for $i from 0 through ($grid-columns - 1) {
+  .fui-col--offset-#{$i} {
+    flex: 1 0 0%;
+    @include make-col-offset($i);
+  }
+}
+
+// Responsive columns
+@each $breakpoint in map.keys($breakpoints) {
+  @include media-up($breakpoint) {
+    // Flexible column at breakpoint
+    .fui-col-#{$breakpoint} {
+      flex: 1 0 0%;
+    }
+
+    // Auto column at breakpoint
+    .fui-col-#{$breakpoint}--auto {
+      @include make-col-auto;
+    }
+
+    // Sized columns at breakpoint
+    @for $i from 1 through $grid-columns {
+      .fui-col-#{$breakpoint}-#{$i} {
+        @include make-col($i);
+      }
+    }
+
+    // Offsets at breakpoint
+    @for $i from 0 through ($grid-columns - 1) {
+      .fui-col-#{$breakpoint}--offset-#{$i} {
+        @include make-col-offset($i);
+      }
+    }
+  }
+}
+
+// Row alignment utilities
+.fui-row--align-start {
+  align-items: flex-start;
+}
+
+.fui-row--align-center {
+  align-items: center;
+}
+
+.fui-row--align-end {
+  align-items: flex-end;
+}
+
+.fui-row--align-stretch {
+  align-items: stretch;
+}
+
+.fui-row--align-baseline {
+  align-items: baseline;
+}
+
+// Row justification utilities
+.fui-row--justify-start {
+  justify-content: flex-start;
+}
+
+.fui-row--justify-center {
+  justify-content: center;
+}
+
+.fui-row--justify-end {
+  justify-content: flex-end;
+}
+
+.fui-row--justify-between {
+  justify-content: space-between;
+}
+
+.fui-row--justify-around {
+  justify-content: space-around;
+}
+
+.fui-row--justify-evenly {
+  justify-content: space-evenly;
+}
+
+// Column self-alignment
+.fui-col--align-start {
+  align-self: flex-start;
+}
+
+.fui-col--align-center {
+  align-self: center;
+}
+
+.fui-col--align-end {
+  align-self: flex-end;
+}
+
+.fui-col--align-stretch {
+  align-self: stretch;
+}
+
+.fui-col--align-baseline {
+  align-self: baseline;
+}

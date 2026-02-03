@@ -1,0 +1,73 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// INPUT GROUP
+// Input with addons (prepend/append)
+// ============================================
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+
+  // Note: Form controls need global selectors since Form component is separate
+  > :global(.fui-form-control),
+  > :global(.fui-form-select) {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+  }
+}
+
+// Input group text addon
+.text {
+  display: flex;
+  align-items: center;
+  padding: $input-padding-y $input-padding-x;
+  font-size: $input-font-size;
+  font-weight: $font-weight-normal;
+  line-height: $input-line-height;
+  color: var(--fui-color-text);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--fui-color-gray-100);
+  border: $border-width solid var(--fui-color-input-border);
+  border-radius: $input-border-radius;
+}
+
+// ============================================
+// SIZES
+// ============================================
+
+.sm {
+  > :global(.fui-form-control),
+  > :global(.fui-form-select) {
+    padding: $spacer-xs $spacer-sm;
+    font-size: $font-size-sm;
+    border-radius: $border-radius-sm;
+  }
+
+  .text {
+    padding: $spacer-xs $spacer-sm;
+    font-size: $font-size-sm;
+    border-radius: $border-radius-sm;
+  }
+}
+
+.lg {
+  > :global(.fui-form-control),
+  > :global(.fui-form-select) {
+    padding: $spacer-sm $spacer-lg;
+    font-size: $font-size-lg;
+    border-radius: $border-radius-lg;
+  }
+
+  .text {
+    padding: $spacer-sm $spacer-lg;
+    font-size: $font-size-lg;
+    border-radius: $border-radius-lg;
+  }
+}

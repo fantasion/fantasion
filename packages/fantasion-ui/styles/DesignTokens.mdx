@@ -1,0 +1,244 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design System/Design Tokens" />
+
+# Design Tokens
+
+This document provides a reference for all design tokens used in the Fantasion UI library. These tokens are defined in `styles/variables.scss` and should be used consistently across all components.
+
+## Grid System
+
+The design system uses a **4px grid system** for all spacing calculations. The `grid()` function multiplies by 4px:
+
+- `grid(1)` = 4px
+- `grid(2)` = 8px
+- `grid(4)` = 16px
+- `grid(6)` = 24px
+- `grid(12)` = 48px
+
+## Brand Colors
+
+Primary brand colors that define the visual identity:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$color-minsk-purple` | `#472a7e` | Primary brand color |
+| `$color-buddha-gold` | `#d7a600` | Secondary brand color |
+| `$color-early-dawn` | `#fffaeb` | Background/accent color |
+| `$color-primary` | `#472a7e` | Alias for Minsk Purple |
+| `$color-secondary` | `#d7a600` | Alias for Buddha Gold |
+| `$color-background` | `#fffaeb` | Alias for Early Dawn |
+
+### Color Preview
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '32px' }}>
+  <div>
+    <div style={{ backgroundColor: '#472a7e', height: '100px', borderRadius: '8px', marginBottom: '8px' }}></div>
+    <strong>Minsk Purple</strong>
+    <div style={{ color: '#6c757d', fontSize: '14px' }}>#472a7e</div>
+  </div>
+  <div>
+    <div style={{ backgroundColor: '#d7a600', height: '100px', borderRadius: '8px', marginBottom: '8px' }}></div>
+    <strong>Buddha Gold</strong>
+    <div style={{ color: '#6c757d', fontSize: '14px' }}>#d7a600</div>
+  </div>
+  <div>
+    <div style={{ backgroundColor: '#fffaeb', height: '100px', borderRadius: '8px', marginBottom: '8px', border: '1px solid #dee2e6' }}></div>
+    <strong>Early Dawn</strong>
+    <div style={{ color: '#6c757d', fontSize: '14px' }}>#fffaeb</div>
+  </div>
+</div>
+
+## Semantic Colors
+
+Colors with specific meaning for UI feedback:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$color-success` | `#198754` | Success states, positive feedback |
+| `$color-danger` | `#dc3545` | Error states, destructive actions |
+| `$color-warning` | `#ffc107` | Warning states, caution |
+| `$color-info` | `#0dcaf0` | Informational messages |
+
+## Neutral Colors
+
+Grayscale palette for text, borders, and backgrounds:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$color-white` | `#ffffff` | Pure white |
+| `$color-black` | `#000000` | Pure black |
+| `$color-gray-100` | `#f8f9fa` | Lightest gray |
+| `$color-gray-200` | `#e9ecef` | Very light gray |
+| `$color-gray-300` | `#dee2e6` | Light gray borders |
+| `$color-gray-400` | `#ced4da` | Medium light gray |
+| `$color-gray-500` | `#adb5bd` | Medium gray |
+| `$color-gray-600` | `#6c757d` | Medium dark gray (muted text) |
+| `$color-gray-700` | `#495057` | Dark gray |
+| `$color-gray-800` | `#343a40` | Darker gray |
+| `$color-gray-900` | `#212529` | Darkest gray (body text) |
+
+## Spacing Scale
+
+Semantic spacing tokens based on the 4px grid:
+
+| Token | Value | Pixels | Usage |
+|-------|-------|--------|-------|
+| `$spacer-xs` | `grid(1)` | 4px | Hairline gaps, tight spacing |
+| `$spacer-sm` | `grid(2)` | 8px | Tight spacing between related elements |
+| `$spacer-md` | `grid(4)` | 16px | Default/base spacing |
+| `$spacer-lg` | `grid(6)` | 24px | Section padding, larger gaps |
+| `$spacer-xl` | `grid(12)` | 48px | Large section gaps, major spacing |
+
+## Typography
+
+### Font Families
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$font-family-base` | `'Raleway', system-ui, sans-serif` | Body text, UI elements |
+| `$font-family-mono` | `'Fira Code', monospace` | Code blocks, technical content |
+
+### Font Sizes
+
+| Token | Value | Pixels | Usage |
+|-------|-------|--------|-------|
+| `$font-size-sm` | `grid(3.5)` | 14px | Small text |
+| `$font-size-base` | `1rem` | 16px | Body text, default |
+| `$font-size-md` | `grid(4.5)` | 18px | Larger body text |
+| `$font-size-lg` | `grid(6)` | 24px | Headings, emphasis |
+
+### Font Weights
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$font-weight-normal` | `400` | Regular text |
+| `$font-weight-medium` | `500` | Medium emphasis |
+| `$font-weight-semibold` | `600` | Semi-bold text |
+| `$font-weight-bold` | `700` | Bold headings |
+
+### Line Height
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$line-height-base` | `1.6` | Default line height for improved readability |
+
+## Breakpoints
+
+Responsive breakpoints matching Bootstrap 5:
+
+| Token | Value | Device |
+|-------|-------|--------|
+| `$breakpoint-sm` | `576px` | Small devices (phones) |
+| `$breakpoint-md` | `768px` | Medium devices (tablets) |
+| `$breakpoint-lg` | `992px` | Large devices (desktops) |
+| `$breakpoint-xl` | `1200px` | Extra large devices |
+| `$breakpoint-xxl` | `1400px` | Ultra wide devices |
+
+### Container Max Widths
+
+| Token | Value | Breakpoint |
+|-------|-------|------------|
+| `$container-sm` | `540px` | sm and up |
+| `$container-md` | `720px` | md and up |
+| `$container-lg` | `960px` | lg and up |
+| `$container-xl` | `1140px` | xl and up |
+| `$container-xxl` | `1320px` | xxl and up |
+
+## Border Radius
+
+Rounded corners for a friendly, modern feel:
+
+| Token | Value | Pixels | Usage |
+|-------|-------|--------|-------|
+| `$border-radius-sm` | `grid(1)` | 4px | Small elements, tight radius |
+| `$border-radius` | `grid(2)` | 8px | Buttons, inputs, cards |
+| `$border-radius-lg` | `grid(3)` | 12px | Large cards, modals |
+| `$border-radius-xl` | `grid(4)` | 16px | Extra large elements |
+| `$border-radius-pill` | `50rem` | Full rounding for pill shapes |
+
+### Border Properties
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$border-width` | `1px` | Default border width |
+| `$border-color` | `rgba(#472a7e, 0.2)` | Soft border with purple tint |
+
+## Shadows
+
+Warm purple-tinted shadows for a friendly, cohesive feel:
+
+| Token | CSS Value | Usage |
+|-------|-----------|-------|
+| `$shadow-sm` | `0 2px 4px rgba(#472a7e, 0.08)` | Subtle elevation |
+| `$shadow` | `0 6px 12px rgba(#472a7e, 0.12)` | Default shadow |
+| `$shadow-lg` | `0 12px 24px rgba(#472a7e, 0.15)` | Large elevation |
+| `$shadow-soft` | `0 4px 8px rgba(#472a7e, 0.1)` | Soft diffused shadow |
+
+## Transitions
+
+Smooth, gentle animations:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$transition-fast` | `0.15s ease-out` | Quick interactions |
+| `$transition-base` | `0.2s ease-out` | Default transitions |
+| `$transition-gentle` | `0.25s ease-out` | Hover effects, gentle animations |
+
+## Z-Index Scale
+
+Layering system for overlays and positioned elements:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$zindex-dropdown` | `1000` | Dropdown menus |
+| `$zindex-sticky` | `1020` | Sticky headers |
+| `$zindex-fixed` | `1030` | Fixed elements |
+| `$zindex-modal-backdrop` | `1040` | Modal backdrop overlay |
+| `$zindex-modal` | `1050` | Modal dialogs |
+| `$zindex-tooltip` | `1080` | Tooltips |
+| `$zindex-toast` | `1090` | Toast notifications |
+
+## Grid System
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `$grid-columns` | `12` | Number of columns in grid layout |
+| `$grid-gutter` | `grid(6)` / `24px` | Spacing between grid columns |
+
+## Usage Guidelines
+
+### Using Design Tokens
+
+**In SCSS files:**
+```scss
+@use '@fantasion/ui/styles/variables' as *;
+
+.my-component {
+  padding: $spacer-md;
+  background: $color-primary;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  transition: $transition-base;
+}
+```
+
+**In React components:**
+Design tokens are compiled into the CSS bundle. Use them via className or CSS modules.
+
+### Best Practices
+
+1. **Always use tokens instead of hard-coded values** - This ensures consistency and makes theme changes easier
+2. **Respect the spacing scale** - Use the defined spacer tokens (xs, sm, md, lg, xl) rather than arbitrary pixel values
+3. **Follow the grid system** - All spacing should be multiples of 4px using the `grid()` function
+4. **Use semantic colors appropriately** - Choose colors based on meaning (success, danger, etc.) not appearance
+5. **Maintain color contrast** - Ensure text is readable against backgrounds (WCAG AA minimum: 4.5:1 for normal text)
+6. **Test responsive behavior** - Use the defined breakpoints for responsive layouts
+7. **Apply consistent border radius** - Use the radius tokens to maintain visual consistency across components
+
+## Accessibility Notes
+
+- **Color contrast:** Primary purple (#472a7e) on white backgrounds meets WCAG AA standards (7.5:1 ratio)
+- **Focus indicators:** Always provide visible focus states using `$color-primary` or `$color-input-focus-border`
+- **Touch targets:** Ensure interactive elements are at least 44x44px (use `$spacer-lg` or larger for padding)
+- **Text size:** Base font size of 16px is readable on all devices

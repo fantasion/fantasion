@@ -1,0 +1,155 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// ACCORDION
+// Collapsible content sections with smooth transitions
+// ============================================
+
+.accordion {
+  border-radius: $accordion-border-radius;
+  overflow: hidden;
+}
+
+// Accordion item
+.item {
+  background-color: var(--fui-color-surface);
+  border: $border-width solid var(--fui-color-border);
+
+  &:not(:first-of-type) {
+    border-top: 0;
+  }
+
+  &:first-of-type {
+    border-top-left-radius: $accordion-border-radius;
+    border-top-right-radius: $accordion-border-radius;
+
+    > .header > .button {
+      border-top-left-radius: calc($accordion-border-radius - $border-width);
+      border-top-right-radius: calc($accordion-border-radius - $border-width);
+    }
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: $accordion-border-radius;
+    border-bottom-right-radius: $accordion-border-radius;
+
+    > .header > .button:not(.buttonExpanded) {
+      border-bottom-left-radius: calc($accordion-border-radius - $border-width);
+      border-bottom-right-radius: calc($accordion-border-radius - $border-width);
+    }
+
+    > .collapseShow {
+      border-bottom-left-radius: calc($accordion-border-radius - $border-width);
+      border-bottom-right-radius: calc($accordion-border-radius - $border-width);
+    }
+  }
+}
+
+// Header
+.header {
+  margin-bottom: 0;
+}
+
+// Toggle button
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: $accordion-padding-y $accordion-padding-x;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: var(--fui-color-text);
+  text-align: left;
+  background-color: var(--fui-color-surface);
+  border: 0;
+  overflow-anchor: none;
+  transition:
+    background-color $transition-fast,
+    border-radius $transition-fast;
+
+  &:hover {
+    background-color: var(--fui-color-gray-100);
+  }
+
+  &:focus-visible {
+    z-index: 3;
+    outline: 0;
+    box-shadow: var(--fui-focus-ring);
+  }
+
+  // Chevron icon
+  &::after {
+    flex-shrink: 0;
+    width: grid(5);
+    height: grid(5);
+    margin-left: auto;
+    content: '';
+    mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    mask-repeat: no-repeat;
+    mask-size: grid(5);
+    -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: grid(5);
+    background-color: var(--fui-color-text);
+    transition: transform $transition-gentle;
+  }
+}
+
+// Expanded state
+.buttonExpanded {
+  background-color: var(--fui-color-gray-100);
+
+  &::after {
+    transform: rotate(-180deg);
+  }
+}
+
+// Collapse container - using CSS grid for smooth height transitions
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows $transition-gentle;
+  overflow: hidden;
+
+  // Inner wrapper to allow content to naturally size
+  > * {
+    overflow: hidden;
+  }
+}
+
+.collapseShow {
+  grid-template-rows: 1fr;
+}
+
+// Body content
+.body {
+  padding: $accordion-padding-y $accordion-padding-x;
+}
+
+// ============================================
+// FLUSH VARIANT
+// No outer borders or rounded corners
+// ============================================
+
+.flush {
+  border-radius: 0;
+
+  .item {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+
+    &:first-of-type {
+      border-top: 0;
+    }
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+  }
+
+  .button {
+    border-radius: 0;
+  }
+}

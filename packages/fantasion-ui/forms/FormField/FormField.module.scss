@@ -1,0 +1,38 @@
+@use "../../styles/core" as *;
+
+.field {
+  margin-top: $spacer-sm;
+}
+
+.fieldSm {
+  input,
+  select {
+    max-width: 200px;
+  }
+}
+
+.fieldMd {
+  input,
+  select {
+    max-width: 400px;
+  }
+}
+
+.fieldLg {
+  input,
+  select {
+    max-width: 100%;
+  }
+}
+
+.label {
+  margin-bottom: 0;
+}
+
+.required {
+  font-weight: $font-weight-bold;
+}
+
+.checkLabel {
+  margin-left: $spacer-xs;
+}

@@ -1,0 +1,392 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use 'variables' as *;
+@use 'functions' as *;
+
+// ============================================
+// RESPONSIVE MIXINS
+// ============================================
+
+/// Media query for minimum breakpoint width
+/// @param {String} $breakpoint - breakpoint name (sm, md, lg, xl, xxl)
+@mixin media-up($breakpoint) {
+  $min: map.get($breakpoints, $breakpoint);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+/// Media query for maximum breakpoint width
+/// @param {String} $breakpoint - breakpoint name (sm, md, lg, xl, xxl)
+@mixin media-down($breakpoint) {
+  $max: map.get($breakpoints, $breakpoint);
+  @if $max {
+    @media (max-width: $max - 0.02px) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+/// Media query for a range between breakpoints
+/// @param {String} $lower - lower breakpoint name
+/// @param {String} $upper - upper breakpoint name
+@mixin media-between($lower, $upper) {
+  $min: map.get($breakpoints, $lower);
+  $max: map.get($breakpoints, $upper);
+  @if $min and $max {
+    @media (min-width: $min) and (max-width: $max - 0.02px) {
+      @content;
+    }
+  }
+}
+
+// ============================================
+// LAYOUT MIXINS
+// ============================================
+
+/// Clearfix
+@mixin clearfix {
+  &::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+/// Flexbox centering
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Absolute centering
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/// Cover parent element
+@mixin cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// ============================================
+// TYPOGRAPHY MIXINS
+// ============================================
+
+/// Text truncation with ellipsis
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Multi-line text truncation
+/// @param {Number} $lines - number of lines to show
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/// Reset list styles
+@mixin list-unstyled {
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+// ============================================
+// VISUAL MIXINS
+// ============================================
+
+/// Transition helper
+/// @param {List} $properties - properties to transition (default: all)
+@mixin transition($properties...) {
+  @if list.length($properties) == 0 {
+    transition: all $transition-base;
+  } @else {
+    $result: ();
+    @each $prop in $properties {
+      $result: list.append($result, $prop $transition-base, comma);
+    }
+    transition: $result;
+  }
+}
+
+/// Focus ring
+@mixin focus-ring {
+  outline: 0;
+  box-shadow: var(--fui-focus-ring);
+}
+
+/// Visually hidden (but accessible to screen readers)
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/// Reset button styles
+@mixin button-reset {
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/// Gradient text effect (requires -webkit- prefixes for compatibility)
+/// @param {String} $gradient - gradient value (e.g., "linear-gradient(135deg, purple, gold)")
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/// Primary to secondary gradient text
+/// @param {Boolean} $include-glow - whether to include drop-shadow glow effect
+@mixin gradient-text-primary-secondary($include-glow: false) {
+  @include gradient-text(linear-gradient(135deg, var(--fui-color-primary) 0%, var(--fui-color-primary) 50%, var(--fui-color-secondary) 100%));
+
+  @if $include-glow {
+    filter: drop-shadow(0 2px 4px rgba(71, 42, 126, 0.2));
+  }
+}
+
+// ============================================
+// COMPONENT MIXINS
+// ============================================
+
+/// Generate button variant
+/// @param {Color} $background - background color
+/// @param {Color} $color - text color
+/// @param {Color} $hover-bg - hover background color
+@mixin button-variant($background, $color, $hover-bg: null) {
+  @if $hover-bg == null {
+    $hover-bg: darken($background, 7.5%);
+  }
+  $active-bg: darken($background, 10%);
+
+  background-color: $background;
+  color: $color;
+  border-color: $background;
+
+  &:hover:not(:disabled) {
+    background-color: $hover-bg;
+    border-color: $hover-bg;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $active-bg;
+    border-color: $active-bg;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    opacity: 0.65;
+  }
+}
+
+/// Generate outline button variant
+/// @param {Color} $color - border and text color
+@mixin button-outline-variant($color) {
+  background-color: transparent;
+  color: $color;
+  border-color: $color;
+
+  &:hover:not(:disabled) {
+    background-color: $color;
+    color: color-contrast($color);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($color, 10%);
+    border-color: darken($color, 10%);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    opacity: 0.65;
+  }
+}
+
+/// Generate alert variant
+/// @param {Color} $background - background color
+/// @param {Color} $border - border color
+/// @param {Color} $color - text color
+@mixin alert-variant($background, $border, $color) {
+  background-color: $background;
+  border-color: $border;
+  color: $color;
+
+  .fui-alert__link {
+    color: darken($color, 10%);
+  }
+}
+
+// ============================================
+// GRID MIXINS
+// ============================================
+
+/// Make container
+@mixin make-container {
+  width: 100%;
+  padding-right: calc($grid-gutter * 0.5);
+  padding-left: calc($grid-gutter * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/// Make row
+@mixin make-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc($grid-gutter * -0.5);
+  margin-left: calc($grid-gutter * -0.5);
+}
+
+/// Make column base
+@mixin make-col-ready {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc($grid-gutter * 0.5);
+  padding-left: calc($grid-gutter * 0.5);
+}
+
+/// Make column with specific width
+/// @param {Number} $size - number of columns
+/// @param {Number} $columns - total columns (default: $grid-columns)
+@mixin make-col($size, $columns: $grid-columns) {
+  flex: 0 0 auto;
+  width: math.percentage(math.div($size, $columns));
+}
+
+/// Make column auto width
+@mixin make-col-auto {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/// Make column offset
+/// @param {Number} $size - number of columns to offset
+/// @param {Number} $columns - total columns (default: $grid-columns)
+@mixin make-col-offset($size, $columns: $grid-columns) {
+  $num: math.div($size, $columns);
+  @if $num == 0 {
+    margin-left: 0;
+  } @else {
+    margin-left: math.percentage($num);
+  }
+}
+
+// ============================================
+// LIST GROUP MIXINS
+// ============================================
+
+/// Generate horizontal list group styles for a breakpoint
+/// @param {String|null} $breakpoint - breakpoint name (sm, md, lg, xl, xxl) or null for always horizontal
+@mixin list-group-horizontal($breakpoint: null) {
+  @if $breakpoint {
+    @include media-up($breakpoint) {
+      @include _list-group-horizontal-styles;
+    }
+  } @else {
+    @include _list-group-horizontal-styles;
+  }
+}
+
+/// Internal helper for horizontal list group styles
+@mixin _list-group-horizontal-styles {
+  flex-direction: row;
+
+  > .item {
+    &:first-child:not(:last-child) {
+      border-bottom-left-radius: $border-radius;
+      border-top-right-radius: 0;
+    }
+
+    &:last-child:not(:first-child) {
+      border-top-right-radius: $border-radius;
+      border-bottom-left-radius: 0;
+    }
+
+    + .item {
+      border-top-width: $border-width;
+      border-left-width: 0;
+    }
+  }
+}
+
+// ============================================
+// NAVBAR MIXINS
+// ============================================
+
+/// Generate navbar expansion styles for a breakpoint
+/// @param {String|null} $breakpoint - breakpoint name (sm, md, lg, xl, xxl) or null for always expanded
+@mixin navbar-expand($breakpoint: null) {
+  @if $breakpoint {
+    @include media-up($breakpoint) {
+      @include _navbar-expand-styles;
+    }
+  } @else {
+    @include _navbar-expand-styles;
+  }
+}
+
+/// Internal helper for navbar expansion styles
+@mixin _navbar-expand-styles {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+
+  .toggler {
+    display: none;
+  }
+
+  .collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+
+  .nav {
+    flex-direction: row;
+  }
+
+  .navLink {
+    padding-right: $spacer-sm;
+    padding-left: $spacer-sm;
+  }
+}

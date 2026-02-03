@@ -1,0 +1,101 @@
+@use '../styles/core' as *;
+
+// ============================================
+// BADGE
+// Small inline labels for status or counts
+// ============================================
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $badge-padding-y $badge-padding-x;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: $border-radius-pill; // Rounded pill by default for friendly feel
+}
+
+// Empty badge (for dots/indicators)
+.badge:empty {
+  display: inline-block;
+  width: grid(2);
+  height: grid(2);
+  padding: 0;
+  border-radius: 50%;
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.primary {
+  background-color: var(--fui-color-primary);
+  color: var(--fui-color-text-inverse);
+}
+
+.secondary {
+  background-color: var(--fui-color-secondary);
+  color: var(--fui-color-black);
+}
+
+.success {
+  background-color: var(--fui-color-success);
+  color: var(--fui-color-white);
+}
+
+.danger {
+  background-color: var(--fui-color-danger);
+  color: var(--fui-color-white);
+}
+
+.warning {
+  background-color: var(--fui-color-warning);
+  color: var(--fui-color-black);
+}
+
+.info {
+  background-color: var(--fui-color-info);
+  color: var(--fui-color-black);
+}
+
+.light {
+  background-color: var(--fui-color-gray-100);
+  color: var(--fui-color-text);
+}
+
+.dark {
+  background-color: var(--fui-color-gray-800);
+  color: var(--fui-color-white);
+}
+
+// ============================================
+// MODIFIERS
+// ============================================
+
+// Square badge (for non-pill style)
+.square {
+  border-radius: $border-radius-sm;
+}
+
+// Explicit pill (already default, for API compatibility)
+.pill {
+  border-radius: $border-radius-pill;
+}
+
+// Larger badge
+.lg {
+  padding: $badge-padding-y * 1.5 $badge-padding-x * 1.5;
+  font-size: $badge-font-size * 1.25;
+}
+
+// Badge positioned on parent element (e.g., notification count)
+.positioned {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}

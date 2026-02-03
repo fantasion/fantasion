@@ -1,0 +1,243 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// BUTTON
+// Button component with variants and sizes
+// ============================================
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 0;
+  gap: $spacer-sm;
+  padding: $btn-padding-y $btn-padding-x;
+  font-family: inherit;
+  font-size: $btn-font-size;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-base;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: $border-width solid transparent;
+  border-radius: $border-radius;
+  box-shadow: var(--fui-shadow-sm);
+  transition:
+    color $transition-gentle,
+    background-color $transition-fast,
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+
+  &::after {
+    content: '';
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    background-color: transparent;
+    transition:
+      color $transition-gentle,
+      background-color $transition-fast,
+      border-color $transition-fast,
+      box-shadow $transition-fast;
+  }
+
+  // Gentle lift effect on hover for playful feel
+  &:hover:not(:disabled) {
+    box-shadow: var(--fui-shadow);
+  }
+
+  &:active:not(:disabled) {
+    box-shadow: var(--fui-shadow-sm);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--fui-focus-ring);
+  }
+
+  &:disabled,
+  &.disabled {
+    pointer-events: none;
+    box-shadow: none;
+  }
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.primary {
+  background-color: var(--fui-btn-primary-bg);
+  color: var(--fui-btn-primary-color);
+  border-color: var(--fui-btn-primary-border-color);
+
+  &:hover:not(:disabled) {
+    background-color: var(--fui-btn-primary-hover-bg);
+    color: var(--fui-btn-primary-hover-color);
+    border-color: var(--fui-btn-primary-hover-border-color);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--fui-btn-primary-active-bg);
+    color: var(--fui-btn-primary-active-color);
+    border-color: var(--fui-btn-primary-active-border-color);
+  }
+
+  &:disabled {
+    background-color: var(--fui-btn-primary-disabled-bg);
+    color: var(--fui-btn-primary-disabled-color);
+    border-color: var(--fui-btn-primary-disabled-border-color);
+  }
+}
+
+.secondary {
+  background-color: var(--fui-btn-secondary-bg);
+  color: var(--fui-btn-secondary-color);
+  border-color: var(--fui-btn-secondary-border-color);
+
+  &:hover:not(:disabled) {
+    background-color: var(--fui-btn-secondary-hover-bg);
+    color: var(--fui-btn-secondary-hover-color);
+    border-color: var(--fui-btn-secondary-hover-border-color);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--fui-btn-secondary-active-bg);
+    color: var(--fui-btn-secondary-active-color);
+    border-color: var(--fui-btn-secondary-active-border-color);
+  }
+
+  &:disabled {
+    background-color: var(--fui-btn-secondary-disabled-bg);
+    color: var(--fui-btn-secondary-disabled-color);
+    border-color: var(--fui-btn-secondary-disabled-border-color);
+  }
+}
+
+.link,
+.inline {
+  background-color: transparent;
+  color: var(--fui-btn-link-color);
+  border-color: transparent;
+  box-shadow: none;
+  text-decoration: none;
+
+  &:hover:not(:disabled) {
+    color: var(--fui-btn-link-hover-color);
+    text-decoration: underline;
+    box-shadow: none;
+  }
+
+  &:active:not(:disabled) {
+    text-decoration: underline;
+    box-shadow: none;
+  }
+}
+
+.inline {
+  padding: 0;
+}
+
+// ============================================
+// OUTLINE VARIANTS
+// ============================================
+
+.outlinePrimary {
+  background-color: transparent;
+  color: var(--fui-btn-outline-primary-color);
+  border-color: var(--fui-btn-outline-primary-border-color);
+
+  &:hover:not(:disabled) {
+    background-color: var(--fui-btn-outline-primary-hover-bg);
+    color: var(--fui-btn-outline-primary-hover-color);
+    border-color: var(--fui-btn-outline-primary-hover-border-color);
+  }
+}
+
+.outlineSecondary {
+  background-color: transparent;
+  color: var(--fui-btn-outline-secondary-color);
+  border-color: var(--fui-btn-outline-secondary-border-color);
+
+  &:hover:not(:disabled) {
+    background-color: var(--fui-btn-outline-secondary-hover-bg);
+    color: var(--fui-btn-outline-secondary-hover-color);
+    border-color: var(--fui-btn-outline-secondary-hover-border-color);
+  }
+}
+
+.outlineLight {
+  background-color: transparent;
+  color: var(--fui-btn-outline-light-color, var(--fui-color-text-muted));
+  border-color: var(--fui-btn-outline-light-border-color, var(--fui-color-border));
+
+  &:hover:not(:disabled) {
+    background-color: var(--fui-btn-outline-light-hover-bg, var(--fui-color-surface-elevated));
+    color: var(--fui-btn-outline-light-hover-color, var(--fui-color-text));
+    border-color: var(--fui-btn-outline-light-hover-border-color, var(--fui-color-border-hover));
+  }
+}
+
+// ============================================
+// SIZES
+// ============================================
+
+.sm {
+  padding: $btn-padding-y-sm $btn-padding-x-sm;
+  font-size: $btn-font-size-sm;
+  border-radius: $border-radius-sm;
+}
+
+.lg {
+  padding: $btn-padding-y-lg $btn-padding-x-lg;
+  font-size: $btn-font-size-lg;
+  border-radius: $border-radius-lg;
+}
+
+// ============================================
+// MODIFIERS
+// ============================================
+
+// Full width button
+.block {
+  display: flex;
+  width: 100%;
+}
+
+// Icon-only button (square)
+.icon {
+  padding: $btn-padding-y;
+  aspect-ratio: 1;
+
+  &.sm {
+    padding: $btn-padding-y-sm;
+  }
+
+  &.lg {
+    padding: $btn-padding-y-lg;
+  }
+}
+
+// Loading state
+.loading {
+  position: relative;
+  color: var(--fui-color-text-inverse);
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    color: var(--fui-color-text-inverse);
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btnSpinner 0.75s linear infinite;
+  }
+}
+
+@keyframes btnSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

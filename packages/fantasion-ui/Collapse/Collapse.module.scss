@@ -1,0 +1,32 @@
+@use '../styles/core' as *;
+
+// ============================================
+// COLLAPSE
+// ============================================
+
+.collapse {
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.collapsing {
+  height: 0;
+  overflow: hidden;
+  transition: height $transition-base;
+
+  &.horizontal {
+    width: 0;
+    height: auto;
+    transition: width $transition-base;
+  }
+}
+
+.horizontal {
+  width: auto;
+  height: auto;
+}

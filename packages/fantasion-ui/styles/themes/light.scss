@@ -1,0 +1,194 @@
+@use 'sass:color';
+
+@use '../variables' as *;
+@use '../functions' as *;
+
+// ============================================
+// LIGHT THEME
+// Default theme - applied to :root and [data-theme="light"]
+// ============================================
+
+[data-theme='light'],
+:root {
+  // Brand colors
+  --fui-color-primary: #{$color-primary};
+  --fui-color-primary-rgb: 71, 42, 126;
+  --fui-color-secondary: #{$color-secondary};
+  --fui-color-secondary-rgb: 215, 166, 0;
+
+  // Semantic colors
+  --fui-color-success: #{$color-success};
+  --fui-color-success-rgb: 25, 135, 84;
+  --fui-color-danger: #{$color-danger};
+  --fui-color-danger-rgb: 220, 53, 69;
+  --fui-color-warning: #{$color-warning};
+  --fui-color-warning-rgb: 255, 193, 7;
+  --fui-color-info: #{$color-info};
+  --fui-color-info-rgb: 13, 202, 240;
+
+  // Background colors
+  --fui-color-background: #{$color-background};
+  --fui-color-surface: #{$color-white};
+  --fui-color-surface-raised: #{$color-white};
+
+  // Text colors
+  --fui-color-text: #{$color-text};
+  --fui-color-text-muted: #{$color-text-muted};
+  --fui-color-text-inverse: #{$color-text-inverse};
+
+  // Border colors
+  --fui-color-border: #{$border-color};
+  --fui-color-border-muted: #{$color-gray-200};
+
+  // Form colors
+  --fui-color-input-bg: #{$color-input-bg};
+  --fui-color-input-border: #{$color-input-border};
+  --fui-color-input-focus-border: #{$color-input-focus-border};
+  --fui-color-input-placeholder: #{$color-gray-500};
+
+  // Neutral colors
+  --fui-color-white: #{$color-white};
+  --fui-color-black: #{$color-black};
+  --fui-color-gray-100: #{$color-gray-100};
+  --fui-color-gray-200: #{$color-gray-200};
+  --fui-color-gray-300: #{$color-gray-300};
+  --fui-color-gray-400: #{$color-gray-400};
+  --fui-color-gray-500: #{$color-gray-500};
+  --fui-color-gray-600: #{$color-gray-600};
+  --fui-color-gray-700: #{$color-gray-700};
+  --fui-color-gray-800: #{$color-gray-800};
+  --fui-color-gray-900: #{$color-gray-900};
+
+  // Shadows - warm purple-tinted for friendly feel
+  --fui-shadow-sm: #{$shadow-sm};
+  --fui-shadow: #{$shadow};
+  --fui-shadow-lg: #{$shadow-lg};
+  --fui-shadow-soft: #{$shadow-soft};
+
+  // Focus glow - warm purple
+  --fui-focus-ring: 0 0 0 #{grid(1)} rgba(71, 42, 126, 0.2);
+
+  // Modal backdrop
+  --fui-modal-backdrop-bg: #{$modal-backdrop-bg};
+
+  // Button: Primary
+  --fui-btn-primary-bg: var(--fui-color-primary);
+  --fui-btn-primary-color: #{$color-white};
+  --fui-btn-primary-border-color: var(--fui-color-primary);
+  --fui-btn-primary-hover-bg: #{shade($color-primary, 15%)};
+  --fui-btn-primary-hover-color: #{$color-white};
+  --fui-btn-primary-hover-border-color: #{shade($color-primary, 15%)};
+  --fui-btn-primary-active-bg: #{shade($color-primary, 25%)};
+  --fui-btn-primary-active-color: #{$color-white};
+  --fui-btn-primary-active-border-color: #{shade($color-primary, 25%)};
+  --fui-btn-primary-disabled-bg: #{tint($color-primary, 50%)};
+  --fui-btn-primary-disabled-color: #{$color-white};
+  --fui-btn-primary-disabled-border-color: #{tint($color-primary, 50%)};
+
+  // Button: Secondary
+  --fui-btn-secondary-bg: var(--fui-color-secondary);
+  --fui-btn-secondary-color: #{$color-black};
+  --fui-btn-secondary-border-color: var(--fui-color-secondary);
+  --fui-btn-secondary-hover-bg: #{shade($color-secondary, 15%)};
+  --fui-btn-secondary-hover-color: #{$color-black};
+  --fui-btn-secondary-hover-border-color: #{shade($color-secondary, 15%)};
+  --fui-btn-secondary-active-bg: #{shade($color-secondary, 25%)};
+  --fui-btn-secondary-active-color: #{$color-black};
+  --fui-btn-secondary-active-border-color: #{shade($color-secondary, 25%)};
+  --fui-btn-secondary-disabled-bg: #{tint($color-secondary, 50%)};
+  --fui-btn-secondary-disabled-color: #{$color-black};
+  --fui-btn-secondary-disabled-border-color: #{tint($color-secondary, 50%)};
+
+  // Button: Outline Primary
+  --fui-btn-outline-primary-color: var(--fui-color-primary);
+  --fui-btn-outline-primary-border-color: var(--fui-color-primary);
+  --fui-btn-outline-primary-hover-bg: var(--fui-color-primary);
+  --fui-btn-outline-primary-hover-color: #{$color-white};
+  --fui-btn-outline-primary-hover-border-color: var(--fui-color-primary);
+
+  // Button: Outline Secondary
+  --fui-btn-outline-secondary-color: var(--fui-color-secondary);
+  --fui-btn-outline-secondary-border-color: var(--fui-color-secondary);
+  --fui-btn-outline-secondary-hover-bg: var(--fui-color-secondary);
+  --fui-btn-outline-secondary-hover-color: #{$color-black};
+  --fui-btn-outline-secondary-hover-border-color: var(--fui-color-secondary);
+
+  // Button: Link
+  --fui-btn-link-color: var(--fui-color-primary);
+  --fui-btn-link-hover-color: #{shade($color-primary, 15%)};
+
+  // Component-specific
+  --fui-navbar-bg: transparent;
+  --fui-navbar-color: #{$color-minsk-purple};
+  --fui-navbar-color-hover: #{color.mix(
+      $color-minsk-purple,
+      $color-early-dawn,
+      66%
+    )};
+
+  --fui-card-bg: #{$color-white};
+  --fui-dropdown-bg: #{$color-white};
+  --fui-dropdown-border-color: #{$color-gray-200};
+
+  // Component: Breadcrumb
+  --fui-breadcrumb-divider-color: #{$color-gray-500};
+  --fui-breadcrumb-active-color: #{$color-gray-600};
+
+  // Component: Tooltip
+  --fui-tooltip-color: #{$color-white};
+  --fui-tooltip-bg: #{$color-gray-900};
+
+  // Component: Offcanvas
+  --fui-offcanvas-bg: #{$color-white};
+  --fui-offcanvas-border-color: #{$border-color};
+
+  // Component: Nav
+  --fui-nav-link-color: #{$color-primary};
+  --fui-nav-link-hover-color: #{shade($color-primary, 20%)};
+
+  // Component: Dropdown
+  --fui-dropdown-link-color: #{$color-gray-900};
+  --fui-dropdown-link-hover-color: #{$color-gray-900};
+  --fui-dropdown-link-hover-bg: #{$color-gray-100};
+  --fui-dropdown-divider-color: #{$border-color};
+
+  // Component: ListGroup
+  --fui-list-group-bg: #{$color-white};
+  --fui-list-group-border-color: #{$border-color};
+  --fui-list-group-action-hover-bg: #{$color-gray-100};
+  --fui-list-group-action-active-bg: #{$color-gray-200};
+
+  // Utility colors
+  --fui-color-light: #{$color-gray-100};
+  --fui-color-dark: #{$color-gray-800};
+
+  // Subtle bg variants (used by ListGroup color items)
+  --fui-color-primary-bg-subtle: #{tint($color-primary, 85%)};
+  --fui-color-primary-bg-subtle-hover: #{tint($color-primary, 75%)};
+  --fui-color-secondary-bg-subtle: #{tint($color-secondary, 85%)};
+  --fui-color-secondary-bg-subtle-hover: #{tint($color-secondary, 75%)};
+  --fui-color-success-bg-subtle: #{tint($color-success, 85%)};
+  --fui-color-success-bg-subtle-hover: #{tint($color-success, 75%)};
+  --fui-color-danger-bg-subtle: #{tint($color-danger, 85%)};
+  --fui-color-danger-bg-subtle-hover: #{tint($color-danger, 75%)};
+  --fui-color-warning-bg-subtle: #{tint($color-warning, 85%)};
+  --fui-color-warning-bg-subtle-hover: #{tint($color-warning, 75%)};
+  --fui-color-info-bg-subtle: #{tint($color-info, 85%)};
+  --fui-color-info-bg-subtle-hover: #{tint($color-info, 75%)};
+  --fui-color-light-bg-subtle: #{$color-gray-100};
+  --fui-color-light-bg-subtle-hover: #{$color-gray-200};
+  --fui-color-dark-bg-subtle: #{$color-gray-200};
+  --fui-color-dark-bg-subtle-hover: #{$color-gray-300};
+
+  // Component: Card
+  --fui-card-border-color: #{$border-color};
+  --fui-card-header-bg: #{$color-gray-100};
+  --fui-card-footer-bg: #{$color-gray-100};
+
+  // SVG data URIs for select arrows (can't use var() inside url())
+  --fui-form-select-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  --fui-form-select-indicator-focus: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23472a7e' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+  // Switch unchecked indicator
+  --fui-form-switch-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,.25)'/%3e%3c/svg%3e");
+}

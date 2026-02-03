@@ -1,0 +1,138 @@
+@use '../styles/core' as *;
+
+// ============================================
+// ALERT
+// Contextual feedback messages
+// ============================================
+
+.alert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $spacer-md;
+  border: $border-width solid transparent;
+  border-radius: $alert-border-radius;
+}
+
+// Dismissible alert
+.dismissible {
+  padding-right: $alert-padding-x * 3;
+}
+
+// Close button
+.close {
+  @include button-reset;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: $alert-padding-y $alert-padding-x;
+  color: inherit;
+  opacity: 0.5;
+  font-size: grid(5);
+  line-height: 1;
+  @include transition(opacity);
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// Alert heading
+.heading {
+  margin-top: 0;
+  margin-bottom: $spacer-sm;
+  color: inherit;
+}
+
+// Alert link
+.link {
+  font-weight: $font-weight-bold;
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.primary {
+  background-color: color-mix(in srgb, var(--fui-color-primary) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-primary) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-primary) 70%, var(--fui-color-text));
+
+  .link {
+    color: var(--fui-color-primary);
+  }
+}
+
+.secondary {
+  background-color: color-mix(in srgb, var(--fui-color-secondary) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-secondary) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-secondary) 70%, var(--fui-color-text));
+
+  .link {
+    color: var(--fui-color-secondary);
+  }
+}
+
+.success {
+  background-color: color-mix(in srgb, var(--fui-color-success) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-success) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-success) 70%, var(--fui-color-text));
+
+  .link {
+    color: var(--fui-color-success);
+  }
+}
+
+.danger {
+  background-color: color-mix(in srgb, var(--fui-color-danger) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-danger) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-danger) 70%, var(--fui-color-text));
+
+  .link {
+    color: var(--fui-color-danger);
+  }
+}
+
+.warning {
+  background-color: color-mix(in srgb, var(--fui-color-warning) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-warning) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-warning) 70%, var(--fui-color-text));
+
+  .link {
+    color: color-mix(in srgb, var(--fui-color-warning) 80%, var(--fui-color-black));
+  }
+}
+
+.info {
+  background-color: color-mix(in srgb, var(--fui-color-info) 15%, var(--fui-color-surface));
+  border-color: color-mix(in srgb, var(--fui-color-info) 30%, var(--fui-color-surface));
+  color: color-mix(in srgb, var(--fui-color-info) 70%, var(--fui-color-text));
+
+  .link {
+    color: color-mix(in srgb, var(--fui-color-info) 80%, var(--fui-color-black));
+  }
+}
+
+.light {
+  background-color: var(--fui-color-gray-100);
+  border-color: var(--fui-color-gray-200);
+  color: var(--fui-color-gray-700);
+
+  .link {
+    color: var(--fui-color-gray-800);
+  }
+}
+
+.dark {
+  background-color: var(--fui-color-gray-800);
+  border-color: var(--fui-color-gray-700);
+  color: var(--fui-color-gray-100);
+
+  .link {
+    color: var(--fui-color-white);
+  }
+}

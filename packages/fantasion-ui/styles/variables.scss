@@ -1,0 +1,225 @@
+@use 'functions' as *;
+
+// ============================================
+// CORE THEME VARIABLES
+// Everything else is derived from these
+// ============================================
+
+$color-minsk-purple: #472a7e !default;
+$color-buddha-gold: #d7a600 !default;
+$color-early-dawn: #fffaeb !default;
+
+// Brand Colors
+$color-primary: $color-minsk-purple;
+$color-secondary: $color-buddha-gold;
+$color-background: $color-early-dawn;
+
+// Semantic Colors
+$color-success: #198754 !default;
+$color-danger: #dc3545 !default;
+$color-warning: #ffc107 !default;
+$color-info: #0dcaf0 !default;
+
+// Neutral Colors
+$color-white: #ffffff !default;
+$color-black: #000000 !default;
+$color-gray-100: #f8f9fa !default;
+$color-gray-200: #e9ecef !default;
+$color-gray-300: #dee2e6 !default;
+$color-gray-400: #ced4da !default;
+$color-gray-500: #adb5bd !default;
+$color-gray-600: #6c757d !default;
+$color-gray-700: #495057 !default;
+$color-gray-800: #343a40 !default;
+$color-gray-900: #212529 !default;
+
+// Spacing Scale — semantic names, grid-derived
+$spacer-xs: grid(1) !default; //  4px — hairline gaps
+$spacer-sm: grid(2) !default; //  8px — tight spacing
+$spacer-md: grid(4) !default; // 16px — default/base
+$spacer-lg: grid(6) !default; // 24px — section padding
+$spacer-xl: grid(12) !default; // 48px — large section gaps
+
+// Typography - friendly and readable
+$font-family-base: 'Raleway', system-ui, sans-serif !default;
+$font-family-mono: 'Fira Code', monospace !default;
+$font-size-base: 1rem !default;
+$font-size-sm: grid(3.5) !default;
+$font-size-md: grid(4.5) !default;
+$font-size-lg: grid(6) !default;
+$line-height-base: 1.6 !default; // Improved readability
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+// Border - rounder, more playful corners
+$border-radius: grid(2) !default; // 8px — Rounder for buttons/inputs
+$border-radius-sm: grid(1) !default; // 4px
+$border-radius-lg: grid(3) !default; // 12px — Cards, modals
+$border-radius-xl: grid(4) !default; // 16px — Extra large elements
+$border-radius-pill: 50rem !default;
+$border-width: 1px !default;
+$border-color: rgba($color-primary, 0.2) !default; // Softer border
+
+// Shadows - warm purple tint for a friendly feel
+$shadow-sm: 0 grid(0.5) grid(1) rgba($color-primary, 0.08) !default;
+$shadow: 0 grid(1.5) grid(3) rgba($color-primary, 0.12) !default;
+$shadow-lg: 0 grid(3) grid(6) rgba($color-primary, 0.15) !default;
+$shadow-soft: 0 grid(1) grid(2) rgba($color-primary, 0.1) !default; // Soft diffused shadow
+
+// Transitions - smooth and gentle
+$transition-base: 0.2s ease-out !default;
+$transition-fast: 0.15s ease-out !default;
+$transition-gentle: 0.25s ease-out !default; // For hover effects
+
+// Breakpoints
+$breakpoint-sm: 576px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-lg: 992px !default;
+$breakpoint-xl: 1200px !default;
+$breakpoint-xxl: 1400px !default;
+
+// Breakpoints map for mixins
+$breakpoints: (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl,
+  'xxl': $breakpoint-xxl,
+) !default;
+
+// Container max-widths
+$container-sm: 540px !default;
+$container-md: 720px !default;
+$container-lg: 960px !default;
+$container-xl: 1140px !default;
+$container-xxl: 1320px !default;
+
+// Container max-widths map
+$container-max-widths: (
+  'sm': $container-sm,
+  'md': $container-md,
+  'lg': $container-lg,
+  'xl': $container-xl,
+  'xxl': $container-xxl,
+) !default;
+
+// Modal/Dialog widths
+$modal-width-sm: $container-sm !default;      // 540px (was 300px)
+$modal-width-md: $container-md !default;      // 720px (was 500px)
+$modal-width-lg: $container-lg !default;      // 960px (was 800px)
+$modal-width-xl: $container-xl !default;      // 1140px
+
+// Offcanvas widths
+$offcanvas-width: $container-sm !default;     // 540px (was 400px)
+
+// Tooltip max-width
+$tooltip-max-width: grid(50) !default;        // 200px
+
+// Touch target minimum (WCAG AA)
+$touch-target-min: grid(11) !default;         // 44px
+
+// Grid
+$grid-columns: 12 !default;
+$grid-gutter: grid(6) !default; // 24px
+
+// Z-index scale
+$zindex-dropdown: 1000 !default;
+$zindex-sticky: 1020 !default;
+$zindex-fixed: 1030 !default;
+$zindex-modal-backdrop: 1040 !default;
+$zindex-modal: 1050 !default;
+$zindex-tooltip: 1080 !default;
+$zindex-toast: 1090 !default;
+
+// ============================================
+// DERIVED VARIABLES
+// Computed from core variables
+// ============================================
+
+// Text colors (derived)
+$color-text: $color-gray-900 !default;
+$color-text-muted: $color-gray-600 !default;
+$color-text-inverse: $color-white !default;
+
+// Component colors (derived)
+$color-body-bg: $color-background !default;
+$color-input-bg: $color-white !default;
+$color-input-border: $color-gray-400 !default;
+$color-input-focus-border: $color-primary !default;
+
+// Button colors (derived from brand)
+$btn-primary-bg: $color-primary !default;
+$btn-primary-color: $color-white !default;
+$btn-secondary-bg: $color-secondary !default;
+$btn-secondary-color: $color-black !default;
+
+// Button sizing
+$btn-padding-y: $spacer-sm !default;
+$btn-padding-x: $spacer-md !default;
+$btn-padding-y-sm: $spacer-xs !default;
+$btn-padding-x-sm: $spacer-sm !default;
+$btn-padding-y-lg: $spacer-sm !default;
+$btn-padding-x-lg: $spacer-lg !default;
+$btn-font-size: $font-size-base !default;
+$btn-font-size-sm: $font-size-sm !default;
+$btn-font-size-lg: $font-size-lg !default;
+
+// Form controls
+$input-padding-y: $spacer-sm !default;
+$input-padding-x: $spacer-md !default;
+$input-font-size: $font-size-base !default;
+$input-line-height: $line-height-base !default;
+$input-border-radius: $border-radius !default;
+
+// Modal
+$modal-backdrop-bg: rgba($color-black, 0.5) !default;
+$modal-content-bg: $color-white !default;
+$modal-content-border-radius: $border-radius-lg !default;
+$modal-header-padding: $spacer-md !default;
+$modal-body-padding: $spacer-md !default;
+$modal-footer-padding: $spacer-md !default;
+
+// Navbar
+$navbar-padding-y: $spacer-sm !default;
+$navbar-padding-x: $spacer-md !default;
+$navbar-item-font-size: $font-size-md !default;
+$navbar-brand-font-size: $font-size-lg !default;
+
+// Alert
+$alert-padding-y: $spacer-md !default;
+$alert-padding-x: $spacer-md !default;
+$alert-border-radius: $border-radius !default;
+
+// Badge
+$badge-padding-y: 0.35em !default;
+$badge-padding-x: 0.65em !default;
+$badge-font-size: 0.75em !default;
+$badge-font-weight: $font-weight-bold !default;
+$badge-border-radius: $border-radius-sm !default;
+
+// Toast
+$toast-padding-x: $spacer-md !default;
+$toast-padding-y: $spacer-sm !default;
+$toast-font-size: $font-size-sm !default;
+$toast-border-radius: $border-radius !default;
+$toast-box-shadow: $shadow !default;
+
+// Tooltip
+$tooltip-padding-y: $spacer-xs !default;
+$tooltip-padding-x: $spacer-sm !default;
+$tooltip-font-size: $font-size-sm !default;
+$tooltip-border-radius: $border-radius-sm !default;
+$tooltip-bg: $color-gray-900 !default;
+$tooltip-color: $color-white !default;
+
+// Accordion
+$accordion-padding-y: $spacer-md !default;
+$accordion-padding-x: $spacer-lg !default;
+$accordion-border-radius: $border-radius !default;
+
+// Breadcrumb
+$breadcrumb-divider: '/' !default;
+$breadcrumb-divider-color: $color-gray-500 !default;
+$breadcrumb-active-color: $color-gray-600 !default;

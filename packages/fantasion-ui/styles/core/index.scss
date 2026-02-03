@@ -1,0 +1,6 @@
+// Core SCSS utilities - @forward all partials
+// Usage: @use '../../styles/core' as *;
+
+@forward '../variables';
+@forward '../functions';
+@forward '../mixins';

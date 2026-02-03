@@ -1,0 +1,198 @@
+@use 'sass:color';
+@use '../../styles/core' as *;
+
+// ============================================
+// NAV
+// Navigation component for tabs, pills, etc.
+// ============================================
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  gap: $spacer-xs; // Better spacing
+  @include list-unstyled;
+}
+
+.item {
+  // Placeholder for item-level styles if needed
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  padding: $spacer-sm $spacer-md;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  transition: color $transition-fast,
+              background-color $transition-fast,
+              transform $transition-fast;
+
+  &:hover:not(.linkDisabled) {
+    transform: translateY(-1px);
+  }
+
+  &:active:not(.linkDisabled) {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// Disabled state
+.linkDisabled {
+  color: var(--fui-color-text-muted);
+  pointer-events: none;
+  cursor: default;
+}
+
+// Active state
+.linkActive {
+  color: var(--fui-color-primary);
+}
+
+// ============================================
+// TABS
+// ============================================
+
+.tabs {
+  border-bottom: $border-width solid var(--fui-color-border);
+
+  .link {
+    margin-bottom: -$border-width;
+    border: $border-width solid transparent;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+
+    &:hover:not(.linkDisabled) {
+      border-color: var(--fui-color-border-muted) var(--fui-color-border-muted)
+        var(--fui-color-border);
+      background-color: rgba(var(--fui-color-primary-rgb), 0.03);
+      isolation: isolate;
+    }
+
+    &:focus {
+      border-color: var(--fui-color-border-muted) var(--fui-color-border-muted)
+        var(--fui-color-border);
+      isolation: isolate;
+    }
+  }
+
+  .linkDisabled {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .linkActive {
+    color: var(--fui-color-text);
+    background-color: var(--fui-color-surface);
+    border-color: var(--fui-color-border) var(--fui-color-border)
+      var(--fui-color-surface);
+    box-shadow: 0 -2px 4px rgba(var(--fui-color-primary-rgb), 0.08);
+  }
+}
+
+// ============================================
+// PILLS
+// ============================================
+
+.pills {
+  .link {
+    border-radius: $border-radius;
+
+    &:hover:not(.linkDisabled):not(.linkActive) {
+      background-color: rgba(var(--fui-color-primary-rgb), 0.1);
+    }
+  }
+
+  .linkActive {
+    color: var(--fui-color-text-inverse);
+    background: linear-gradient(
+      135deg,
+      var(--fui-color-primary),
+      color.adjust($color-primary, $lightness: -5%)
+    );
+    box-shadow:
+      0 2px 4px rgba(var(--fui-color-primary-rgb), 0.2),
+      inset 0 1px 0 rgba(white, 0.2);
+  }
+}
+
+// ============================================
+// UNDERLINE
+// ============================================
+
+.underline {
+  border-bottom: $border-width solid var(--fui-color-border);
+  gap: $spacer-md;
+
+  .link {
+    padding: $spacer-sm 0;
+    margin-bottom: -$border-width;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+
+    &:hover:not(.linkDisabled):not(.linkActive) {
+      border-bottom-color: rgba(var(--fui-color-primary-rgb), 0.3);
+    }
+
+    &:focus {
+      border-bottom-color: var(--fui-color-border);
+    }
+  }
+
+  .linkActive {
+    font-weight: $font-weight-semibold;
+    color: var(--fui-color-primary);
+    border-bottom-color: var(--fui-color-primary);
+
+    // Gradient underline
+    background: linear-gradient(
+      to bottom,
+      transparent calc(100% - 2px),
+      var(--fui-color-secondary) calc(100% - 2px)
+    );
+  }
+}
+
+// ============================================
+// VERTICAL
+// ============================================
+
+.vertical {
+  flex-direction: column;
+}
+
+// ============================================
+// FILL & JUSTIFY
+// ============================================
+
+.fill {
+  > .item {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  > .link {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+.justified {
+  > .item {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  > .link {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+}

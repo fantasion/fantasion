@@ -1,0 +1,13 @@
+@use "../../styles/core" as *;
+
+.actions {
+  margin-top: $spacer-md;
+}
+
+.buttons {
+  margin-top: $spacer-md;
+}
+
+.cancelButton {
+  margin-left: $spacer-sm;
+}

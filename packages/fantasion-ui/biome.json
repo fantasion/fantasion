@@ -1,0 +1,133 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@cookielab.io/biome-config/react"],
+  "root": false,
+  "files": {
+    "includes": ["!dist", "!node_modules", "!storybook-static", "**/*.ts", "**/*.tsx"]
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "noLabelWithoutControl": "off",
+        "noNoninteractiveElementInteractions": "off",
+        "noStaticElementInteractions": "off",
+        "useAltText": "off",
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off",
+        "useOptionalChain": "off"
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off",
+        "useExhaustiveDependencies": "off",
+        "useImageSize": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noEmptyBlockStatements": "off"
+      },
+      "nursery": {
+        "noJsxLiterals": "off",
+        "noJsxPropsBind": "off",
+        "noLeakedRender": "off",
+        "noShadow": "off"
+      },
+      "performance": {
+        "noReExportAll": "off"
+      },
+      "style": {
+        "noMagicNumbers": "off",
+        "noNestedTernary": "off",
+        "useBlockStatements": "off",
+        "useCollapsedElseIf": "off",
+        "useCollapsedIf": "off",
+        "useComponentExportOnlyModules": "off",
+        "useConsistentObjectDefinitions": "off",
+        "useConsistentTypeDefinitions": "off",
+        "useDefaultSwitchClause": "off",
+        "useExportsLast": "off",
+        "useNamingConvention": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["vite.config.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noNodejsModules": "off"
+          },
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.stories.tsx"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useUniqueElementIds": "off"
+          },
+          "performance": {
+            "useTopLevelRegex": "off"
+          },
+          "suspicious": {
+            "noAlert": "off"
+          },
+          "style": {
+            "noDefaultExport": "off",
+            "useComponentExportOnlyModules": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [".storybook/**/*"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noForEach": "off"
+          },
+          "correctness": {
+            "noNodejsModules": "off",
+            "noUndeclaredDependencies": "off",
+            "noUnusedImports": "off"
+          },
+          "nursery": {
+            "noIncrementDecrement": "off"
+          },
+          "performance": {
+            "noAwaitInLoops": "off",
+            "useTopLevelRegex": "off"
+          },
+          "style": {
+            "noDefaultExport": "off",
+            "noParameterAssign": "off",
+            "useComponentExportOnlyModules": "off",
+            "useForOf": "off"
+          },
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["scss-modules.d.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
+}

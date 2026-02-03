@@ -1,0 +1,97 @@
+// CSS Custom Properties for runtime theming
+// These replace SCSS variables for component styling
+
+:root {
+  // Spacing (Bootstrap $spacer = 1rem)
+  --fui-spacer: 1rem;
+  --fui-spacer-half: 0.5rem;
+  --fui-spacer-quarter: 0.25rem;
+  --fui-spacer-2: 2rem;
+  --fui-spacer-3: 3rem;
+  --fui-spacer-4: 4rem;
+  --fui-spacer-5: 5rem;
+
+  // Font sizes (Bootstrap defaults)
+  --fui-font-size-base: 1rem;
+  --fui-font-size-sm: 0.875rem;
+  --fui-font-size-lg: 1.25rem;
+
+  // Heading sizes
+  --fui-h1-font-size: 2.5rem;
+  --fui-h2-font-size: 2rem;
+  --fui-h3-font-size: 1.75rem;
+  --fui-h4-font-size: 1.5rem;
+  --fui-h5-font-size: 1.25rem;
+  --fui-h6-font-size: 1rem;
+
+  // Grid breakpoints
+  --fui-breakpoint-xs: 0;
+  --fui-breakpoint-sm: 576px;
+  --fui-breakpoint-md: 768px;
+  --fui-breakpoint-lg: 992px;
+  --fui-breakpoint-xl: 1200px;
+  --fui-breakpoint-xxl: 1400px;
+
+  // Container max-widths
+  --fui-container-sm: 540px;
+  --fui-container-md: 720px;
+  --fui-container-lg: 960px;
+  --fui-container-xl: 1140px;
+  --fui-container-xxl: 1320px;
+
+  // Colors (already defined in variables.scss, but adding CSS var aliases)
+  --fui-color-primary: #472a7e;
+  --fui-color-secondary: #d7a600;
+  --fui-color-early-dawn: #fffaeb;
+  --fui-color-white: #ffffff;
+  --fui-color-black: #000000;
+  --fui-color-light: #dee2e6;
+
+  // Text colors
+  --fui-text-muted: #6c757d;
+  --fui-body-color: #212529;
+
+  // Enhanced shadows with purple tint
+  --fui-shadow-soft: 0 4px 8px rgba(71, 42, 126, 0.1);
+  --fui-shadow: 0 6px 12px rgba(71, 42, 126, 0.12);
+  --fui-shadow-lg: 0 12px 24px rgba(71, 42, 126, 0.15);
+  --fui-shadow-xl: 0 20px 40px rgba(71, 42, 126, 0.18);
+
+  // Focus ring
+  --fui-focus-ring: 0 0 0 3px rgba(71, 42, 126, 0.25);
+
+  // Surface colors
+  --fui-color-surface: #ffffff;
+  --fui-color-surface-elevated: #f8f9fa;
+
+  // Borders
+  --fui-color-border: rgba(71, 42, 126, 0.2);
+  --fui-color-border-muted: rgba(71, 42, 126, 0.1);
+  --fui-color-border-hover: rgba(71, 42, 126, 0.3);
+
+  // Interactive states
+  --fui-color-hover-bg: rgba(71, 42, 126, 0.05);
+  --fui-color-active-bg: rgba(71, 42, 126, 0.1);
+
+  // Dropdowns
+  --fui-dropdown-bg: rgba(255, 255, 255, 0.95);
+  --fui-dropdown-border-color: rgba(71, 42, 126, 0.15);
+  --fui-dropdown-link-hover-bg: rgba(71, 42, 126, 0.08);
+
+  // RGB values for alpha transparency
+  --fui-color-primary-rgb: 71, 42, 126;
+  --fui-color-secondary-rgb: 215, 166, 0;
+}
+
+// Dark mode overrides (if needed)
+[data-bs-theme="dark"] {
+  --fui-color-primary: #6b4fa8;
+  --fui-color-secondary: #f0c000;
+  --fui-body-color: #dee2e6;
+  --fui-text-muted: #adb5bd;
+
+  --fui-shadow-soft: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --fui-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  --fui-color-surface: #212529;
+  --fui-color-border: rgba(255, 255, 255, 0.15);
+}

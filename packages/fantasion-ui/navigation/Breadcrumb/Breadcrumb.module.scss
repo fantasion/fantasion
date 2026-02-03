@@ -1,0 +1,60 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// BREADCRUMB
+// Navigation breadcrumb trail
+// ============================================
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: $spacer-md;
+  @include list-unstyled;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+  // Divider
+  + .item::before {
+    display: inline-block;
+    padding-right: $spacer-sm;
+    padding-left: $spacer-sm;
+    color: var(--fui-breadcrumb-divider-color);
+    content: $breadcrumb-divider;
+    opacity: 0.6;
+    transition: opacity $transition-fast;
+  }
+
+  &:hover + .item::before {
+    opacity: 1;
+  }
+}
+
+// Active (current page) item
+.active {
+  color: var(--fui-breadcrumb-active-color);
+}
+
+// Breadcrumb link
+.link {
+  color: var(--fui-color-primary);
+  text-decoration: none;
+  padding: $spacer-xs;
+  border-radius: $border-radius-sm;
+  transition:
+    color $transition-fast,
+    background-color $transition-fast;
+
+  &:hover {
+    background-color: rgba(var(--fui-color-primary-rgb), 0.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--fui-color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}

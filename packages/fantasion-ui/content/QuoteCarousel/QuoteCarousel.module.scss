@@ -1,0 +1,36 @@
+@use "../../styles/core" as *;
+
+.quote {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  transition: height $transition-base;
+  overflow: hidden;
+}
+
+.content {
+  display: block;
+}
+
+.text {
+  display: inline;
+  font-size: $font-size-lg;
+  line-height: $line-height-base;
+  color: var(--fui-color-gray-700);
+
+  // Inline markdown content
+  p {
+    display: inline;
+    margin: 0;
+  }
+}
+
+.author {
+  display: block;
+  margin-top: $spacer-sm;
+  font-size: $font-size-sm;
+  font-style: italic;
+  color: var(--fui-color-gray-500);
+}

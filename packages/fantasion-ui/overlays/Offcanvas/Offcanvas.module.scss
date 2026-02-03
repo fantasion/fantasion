@@ -1,0 +1,152 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// OFFCANVAS
+// Slide-out panel with smooth transitions
+// ============================================
+
+.offcanvas {
+  position: fixed;
+  bottom: 0;
+  z-index: $zindex-modal;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  color: var(--fui-color-text);
+  visibility: hidden;
+  background-color: var(--fui-offcanvas-bg);
+  background-clip: padding-box;
+  outline: 0;
+  box-shadow: var(--fui-shadow-lg);
+  transition:
+    transform $transition-gentle,
+    visibility $transition-gentle;
+}
+
+.show {
+  visibility: visible;
+  transform: none;
+}
+
+// Start (left)
+.start {
+  top: 0;
+  left: 0;
+  width: $offcanvas-width;
+  border-right: $border-width solid var(--fui-offcanvas-border-color);
+  transform: translateX(-100%);
+}
+
+// End (right)
+.end {
+  top: 0;
+  right: 0;
+  width: $offcanvas-width;
+  border-left: $border-width solid var(--fui-offcanvas-border-color);
+  transform: translateX(100%);
+}
+
+// Top
+.top {
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 30vh;
+  max-height: 100%;
+  border-bottom: $border-width solid var(--fui-offcanvas-border-color);
+  transform: translateY(-100%);
+}
+
+// Bottom
+.bottom {
+  right: 0;
+  left: 0;
+  height: 30vh;
+  max-height: 100%;
+  border-top: $border-width solid var(--fui-offcanvas-border-color);
+  transform: translateY(100%);
+}
+
+// ============================================
+// OFFCANVAS BACKDROP
+// ============================================
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex-modal-backdrop;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--fui-modal-backdrop-bg);
+  opacity: 0;
+  transition: opacity $transition-gentle;
+}
+
+.backdropVisible {
+  opacity: 1;
+}
+
+// ============================================
+// OFFCANVAS HEADER
+// ============================================
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacer-lg;
+}
+
+// ============================================
+// OFFCANVAS TITLE
+// ============================================
+
+.title {
+  margin-bottom: 0;
+  line-height: $line-height-base;
+  font-weight: $font-weight-semibold;
+}
+
+// ============================================
+// OFFCANVAS CLOSE
+// ============================================
+
+.close {
+  padding: $spacer-sm;
+  margin-top: calc(-0.5 * #{$spacer-md});
+  margin-right: calc(-0.5 * #{$spacer-md});
+  margin-bottom: calc(-0.5 * #{$spacer-md});
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  background: transparent;
+  border: 0;
+  border-radius: $border-radius;
+  font-size: grid(6);
+  line-height: 1;
+  opacity: 0.5;
+  transition: opacity $transition-fast, transform $transition-fast;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ============================================
+// OFFCANVAS BODY
+// ============================================
+
+.body {
+  flex-grow: 1;
+  padding: $spacer-lg;
+  overflow-y: auto;
+}

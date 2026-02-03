@@ -1,0 +1,14 @@
+@use "../../styles/core" as *;
+
+.body {
+  margin-top: $spacer-md;
+}
+
+.lead {
+  font-style: italic;
+}
+
+.subtitle {
+  margin-top: $spacer-sm;
+  color: var(--fui-color-gray-600);
+}

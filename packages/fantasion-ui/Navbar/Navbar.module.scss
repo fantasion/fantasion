@@ -1,0 +1,306 @@
+@use 'sass:map';
+@use '../styles/core' as *;
+
+// ============================================
+// NAVBAR
+// Responsive navigation header
+// ============================================
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: $navbar-padding-y $navbar-padding-x;
+  background-color: var(--fui-navbar-bg);
+  color: var(--fui-navbar-color);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+// Container for navbar content
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+// Brand (logo/text)
+.brand {
+  padding: $spacer-sm $spacer-md;
+  margin-right: $spacer-md;
+  min-height: $touch-target-min; // 44px
+  font-size: $navbar-brand-font-size;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  white-space: nowrap;
+  color: inherit;
+  transition: color $transition-fast, transform $transition-fast;
+
+  // Mobile-first: larger targets
+  @include media-down(sm) {
+    padding: $spacer-md;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: var(--fui-navbar-color-hover);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Navbar text
+.text {
+  padding-top: $spacer-sm;
+  padding-bottom: $spacer-sm;
+}
+
+// ============================================
+// NAVBAR TOGGLER
+// Mobile menu toggle button
+// ============================================
+
+.toggler {
+  @include button-reset;
+  padding: $spacer-sm $spacer-md;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  font-size: $font-size-lg;
+  line-height: 1;
+  background-color: transparent;
+  border: $border-width solid transparent;
+  border-radius: $border-radius;
+  transition: box-shadow $transition-fast, background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    text-decoration: none;
+    background-color: rgba(var(--fui-color-primary-rgb), 0.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform $transition-fast;
+  }
+
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: 0 0 0 grid(1) rgba(var(--fui-color-primary-rgb), 0.25);
+  }
+}
+
+.togglerIcon {
+  transition: transform $transition-gentle;
+
+  .toggler.open & {
+    transform: rotate(90deg);
+  }
+}
+
+// Toggler icon (hamburger)
+.togglerIcon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100%;
+  background-color: var(--fui-color-text);
+}
+
+// ============================================
+// NAVBAR COLLAPSE
+// Collapsible content area
+// ============================================
+
+.collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  align-items: center;
+  display: none;
+}
+
+// Show state
+.collapseShow {
+  display: block;
+}
+
+// ============================================
+// NAVBAR NAV
+// Navigation links inside navbar
+// ============================================
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  @include list-unstyled;
+
+  li {
+    font-size: $navbar-item-font-size;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.navLink {
+  display: block;
+  padding: $spacer-sm 0;
+  color: var(--fui-navbar-color);
+  text-decoration: none;
+  position: relative;
+  @include transition(color);
+
+  // Animated underline
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--fui-color-secondary);
+    transform: translateX(-50%);
+    transition: width $transition-gentle;
+    border-radius: $border-radius-pill;
+  }
+
+  &:hover {
+    color: var(--fui-navbar-color-hover);
+
+    &::after {
+      width: 80%;
+    }
+  }
+
+  &:focus {
+    color: var(--fui-navbar-color-hover);
+  }
+}
+
+.navLinkActive {
+  font-weight: $font-weight-semibold;
+  color: var(--fui-navbar-color);
+
+  &::after {
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--fui-color-primary),
+      var(--fui-color-secondary)
+    );
+  }
+}
+
+.navLinkDisabled {
+  color: var(--fui-color-text-muted);
+  pointer-events: none;
+  cursor: default;
+}
+
+// ============================================
+// RESPONSIVE EXPANSION
+// ============================================
+
+.expandSm {
+  @include navbar-expand(sm);
+}
+
+.expandMd {
+  @include navbar-expand(md);
+}
+
+.expandLg {
+  @include navbar-expand(lg);
+}
+
+.expandXl {
+  @include navbar-expand(xl);
+}
+
+.expandXxl {
+  @include navbar-expand(xxl);
+}
+
+// Always expanded
+.expand {
+  @include navbar-expand;
+}
+
+// ============================================
+// COLOR SCHEMES
+// ============================================
+
+.light .togglerIcon {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.dark .togglerIcon {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.primary .togglerIcon {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+// ============================================
+// POSITIONING
+// ============================================
+
+.fixedTop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: $zindex-fixed;
+  box-shadow: var(--fui-shadow-soft);
+  transition: box-shadow $transition-gentle;
+
+  // Enhanced shadow on scroll (add .scrolled class via JS)
+  &.scrolled {
+    box-shadow: var(--fui-shadow);
+  }
+}
+
+.fixedBottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-fixed;
+}
+
+.stickyTop {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-sticky;
+  box-shadow: var(--fui-shadow-soft);
+  transition: box-shadow $transition-gentle;
+
+  // Enhanced shadow on scroll (add .scrolled class via JS)
+  &.scrolled {
+    box-shadow: var(--fui-shadow);
+  }
+}
+
+.stickyBottom {
+  position: sticky;
+  bottom: 0;
+  z-index: $zindex-sticky;
+}

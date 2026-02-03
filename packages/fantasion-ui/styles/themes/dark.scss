@@ -1,0 +1,242 @@
+@use 'sass:color';
+@use '../variables' as *;
+@use '../functions' as *;
+
+// ============================================
+// DARK THEME
+// Applied via [data-theme="dark"] or OS preference
+// ============================================
+
+@mixin dark-theme-variables {
+  // Brand colors - lightened for visibility on dark backgrounds
+  --fui-color-primary: #{color.adjust($color-primary, $lightness: 20%)};
+  --fui-color-primary-rgb: 131, 102, 186;
+  --fui-color-secondary: #{$color-secondary};
+  --fui-color-secondary-rgb: 215, 166, 0;
+
+  // Semantic colors - slightly adjusted for dark mode
+  --fui-color-success: #{color.adjust($color-success, $lightness: 10%)};
+  --fui-color-success-rgb: 37, 165, 104;
+  --fui-color-danger: #{color.adjust($color-danger, $lightness: 10%)};
+  --fui-color-danger-rgb: 232, 83, 99;
+  --fui-color-warning: #{$color-warning};
+  --fui-color-warning-rgb: 255, 193, 7;
+  --fui-color-info: #{color.adjust($color-info, $lightness: -10%)};
+  --fui-color-info-rgb: 11, 172, 204;
+
+  // Background colors
+  --fui-color-background: #{$color-gray-900};
+  --fui-color-surface: #{$color-gray-800};
+  --fui-color-surface-raised: #{$color-gray-700};
+
+  // Text colors
+  --fui-color-text: #{$color-gray-100};
+  --fui-color-text-muted: #{$color-gray-400};
+  --fui-color-text-inverse: #{$color-gray-900};
+
+  // Border colors
+  --fui-color-border: #{$color-gray-700};
+  --fui-color-border-muted: #{$color-gray-800};
+
+  // Form colors
+  --fui-color-input-bg: #{$color-gray-800};
+  --fui-color-input-border: #{$color-gray-600};
+  --fui-color-input-focus-border: #{color.adjust(
+      $color-primary,
+      $lightness: 20%
+    )};
+  --fui-color-input-placeholder: #{$color-gray-500};
+
+  // Neutral colors (inverted perception)
+  --fui-color-white: #{$color-white};
+  --fui-color-black: #{$color-black};
+  --fui-color-gray-100: #{$color-gray-900};
+  --fui-color-gray-200: #{$color-gray-800};
+  --fui-color-gray-300: #{$color-gray-700};
+  --fui-color-gray-400: #{$color-gray-600};
+  --fui-color-gray-500: #{$color-gray-500};
+  --fui-color-gray-600: #{$color-gray-400};
+  --fui-color-gray-700: #{$color-gray-300};
+  --fui-color-gray-800: #{$color-gray-200};
+  --fui-color-gray-900: #{$color-gray-100};
+
+  // Shadows - stronger for dark mode
+  --fui-shadow-sm: 0 #{grid(0.5)} #{grid(1)} rgba(0, 0, 0, 0.2);
+  --fui-shadow: 0 #{grid(2)} #{grid(4)} rgba(0, 0, 0, 0.3);
+  --fui-shadow-lg: 0 #{grid(4)} #{grid(12)} rgba(0, 0, 0, 0.4);
+
+  // Button: Primary — lighter base for dark mode
+  --fui-btn-primary-bg: #{color.adjust($color-primary, $lightness: 15%)};
+  --fui-btn-primary-color: #{$color-white};
+  --fui-btn-primary-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 15%
+    )};
+  --fui-btn-primary-hover-bg: #{color.adjust($color-primary, $lightness: 22%)};
+  --fui-btn-primary-hover-color: #{$color-white};
+  --fui-btn-primary-hover-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 22%
+    )};
+  --fui-btn-primary-active-bg: #{color.adjust($color-primary, $lightness: 10%)};
+  --fui-btn-primary-active-color: #{$color-white};
+  --fui-btn-primary-active-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 10%
+    )};
+  --fui-btn-primary-disabled-bg: #{color.adjust($color-primary, $lightness: 5%)};
+  --fui-btn-primary-disabled-color: #{$color-gray-400};
+  --fui-btn-primary-disabled-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 5%
+    )};
+
+  // Button: Secondary
+  --fui-btn-secondary-bg: #{$color-secondary};
+  --fui-btn-secondary-color: #{$color-black};
+  --fui-btn-secondary-border-color: #{$color-secondary};
+  --fui-btn-secondary-hover-bg: #{color.adjust(
+      $color-secondary,
+      $lightness: 10%
+    )};
+  --fui-btn-secondary-hover-color: #{$color-black};
+  --fui-btn-secondary-hover-border-color: #{color.adjust(
+      $color-secondary,
+      $lightness: 10%
+    )};
+  --fui-btn-secondary-active-bg: #{shade($color-secondary, 15%)};
+  --fui-btn-secondary-active-color: #{$color-black};
+  --fui-btn-secondary-active-border-color: #{shade($color-secondary, 15%)};
+  --fui-btn-secondary-disabled-bg: #{shade($color-secondary, 40%)};
+  --fui-btn-secondary-disabled-color: #{$color-gray-500};
+  --fui-btn-secondary-disabled-border-color: #{shade($color-secondary, 40%)};
+
+  // Button: Outline Primary
+  --fui-btn-outline-primary-color: #{color.adjust(
+      $color-primary,
+      $lightness: 20%
+    )};
+  --fui-btn-outline-primary-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 20%
+    )};
+  --fui-btn-outline-primary-hover-bg: #{color.adjust(
+      $color-primary,
+      $lightness: 15%
+    )};
+  --fui-btn-outline-primary-hover-color: #{$color-white};
+  --fui-btn-outline-primary-hover-border-color: #{color.adjust(
+      $color-primary,
+      $lightness: 15%
+    )};
+
+  // Button: Outline Secondary
+  --fui-btn-outline-secondary-color: #{$color-secondary};
+  --fui-btn-outline-secondary-border-color: #{$color-secondary};
+  --fui-btn-outline-secondary-hover-bg: #{$color-secondary};
+  --fui-btn-outline-secondary-hover-color: #{$color-black};
+  --fui-btn-outline-secondary-hover-border-color: #{$color-secondary};
+
+  // Button: Link
+  --fui-btn-link-color: #{color.adjust($color-primary, $lightness: 20%)};
+  --fui-btn-link-hover-color: #{color.adjust($color-primary, $lightness: 28%)};
+
+  // Modal backdrop
+  --fui-modal-backdrop-bg: rgba(0, 0, 0, 0.7);
+
+  // Shadows
+  --fui-shadow-soft: 0 #{grid(1)} #{grid(2)} rgba(0, 0, 0, 0.2);
+  --fui-focus-ring: 0 0 0 #{grid(1)} rgba(131, 102, 186, 0.3);
+
+  // Component-specific
+  --fui-navbar-bg: transparent;
+  --fui-navbar-color: #{$color-gray-100};
+  --fui-navbar-color: #{$color-early-dawn};
+  --fui-navbar-color-hover: #{color.mix(
+      $color-early-dawn,
+      $color-minsk-purple,
+      33%
+    )};
+  --fui-card-bg: #{$color-gray-800};
+  --fui-dropdown-bg: #{$color-gray-800};
+  --fui-dropdown-border-color: #{$color-gray-700};
+
+  // Component: Breadcrumb
+  --fui-breadcrumb-divider-color: #{$color-gray-500};
+  --fui-breadcrumb-active-color: #{$color-gray-400};
+
+  // Component: Tooltip
+  --fui-tooltip-color: #{$color-gray-100};
+  --fui-tooltip-bg: #{$color-gray-700};
+
+  // Component: Offcanvas
+  --fui-offcanvas-bg: #{$color-gray-800};
+  --fui-offcanvas-border-color: #{$color-gray-700};
+
+  // Component: Nav
+  --fui-nav-link-color: #{$color-early-dawn};
+  --fui-nav-link-hover-color: #{color.mix(
+      $color-early-dawn,
+      $color-minsk-purple,
+      28%
+    )};
+
+  // Component: Dropdown
+  --fui-dropdown-link-color: #{$color-gray-100};
+  --fui-dropdown-link-hover-color: #{$color-gray-100};
+  --fui-dropdown-link-hover-bg: #{$color-gray-700};
+  --fui-dropdown-divider-color: #{$color-gray-700};
+
+  // Component: ListGroup
+  --fui-list-group-bg: #{$color-gray-800};
+  --fui-list-group-border-color: #{$color-gray-700};
+  --fui-list-group-action-hover-bg: #{$color-gray-700};
+  --fui-list-group-action-active-bg: #{$color-gray-600};
+
+  // Utility colors
+  --fui-color-light: #{$color-gray-800};
+  --fui-color-dark: #{$color-gray-100};
+
+  // Subtle bg variants — darker shades for dark mode
+  --fui-color-primary-bg-subtle: #{shade($color-primary, 60%)};
+  --fui-color-primary-bg-subtle-hover: #{shade($color-primary, 50%)};
+  --fui-color-secondary-bg-subtle: #{shade($color-secondary, 60%)};
+  --fui-color-secondary-bg-subtle-hover: #{shade($color-secondary, 50%)};
+  --fui-color-success-bg-subtle: #{shade($color-success, 60%)};
+  --fui-color-success-bg-subtle-hover: #{shade($color-success, 50%)};
+  --fui-color-danger-bg-subtle: #{shade($color-danger, 60%)};
+  --fui-color-danger-bg-subtle-hover: #{shade($color-danger, 50%)};
+  --fui-color-warning-bg-subtle: #{shade($color-warning, 60%)};
+  --fui-color-warning-bg-subtle-hover: #{shade($color-warning, 50%)};
+  --fui-color-info-bg-subtle: #{shade($color-info, 60%)};
+  --fui-color-info-bg-subtle-hover: #{shade($color-info, 50%)};
+  --fui-color-light-bg-subtle: #{$color-gray-800};
+  --fui-color-light-bg-subtle-hover: #{$color-gray-700};
+  --fui-color-dark-bg-subtle: #{$color-gray-700};
+  --fui-color-dark-bg-subtle-hover: #{$color-gray-600};
+
+  // Component: Card
+  --fui-card-border-color: #{$color-gray-700};
+  --fui-card-header-bg: #{$color-gray-700};
+  --fui-card-footer-bg: #{$color-gray-700};
+
+  // SVG data URIs for select arrows
+  --fui-form-select-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dee2e6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  --fui-form-select-indicator-focus: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238366ba' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+  // Switch unchecked indicator
+  --fui-form-switch-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,.25)'/%3e%3c/svg%3e");
+}
+
+// Explicit dark theme via attribute
+[data-theme='dark'] {
+  @include dark-theme-variables;
+}
+
+// Automatic dark theme based on OS preference
+// Only applies when no explicit theme is set
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-theme-variables;
+  }
+}

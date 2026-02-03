@@ -1,0 +1,382 @@
+@use '../styles/core' as *;
+
+// ============================================
+// CARD
+// ============================================
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: var(--fui-card-bg);
+  background-clip: border-box;
+  border: $border-width solid var(--fui-card-border-color);
+  border-radius: $border-radius-lg; // Rounder corners for friendly feel
+  box-shadow: var(--fui-shadow-soft); // Soft, diffused shadow
+
+  // Mobile: smaller radius and padding
+  @include media-down(sm) {
+    border-radius: $border-radius;
+  }
+}
+
+// Border variants
+.borderPrimary {
+  border-color: var(--fui-color-primary);
+}
+
+.borderSecondary {
+  border-color: var(--fui-color-secondary);
+}
+
+.borderSuccess {
+  border-color: var(--fui-color-success);
+}
+
+.borderDanger {
+  border-color: var(--fui-color-danger);
+}
+
+.borderWarning {
+  border-color: var(--fui-color-warning);
+}
+
+.borderInfo {
+  border-color: var(--fui-color-info);
+}
+
+.borderLight {
+  border-color: var(--fui-color-light);
+}
+
+.borderDark {
+  border-color: var(--fui-color-dark);
+}
+
+// Background variants
+.bgPrimary {
+  background-color: var(--fui-color-primary);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgSecondary {
+  background-color: var(--fui-color-secondary);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgSuccess {
+  background-color: var(--fui-color-success);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgDanger {
+  background-color: var(--fui-color-danger);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgWarning {
+  background-color: var(--fui-color-warning);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgInfo {
+  background-color: var(--fui-color-info);
+  color: var(--fui-color-text-inverse);
+}
+
+.bgLight {
+  background-color: var(--fui-color-light);
+  color: var(--fui-color-text);
+}
+
+.bgDark {
+  background-color: var(--fui-color-dark);
+  color: var(--fui-color-text-inverse);
+}
+
+// Text color variants
+.textPrimary {
+  color: var(--fui-color-primary);
+}
+
+.textSecondary {
+  color: var(--fui-color-secondary);
+}
+
+.textSuccess {
+  color: var(--fui-color-success);
+}
+
+.textDanger {
+  color: var(--fui-color-danger);
+}
+
+.textWarning {
+  color: var(--fui-color-warning);
+}
+
+.textInfo {
+  color: var(--fui-color-info);
+}
+
+.textLight {
+  color: var(--fui-color-light);
+}
+
+.textDark {
+  color: var(--fui-color-dark);
+}
+
+.textMuted {
+  color: var(--fui-color-text-muted);
+}
+
+.textWhite {
+  color: var(--fui-color-white);
+}
+
+// ============================================
+// CARD HEADER
+// ============================================
+
+.header {
+  padding: $spacer-lg; // More generous padding
+  margin-bottom: 0;
+  background-color: var(--fui-card-header-bg);
+  border-bottom: $border-width solid var(--fui-card-border-color);
+
+  &:first-child {
+    border-radius: calc(#{$border-radius-lg} - #{$border-width}) calc(#{$border-radius-lg} - #{$border-width}) 0 0;
+  }
+
+  // Mobile: smaller padding
+  @include media-down(sm) {
+    padding: $spacer-md; // 16px on mobile
+  }
+}
+
+// ============================================
+// CARD BODY
+// ============================================
+
+.body {
+  flex: 1 1 auto;
+  padding: $spacer-lg; // More generous padding
+
+  // Mobile: smaller padding
+  @include media-down(sm) {
+    padding: $spacer-md; // 16px on mobile
+  }
+}
+
+// ============================================
+// CARD FOOTER
+// ============================================
+
+.footer {
+  padding: $spacer-lg; // More generous padding
+  background-color: var(--fui-card-footer-bg);
+  border-top: $border-width solid var(--fui-card-border-color);
+
+  &:last-child {
+    border-radius: 0 0 calc(#{$border-radius-lg} - #{$border-width}) calc(#{$border-radius-lg} - #{$border-width});
+  }
+
+  // Mobile: smaller padding
+  @include media-down(sm) {
+    padding: $spacer-md; // 16px on mobile
+  }
+}
+
+// ============================================
+// CARD TITLE
+// ============================================
+
+.title {
+  margin-bottom: $spacer-sm;
+}
+
+// ============================================
+// CARD SUBTITLE
+// ============================================
+
+.subtitle {
+  margin-top: calc(-#{$spacer-sm} / 2);
+  margin-bottom: 0;
+  color: var(--fui-color-text-muted);
+}
+
+// ============================================
+// CARD TEXT
+// ============================================
+
+.text {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ============================================
+// CARD IMG
+// ============================================
+
+.img {
+  width: 100%;
+}
+
+.imgTop {
+  border-top-left-radius: calc(#{$border-radius-lg} - #{$border-width});
+  border-top-right-radius: calc(#{$border-radius-lg} - #{$border-width});
+}
+
+.imgBottom {
+  border-bottom-left-radius: calc(#{$border-radius-lg} - #{$border-width});
+  border-bottom-right-radius: calc(#{$border-radius-lg} - #{$border-width});
+}
+
+// ============================================
+// CARD IMG OVERLAY
+// ============================================
+
+.imgOverlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: $spacer-lg;
+  border-radius: calc(#{$border-radius-lg} - #{$border-width});
+}
+
+// ============================================
+// CARD LINK
+// ============================================
+
+.link {
+  color: var(--fui-color-primary);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color $transition-fast;
+
+  // Animated underline
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--fui-color-primary),
+      var(--fui-color-secondary)
+    );
+    transition: width $transition-gentle;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  + .link {
+    margin-left: $spacer-md;
+  }
+}
+
+// ============================================
+// INTERACTIVE CARD VARIANT
+// ============================================
+
+.cardInteractive {
+  cursor: pointer;
+  transition:
+    transform $transition-gentle,
+    box-shadow $transition-gentle,
+    border-color $transition-gentle;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--fui-shadow);
+    border-color: rgba(var(--fui-color-primary-rgb), 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--fui-shadow-soft);
+    transition: transform $transition-fast;
+  }
+
+  &:focus-visible {
+    outline: 0;
+    box-shadow: var(--fui-shadow), var(--fui-focus-ring);
+    border-color: var(--fui-color-primary);
+  }
+}
+
+// Image zoom on hover
+.cardInteractive:hover .imgTop img {
+  transform: scale(1.05);
+  transition: transform $transition-gentle;
+}
+
+.imgTop img {
+  transition: transform $transition-gentle;
+}
+
+// ============================================
+// FEATURED CARD WITH SHIMMER
+// ============================================
+
+.cardFeatured {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(var(--fui-color-secondary-rgb), 0.1),
+      transparent
+    );
+    transition: left 0.5s ease-out;
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// ============================================
+// ENHANCED BORDER VARIANTS WITH GLOW
+// ============================================
+
+.borderPrimary {
+  border-color: var(--fui-color-primary);
+  box-shadow:
+    var(--fui-shadow-soft),
+    inset 0 0 0 1px rgba(var(--fui-color-primary-rgb), 0.1);
+
+  &.cardInteractive:hover {
+    box-shadow:
+      var(--fui-shadow),
+      inset 0 0 0 1px rgba(var(--fui-color-primary-rgb), 0.2);
+  }
+}
+
+.borderSecondary {
+  &.cardInteractive:hover {
+    box-shadow:
+      var(--fui-shadow),
+      inset 0 0 0 1px rgba(var(--fui-color-secondary-rgb), 0.2);
+  }
+}

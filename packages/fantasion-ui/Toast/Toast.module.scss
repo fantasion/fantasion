@@ -1,0 +1,276 @@
+@use '../styles/core' as *;
+
+// ============================================
+// TOAST
+// Notification popup component
+// ============================================
+
+.toast {
+  width: 350px;
+  max-width: 100%;
+  font-size: $toast-font-size;
+  background-color: var(--fui-color-surface);
+  background-clip: padding-box;
+  border: $border-width solid var(--fui-color-border);
+  border-radius: $toast-border-radius;
+  box-shadow: $toast-box-shadow;
+
+  // Animation
+  animation: toastSlideIn $transition-base;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Fade out animation for dismissing
+.hiding {
+  animation: toastFadeOut $transition-base forwards;
+}
+
+@keyframes toastFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// ============================================
+// TOAST PARTS
+// ============================================
+
+// Header
+.header {
+  display: flex;
+  align-items: center;
+  padding: $toast-padding-y $toast-padding-x;
+  color: var(--fui-color-text-muted);
+  background-color: var(--fui-color-surface);
+  background-clip: padding-box;
+  border-bottom: $border-width solid var(--fui-color-border-muted);
+  border-top-left-radius: calc($toast-border-radius - $border-width);
+  border-top-right-radius: calc($toast-border-radius - $border-width);
+}
+
+// Icon in header
+.icon {
+  margin-right: $spacer-sm;
+  width: grid(5);
+  height: grid(5);
+}
+
+// Title
+.title {
+  margin-right: auto;
+  font-weight: $font-weight-semibold;
+  color: var(--fui-color-text);
+}
+
+// Timestamp
+.time {
+  font-size: $font-size-sm * 0.875;
+  color: var(--fui-color-text-muted);
+}
+
+// Close button
+.close {
+  @include button-reset;
+  margin-left: $spacer-sm;
+  padding: $spacer-xs;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--fui-color-text-muted);
+  opacity: 0.5;
+  @include transition(opacity);
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// Body
+.body {
+  padding: $toast-padding-y $toast-padding-x;
+  word-wrap: break-word;
+}
+
+// ============================================
+// TOAST CONTAINER
+// Positioning container for toasts
+// ============================================
+
+.container {
+  position: fixed;
+  z-index: $zindex-toast;
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none;
+
+  // Make individual toasts clickable
+  > .toast {
+    pointer-events: auto;
+  }
+
+  // Stack toasts
+  > .toast + .toast {
+    margin-top: $spacer-sm;
+  }
+}
+
+// Position variants
+.topStart {
+  top: $spacer-md;
+  left: $spacer-md;
+}
+
+.topCenter {
+  top: $spacer-md;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.topEnd {
+  top: $spacer-md;
+  right: $spacer-md;
+}
+
+.middleStart {
+  top: 50%;
+  left: $spacer-md;
+  transform: translateY(-50%);
+}
+
+.middleCenter {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.middleEnd {
+  top: 50%;
+  right: $spacer-md;
+  transform: translateY(-50%);
+}
+
+.bottomStart {
+  bottom: $spacer-md;
+  left: $spacer-md;
+}
+
+.bottomCenter {
+  bottom: $spacer-md;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottomEnd {
+  bottom: $spacer-md;
+  right: $spacer-md;
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.primary {
+  background-color: var(--fui-color-primary);
+  color: var(--fui-color-text-inverse);
+  border-color: var(--fui-color-primary);
+
+  .header {
+    background-color: color-mix(in srgb, var(--fui-color-primary) 90%, var(--fui-color-black));
+    border-color: color-mix(in srgb, var(--fui-color-primary) 80%, var(--fui-color-black));
+    color: var(--fui-color-text-inverse);
+  }
+
+  .title,
+  .time,
+  .close {
+    color: inherit;
+  }
+}
+
+.success {
+  background-color: var(--fui-color-success);
+  color: var(--fui-color-white);
+  border-color: var(--fui-color-success);
+
+  .header {
+    background-color: color-mix(in srgb, var(--fui-color-success) 90%, var(--fui-color-black));
+    border-color: color-mix(in srgb, var(--fui-color-success) 80%, var(--fui-color-black));
+    color: var(--fui-color-white);
+  }
+
+  .title,
+  .time,
+  .close {
+    color: inherit;
+  }
+}
+
+.danger {
+  background-color: var(--fui-color-danger);
+  color: var(--fui-color-white);
+  border-color: var(--fui-color-danger);
+
+  .header {
+    background-color: color-mix(in srgb, var(--fui-color-danger) 90%, var(--fui-color-black));
+    border-color: color-mix(in srgb, var(--fui-color-danger) 80%, var(--fui-color-black));
+    color: var(--fui-color-white);
+  }
+
+  .title,
+  .time,
+  .close {
+    color: inherit;
+  }
+}
+
+.warning {
+  background-color: var(--fui-color-warning);
+  color: var(--fui-color-black);
+  border-color: var(--fui-color-warning);
+
+  .header {
+    background-color: color-mix(in srgb, var(--fui-color-warning) 90%, var(--fui-color-black));
+    border-color: color-mix(in srgb, var(--fui-color-warning) 80%, var(--fui-color-black));
+    color: var(--fui-color-black);
+  }
+
+  .title,
+  .time,
+  .close {
+    color: inherit;
+  }
+}
+
+.info {
+  background-color: var(--fui-color-info);
+  color: var(--fui-color-black);
+  border-color: var(--fui-color-info);
+
+  .header {
+    background-color: color-mix(in srgb, var(--fui-color-info) 90%, var(--fui-color-black));
+    border-color: color-mix(in srgb, var(--fui-color-info) 80%, var(--fui-color-black));
+    color: var(--fui-color-black);
+  }
+
+  .title,
+  .time,
+  .close {
+    color: inherit;
+  }
+}

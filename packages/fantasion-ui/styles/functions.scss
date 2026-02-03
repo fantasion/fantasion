@@ -1,0 +1,116 @@
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:map';
+
+// ============================================
+// COLOR FUNCTIONS
+// ============================================
+
+/// Slightly lighten a color
+/// @param {Color} $color - color to lighten
+/// @param {Number} $percentage - percentage to lighten by
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return color.mix(#fff, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @param {Color} $color - color to darken
+/// @param {Number} $percentage - percentage to darken by
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return color.mix(#000, $color, $percentage);
+}
+
+/// Get color contrast (black or white) for a given background
+/// @param {Color} $background - background color
+/// @return {Color}
+@function color-contrast($background) {
+  $r: color.red($background);
+  $g: color.green($background);
+  $b: color.blue($background);
+  $yiq: math.div(($r * 299) + ($g * 587) + ($b * 114), 1000);
+  @if $yiq >= 150 {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+/// Adjust color opacity
+/// @param {Color} $color - color to adjust
+/// @param {Number} $opacity - opacity value (0-1)
+/// @return {Color}
+@function opacity($color, $opacity) {
+  @return rgba($color, $opacity);
+}
+
+// ============================================
+// GRID FUNCTION
+// ============================================
+
+/// Returns a rem value based on a 4px grid unit
+/// @param {Number} $units - number of 4px grid units
+/// @return {Number} - value in rem (assuming 16px base)
+/// Example: grid(1) = 0.25rem (4px), grid(4) = 1rem (16px)
+@function grid($units) {
+  @return $units * 4px;
+}
+
+// ============================================
+// SPACING FUNCTIONS
+// ============================================
+
+/// Convert px to rem
+/// @param {Number} $px - pixel value
+/// @param {Number} $base - base font size (default 16)
+/// @return {Number}
+@function px-to-rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+/// Convert rem to px
+/// @param {Number} $rem - rem value
+/// @param {Number} $base - base font size (default 16)
+/// @return {Number}
+@function rem-to-px($rem, $base: 16) {
+  @return math.div($rem, 1rem) * $base * 1px;
+}
+
+// ============================================
+// MAP FUNCTIONS
+// ============================================
+
+/// Get value from map with fallback
+/// @param {Map} $map - the map
+/// @param {String} $key - the key
+/// @param {*} $fallback - fallback value if key not found
+/// @return {*}
+@function map-get-or($map, $key, $fallback) {
+  @if map.has-key($map, $key) {
+    @return map.get($map, $key);
+  }
+  @return $fallback;
+}
+
+// ============================================
+// STRING FUNCTIONS
+// ============================================
+
+/// Replace substring in string
+/// @param {String} $string - input string
+/// @param {String} $search - search string
+/// @param {String} $replace - replacement string
+/// @return {String}
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+  @return $string;
+}

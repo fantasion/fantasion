@@ -1,0 +1,36 @@
+// ============================================
+// FANTASION UI - Main SCSS Entry Point
+// ============================================
+//
+// NOTE: Most component styles are now co-located with their JSX components
+// as CSS modules (ComponentName.module.scss). This file only includes:
+// - Global reset
+// - CSS custom property themes
+// - Grid system (kept global due to 72+ dynamic column classes)
+
+// Reset
+@use 'reset';
+
+// Animations
+@use 'animations';
+
+// Themes (CSS custom properties)
+@use 'themes/light';
+@use 'themes/dark';
+
+// Grid (kept global for dynamic responsive classes: fui-col-1 through fui-col-12, etc.)
+@use '../grid/Grid/Grid.module';
+
+// ============================================
+// GLOBAL FOCUS MANAGEMENT
+// ============================================
+
+:focus-visible {
+  outline: 2px solid var(--fui-color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}

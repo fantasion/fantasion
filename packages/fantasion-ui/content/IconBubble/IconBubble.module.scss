@@ -1,0 +1,14 @@
+// Use CSS variables for theming
+.bubble {
+  $size: calc(1rem * 2);
+
+  align-items: center;
+  background: var(--fui-color-primary);
+  border-radius: 100%;
+  color: var(--fui-color-white);
+  display: flex;
+  height: $size;
+  justify-content: center;
+  overflow: hidden;
+  width: $size;
+}

@@ -1,0 +1,229 @@
+@use 'sass:map';
+@use '../../styles/core' as *;
+
+// ============================================
+// MODAL
+// Dialog/modal component with smooth transitions
+// ============================================
+
+// Backdrop
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex-modal-backdrop;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--fui-modal-backdrop-bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: $spacer-lg;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // Initial state - invisible
+  opacity: 0;
+  transition: opacity $transition-gentle;
+}
+
+// Visible state
+.backdropVisible {
+  opacity: 1;
+}
+
+// Modal dialog
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: $modal-width-md;
+  margin: $spacer-lg auto;
+  background-color: var(--fui-color-surface);
+  background-clip: padding-box;
+  border: $border-width solid var(--fui-color-border);
+  border-radius: $modal-content-border-radius;
+  box-shadow: var(--fui-shadow-lg);
+
+  // Initial state - offset and invisible
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  transition:
+    opacity $transition-gentle,
+    transform $transition-gentle;
+}
+
+// Visible state
+.modalVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+// Centered modal
+.centered {
+  margin: auto;
+}
+
+.backdrop:has(.centered) {
+  align-items: center;
+}
+
+// ============================================
+// SIZES
+// ============================================
+
+.sm {
+  max-width: $modal-width-sm;
+}
+
+.lg {
+  max-width: $modal-width-lg;
+}
+
+.xl {
+  max-width: $modal-width-xl;
+}
+
+.fullscreen {
+  width: 100vw;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+// Responsive fullscreen
+.fullscreenSmDown {
+  @include media-down(sm) {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.fullscreenMdDown {
+  @include media-down(md) {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.fullscreenLgDown {
+  @include media-down(lg) {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.fullscreenXlDown {
+  @include media-down(xl) {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.fullscreenXxlDown {
+  @include media-down(xxl) {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+// ============================================
+// MODAL PARTS
+// ============================================
+
+// Header
+.header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: $modal-header-padding;
+  border-bottom: $border-width solid var(--fui-color-border);
+  border-top-left-radius: calc($modal-content-border-radius - $border-width);
+  border-top-right-radius: calc($modal-content-border-radius - $border-width);
+}
+
+// Title
+.title {
+  margin-bottom: 0;
+  line-height: $line-height-base;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+}
+
+// Close button
+.close {
+  @include button-reset;
+  padding: $spacer-sm;
+  margin: (-$spacer-sm) (-$spacer-sm) (-$spacer-sm) auto;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  font-size: grid(6);
+  line-height: 1;
+  color: var(--fui-color-text-muted);
+  opacity: 0.5;
+  transition: opacity $transition-fast, transform $transition-fast;
+
+  &:hover {
+    opacity: 0.75;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// Body
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: $modal-body-padding;
+}
+
+// Footer
+.footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacer-sm;
+  padding: $modal-footer-padding;
+  border-top: $border-width solid var(--fui-color-border);
+  border-bottom-right-radius: calc($modal-content-border-radius - $border-width);
+  border-bottom-left-radius: calc($modal-content-border-radius - $border-width);
+}
+
+// ============================================
+// SCROLLABLE MODAL
+// ============================================
+
+.scrollable {
+  max-height: calc(100vh - $spacer-lg * 2);
+  display: flex;
+  flex-direction: column;
+
+  .body {
+    overflow-y: auto;
+  }
+}

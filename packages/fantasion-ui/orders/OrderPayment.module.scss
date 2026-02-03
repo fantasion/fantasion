@@ -1,0 +1,29 @@
+.paymentRow {
+  display: flex;
+  align-items: baseline;
+  border-bottom: 1px solid #f8f9fa;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .orderRowLabel {
+    display: inline-block;
+    font-weight: bold;
+    width: calc(var(--fui-spacer) * 9);
+    vertical-align: middle;
+    flex-shrink: 1;
+  }
+
+  .orderRowValue {
+    display: inline-block;
+    flex-grow: 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+.copyPasta {
+  display: inline-block;
+  padding: calc(var(--fui-spacer) / 4) var(--fui-spacer);
+}

@@ -1,0 +1,72 @@
+@use "../../styles/core" as *;
+
+.label {
+  margin-bottom: 0;
+}
+
+.required {
+  font-weight: $font-weight-bold;
+}
+
+.inputContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: $spacer-sm;
+  border: 1px solid var(--fui-color-gray-400);
+  border-radius: $border-radius;
+  background-color: var(--fui-color-white);
+  cursor: text;
+  min-height: calc($spacer-xl + $spacer-sm);
+
+  &:focus-within {
+    border-color: var(--fui-color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--fui-color-primary) 25%, transparent);
+  }
+
+  &.disabled {
+    background-color: var(--fui-color-gray-100);
+    cursor: not-allowed;
+  }
+}
+
+.inputWrapper {
+  flex: 1;
+  min-width: 60px;
+}
+
+.input {
+  border: none;
+  outline: none;
+  width: 100%;
+  min-width: 60px;
+  padding: 0;
+  background: transparent;
+  font-size: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.emptyItem,
+.loadingItem {
+  color: var(--fui-color-gray-600);
+  font-style: italic;
+}
+
+.loadingItem {
+  display: flex;
+  align-items: center;
+  gap: $spacer-sm;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+}

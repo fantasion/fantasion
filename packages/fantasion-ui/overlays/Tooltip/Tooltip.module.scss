@@ -1,0 +1,174 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// TOOLTIP
+// Positioned tooltip component
+// ============================================
+
+.tooltip {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: block;
+  max-width: $tooltip-max-width;
+  padding: $tooltip-padding-y $tooltip-padding-x;
+  font-size: $tooltip-font-size;
+  line-height: $line-height-base;
+  color: var(--fui-tooltip-color);
+  text-align: center;
+  background-color: var(--fui-tooltip-bg);
+  border-radius: $tooltip-border-radius;
+  pointer-events: none;
+
+  // Animation
+  animation: tooltipFadeIn $transition-fast;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Arrow (using CSS triangles)
+.arrow {
+  position: absolute;
+  display: block;
+  width: grid(3);
+  height: grid(1.5);
+
+  &::before {
+    position: absolute;
+    content: '';
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+
+// ============================================
+// PLACEMENTS
+// ============================================
+
+// Top placement
+.top {
+  .arrow {
+    bottom: -grid(1.5);
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      top: -1px;
+      border-width: grid(1.5) grid(1.5) 0;
+      border-top-color: var(--fui-tooltip-bg);
+    }
+  }
+}
+
+// Bottom placement
+.bottom {
+  .arrow {
+    top: -grid(1.5);
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      bottom: -1px;
+      border-width: 0 grid(1.5) grid(1.5);
+      border-bottom-color: var(--fui-tooltip-bg);
+    }
+  }
+}
+
+// Left placement
+.left {
+  .arrow {
+    right: -grid(1.5);
+    top: 50%;
+    transform: translateY(-50%);
+    width: grid(1.5);
+    height: grid(3);
+
+    &::before {
+      left: -1px;
+      border-width: grid(1.5) 0 grid(1.5) grid(1.5);
+      border-left-color: var(--fui-tooltip-bg);
+    }
+  }
+}
+
+// Right placement
+.right {
+  .arrow {
+    left: -grid(1.5);
+    top: 50%;
+    transform: translateY(-50%);
+    width: grid(1.5);
+    height: grid(3);
+
+    &::before {
+      right: -1px;
+      border-width: grid(1.5) grid(1.5) grid(1.5) 0;
+      border-right-color: var(--fui-tooltip-bg);
+    }
+  }
+}
+
+// ============================================
+// VARIANTS
+// ============================================
+
+.light {
+  color: var(--fui-color-text);
+  background-color: var(--fui-color-surface);
+  border: $border-width solid var(--fui-color-border);
+  box-shadow: var(--fui-shadow-sm);
+
+  &.top .arrow::before {
+    border-top-color: var(--fui-color-surface);
+  }
+
+  &.bottom .arrow::before {
+    border-bottom-color: var(--fui-color-surface);
+  }
+
+  &.left .arrow::before {
+    border-left-color: var(--fui-color-surface);
+  }
+
+  &.right .arrow::before {
+    border-right-color: var(--fui-color-surface);
+  }
+}
+
+.primary {
+  background-color: var(--fui-color-primary);
+  color: var(--fui-color-text-inverse);
+
+  &.top .arrow::before {
+    border-top-color: var(--fui-color-primary);
+  }
+
+  &.bottom .arrow::before {
+    border-bottom-color: var(--fui-color-primary);
+  }
+
+  &.left .arrow::before {
+    border-left-color: var(--fui-color-primary);
+  }
+
+  &.right .arrow::before {
+    border-right-color: var(--fui-color-primary);
+  }
+}
+
+// ============================================
+// OVERLAY
+// For controlled positioning
+// ============================================
+
+.overlay {
+  position: absolute;
+  z-index: $zindex-tooltip;
+}

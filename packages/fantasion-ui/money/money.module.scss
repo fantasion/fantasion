@@ -1,0 +1,9 @@
+@import '../styles/variables';
+
+.active {
+  font-weight: bold;
+}
+
+.expired {
+  text-decoration: line-through;
+}

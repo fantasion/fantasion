@@ -1,0 +1,103 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// SPINNER
+// ============================================
+
+.spinner {
+  display: inline-block;
+  width: grid(8);
+  height: grid(8);
+  vertical-align: -0.125em;
+  border-radius: 50%;
+  animation: spinnerAnimation 0.75s linear infinite;
+}
+
+// Border animation
+.border {
+  border: 0.25em solid currentcolor;
+  border-right-color: transparent;
+}
+
+// Grow animation
+.grow {
+  background-color: currentcolor;
+  opacity: 0;
+  animation: spinnerGrow 0.75s linear infinite;
+}
+
+// Small size
+.sm {
+  width: grid(4);
+  height: grid(4);
+  border-width: 0.2em;
+}
+
+// Color variants
+.primary {
+  color: var(--fui-color-primary);
+}
+
+.secondary {
+  color: var(--fui-color-secondary);
+}
+
+.success {
+  color: var(--fui-color-success);
+}
+
+.danger {
+  color: var(--fui-color-danger);
+}
+
+.warning {
+  color: var(--fui-color-warning);
+}
+
+.info {
+  color: var(--fui-color-info);
+}
+
+.light {
+  color: var(--fui-color-gray-100);
+}
+
+.dark {
+  color: var(--fui-color-gray-800);
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes spinnerAnimation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinnerGrow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ============================================
+// VISUALLY HIDDEN
+// ============================================
+
+.visuallyHidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

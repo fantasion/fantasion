@@ -1,0 +1,306 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// LIST GROUP
+// ============================================
+
+.listGroup {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: $border-radius;
+}
+
+// Flush variant
+.flush {
+  border-radius: 0;
+
+  > .item {
+    border-width: 0 0 $border-width;
+    border-radius: 0;
+
+    &:last-child {
+      border-bottom-width: 0;
+    }
+  }
+}
+
+// Horizontal variant
+.horizontal {
+  flex-direction: row;
+
+  > .item {
+    &:first-child:not(:last-child) {
+      border-bottom-left-radius: $border-radius;
+      border-top-right-radius: 0;
+    }
+
+    &:last-child:not(:first-child) {
+      border-top-right-radius: $border-radius;
+      border-bottom-left-radius: 0;
+    }
+
+    &.itemActive {
+      margin-top: 0;
+    }
+
+    + .item {
+      border-top-width: $border-width;
+      border-left-width: 0;
+    }
+  }
+}
+
+// Responsive horizontal variants
+.horizontalSm {
+  @include list-group-horizontal(sm);
+}
+
+.horizontalMd {
+  @include list-group-horizontal(md);
+}
+
+.horizontalLg {
+  @include list-group-horizontal(lg);
+}
+
+.horizontalXl {
+  @include list-group-horizontal(xl);
+}
+
+.horizontalXxl {
+  @include list-group-horizontal(xxl);
+}
+
+// Numbered
+.numbered {
+  list-style-type: none;
+  counter-reset: section;
+
+  > .item::before {
+    content: counters(section, '.') '. ';
+    counter-increment: section;
+  }
+}
+
+// ============================================
+// LIST GROUP ITEM
+// ============================================
+
+.item {
+  position: relative;
+  display: block;
+  padding: $spacer-sm $spacer-md;
+  color: var(--fui-color-text);
+  text-decoration: none;
+  background-color: var(--fui-list-group-bg);
+  border: $border-width solid var(--fui-list-group-border-color);
+
+  &:first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  + .item {
+    border-top-width: 0;
+
+    &.itemActive {
+      margin-top: calc(-1 * #{$border-width});
+      border-top-width: $border-width;
+    }
+  }
+}
+
+// Action item
+.itemAction {
+  width: 100%;
+  color: var(--fui-color-text);
+  text-align: inherit;
+
+  &:hover,
+  &:focus {
+    z-index: 1;
+    color: var(--fui-color-text);
+    text-decoration: none;
+    background-color: var(--fui-list-group-action-hover-bg);
+  }
+
+  &:active {
+    color: var(--fui-color-text);
+    background-color: var(--fui-list-group-action-active-bg);
+  }
+}
+
+// Active state
+.itemActive {
+  z-index: 2;
+  color: var(--fui-color-text-inverse);
+  background-color: var(--fui-color-primary);
+  border-color: var(--fui-color-primary);
+}
+
+// Disabled state
+.itemDisabled {
+  color: var(--fui-color-text-muted);
+  pointer-events: none;
+  background-color: var(--fui-list-group-bg);
+}
+
+// Color variants
+.itemPrimary {
+  color: var(--fui-color-primary);
+  background-color: var(--fui-color-primary-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-primary);
+      background-color: var(--fui-color-primary-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-primary);
+      border-color: var(--fui-color-primary);
+    }
+  }
+}
+
+.itemSecondary {
+  color: var(--fui-color-secondary);
+  background-color: var(--fui-color-secondary-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-secondary);
+      background-color: var(--fui-color-secondary-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-secondary);
+      border-color: var(--fui-color-secondary);
+    }
+  }
+}
+
+.itemSuccess {
+  color: var(--fui-color-success);
+  background-color: var(--fui-color-success-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-success);
+      background-color: var(--fui-color-success-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-success);
+      border-color: var(--fui-color-success);
+    }
+  }
+}
+
+.itemDanger {
+  color: var(--fui-color-danger);
+  background-color: var(--fui-color-danger-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-danger);
+      background-color: var(--fui-color-danger-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-danger);
+      border-color: var(--fui-color-danger);
+    }
+  }
+}
+
+.itemWarning {
+  color: var(--fui-color-warning);
+  background-color: var(--fui-color-warning-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-warning);
+      background-color: var(--fui-color-warning-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-warning);
+      border-color: var(--fui-color-warning);
+    }
+  }
+}
+
+.itemInfo {
+  color: var(--fui-color-info);
+  background-color: var(--fui-color-info-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-info);
+      background-color: var(--fui-color-info-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-info);
+      border-color: var(--fui-color-info);
+    }
+  }
+}
+
+.itemLight {
+  color: var(--fui-color-light);
+  background-color: var(--fui-color-light-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-light);
+      background-color: var(--fui-color-light-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-light);
+      border-color: var(--fui-color-light);
+    }
+  }
+}
+
+.itemDark {
+  color: var(--fui-color-dark);
+  background-color: var(--fui-color-dark-bg-subtle);
+
+  &.itemAction {
+    &:hover,
+    &:focus {
+      color: var(--fui-color-dark);
+      background-color: var(--fui-color-dark-bg-subtle-hover);
+    }
+
+    &.itemActive {
+      color: var(--fui-color-text-inverse);
+      background-color: var(--fui-color-dark);
+      border-color: var(--fui-color-dark);
+    }
+  }
+}

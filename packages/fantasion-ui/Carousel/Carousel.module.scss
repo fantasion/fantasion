@@ -1,0 +1,201 @@
+@use '../styles/core' as *;
+
+// ============================================
+// CAROUSEL
+// ============================================
+
+.carousel {
+  position: relative;
+}
+
+// ============================================
+// CAROUSEL INNER
+// ============================================
+
+.inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+// ============================================
+// CAROUSEL ITEM
+// ============================================
+
+.item {
+  display: none;
+  position: relative;
+  width: 100%;
+  backface-visibility: hidden;
+  transition: transform $transition-gentle ease-in-out;
+}
+
+.itemActive {
+  display: block;
+}
+
+.itemContent {
+  display: block;
+  width: 100%;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+// Fade transition
+.fade {
+  .item {
+    opacity: 0;
+    transition-property: opacity;
+    transform: none;
+  }
+
+  .itemActive {
+    z-index: 1;
+    opacity: 1;
+  }
+}
+
+// ============================================
+// CAROUSEL CONTROLS
+// ============================================
+
+.control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: var(--fui-color-white);
+  text-align: center;
+  background: none;
+  border: 0;
+  opacity: 0.5;
+  transition: opacity $transition-fast ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus {
+    opacity: 0.9;
+    outline: 0;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--fui-color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.controlPrev {
+  left: 0;
+}
+
+.controlNext {
+  right: 0;
+}
+
+.controlIcon {
+  display: inline-block;
+  width: grid(8);
+  height: grid(8);
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: 50%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 50%;
+  -webkit-mask-size: 100% 100%;
+}
+
+.controlIconPrev {
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.controlIconNext {
+  mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+// ============================================
+// CAROUSEL INDICATORS
+// ============================================
+
+.indicators {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-right: 15%;
+  margin-bottom: grid(4);
+  margin-left: 15%;
+}
+
+.indicator {
+  box-sizing: content-box;
+  flex: 0 1 auto;
+  width: grid(8);
+  height: 3px;
+  padding: 0;
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  background-color: var(--fui-color-white);
+  background-clip: padding-box;
+  border: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  opacity: 0.5;
+  transition: opacity $transition-gentle ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.indicatorActive {
+  opacity: 1;
+}
+
+// ============================================
+// CAROUSEL CAPTION
+// ============================================
+
+.caption {
+  position: absolute;
+  right: 15%;
+  bottom: grid(5);
+  left: 15%;
+  padding-top: grid(5);
+  padding-bottom: grid(5);
+  color: var(--fui-color-white);
+  text-align: center;
+}
+
+// ============================================
+// VISUALLY HIDDEN
+// ============================================
+
+.visuallyHidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

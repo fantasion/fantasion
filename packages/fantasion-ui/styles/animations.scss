@@ -1,0 +1,61 @@
+@use 'variables' as *;
+
+// ============================================
+// KEYFRAME ANIMATIONS
+// ============================================
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(var(--fui-color-primary-rgb), 0.4); }
+  100% { box-shadow: 0 0 0 10px rgba(var(--fui-color-primary-rgb), 0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// UTILITY CLASSES
+// ============================================
+
+.fui-animate-bounce {
+  animation: gentle-bounce 0.5s ease-out;
+}
+
+.fui-hover-lift {
+  transition: transform $transition-gentle, box-shadow $transition-gentle;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--fui-shadow);
+  }
+}
+
+// ============================================
+// REDUCED MOTION
+// ============================================
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

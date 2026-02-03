@@ -1,0 +1,112 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../../styles/core' as *;
+
+// ============================================
+// CONTAINER
+// Responsive fixed-width container
+// ============================================
+
+.container {
+  @include make-container;
+
+  // Responsive max-widths
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    @include media-up($breakpoint) {
+      max-width: $container-max-width;
+    }
+  }
+}
+
+// Fluid container - full width at all breakpoints
+.fluid {
+  @include make-container;
+  max-width: 100%;
+}
+
+// Breakpoint-specific containers
+// e.g., .sm becomes 100% width below sm breakpoint
+.sm {
+  @include make-container;
+  max-width: 100%;
+
+  @include media-up('sm') {
+    max-width: $container-sm;
+  }
+
+  @include media-up('md') {
+    max-width: $container-md;
+  }
+
+  @include media-up('lg') {
+    max-width: $container-lg;
+  }
+
+  @include media-up('xl') {
+    max-width: $container-xl;
+  }
+
+  @include media-up('xxl') {
+    max-width: $container-xxl;
+  }
+}
+
+.md {
+  @include make-container;
+  max-width: 100%;
+
+  @include media-up('md') {
+    max-width: $container-md;
+  }
+
+  @include media-up('lg') {
+    max-width: $container-lg;
+  }
+
+  @include media-up('xl') {
+    max-width: $container-xl;
+  }
+
+  @include media-up('xxl') {
+    max-width: $container-xxl;
+  }
+}
+
+.lg {
+  @include make-container;
+  max-width: 100%;
+
+  @include media-up('lg') {
+    max-width: $container-lg;
+  }
+
+  @include media-up('xl') {
+    max-width: $container-xl;
+  }
+
+  @include media-up('xxl') {
+    max-width: $container-xxl;
+  }
+}
+
+.xl {
+  @include make-container;
+  max-width: 100%;
+
+  @include media-up('xl') {
+    max-width: $container-xl;
+  }
+
+  @include media-up('xxl') {
+    max-width: $container-xxl;
+  }
+}
+
+.xxl {
+  @include make-container;
+  max-width: 100%;
+
+  @include media-up('xxl') {
+    max-width: $container-xxl;
+  }
+}

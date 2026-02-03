@@ -1,0 +1,178 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.galleryImage {
+  width: 100%;
+}
+
+.squareLayout {
+  width: 100%;
+
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 66%;
+  }
+}
+
+.slideShow {
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .slideShowThumb {
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity .2s;
+  }
+
+  .slideShowCurrent {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@include media-up(md) {
+  .squareLayout {
+    &:after {
+      padding-bottom: 100%;
+    }
+  }
+}
+
+.thumbGallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--fui-spacer) / -4);
+  margin-right: calc(var(--fui-spacer) / -4);
+
+  .thumb {
+    display: block;
+    min-width: 164px;
+    flex: 1;
+    margin: calc(var(--fui-spacer) / 4);
+  }
+}
+
+.pageTopGallery {
+  background-color: #000;
+  height: grid(80);
+}
+
+.previewDiv {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.interactiveThumb {
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--fui-color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@include media-up(sm) {
+  .pageTopGallery {
+    height: 380px;
+  }
+}
+
+@include media-up(md) {
+  .pageTopGallery {
+    height: 420px;
+  }
+}
+
+@include media-up(lg) {
+  .pageTopGallery {
+    height: 500px;
+  }
+}
+
+@include media-up(xl) {
+  .pageTopGalleryContainer {
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 0;
+  }
+
+  .pageTopGallery {
+    height: 100%;
+    position: relative;
+
+    .previewDiv {
+      background-size: contain;
+      height: 100%;
+    }
+  }
+}
+
+.lightbox {
+  user-select: none;
+
+  :global(.modal-content) {
+    background: rgba(0, 0, 0, 0.66);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-base;
+  }
+}
+
+.lightboxButton {
+  background: none;
+  border: none;
+  display: block;
+  font-size: var(--fui-h2-font-size);
+  line-height: calc(var(--fui-h2-font-size) - 8px);
+  padding: 0;
+  position: absolute;
+  z-index: 1000;
+  color: var(--fui-color-primary);
+
+  &:disabled,
+  &:hover {
+    background: transparent;
+  }
+}
+
+.lightboxClose {
+  right: calc(var(--fui-spacer) / 2);
+  top: calc(var(--fui-spacer) / 2);
+}
+
+.lightboxPrev,
+.lightboxNext {
+  bottom: var(--fui-spacer);
+}
+
+.lightboxPrev {
+  left: calc(var(--fui-spacer) / 2);
+}
+
+.lightboxNext {
+  right: calc(var(--fui-spacer) / 2);
+}
+
+@include media-up(md) {
+  .lightboxContainer {
+    position: relative;
+  }
+}

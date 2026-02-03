@@ -1,0 +1,96 @@
+@use '../../styles/core' as *;
+
+// ============================================
+// BUTTON GROUP
+// Using [data-fui-btn] to target Button components
+// ============================================
+
+.btnGroup {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  > [data-fui-btn] {
+    position: relative;
+    flex: 1 1 auto;
+  }
+
+  // Prevent double borders
+  > [data-fui-btn]:not(:first-child),
+  > .btnGroup:not(:first-child) {
+    margin-left: calc(-1 * #{$border-width});
+  }
+
+  // Reset rounded corners
+  > [data-fui-btn]:not(:last-child):not(.dropdownToggle),
+  > .btnGroup:not(:last-child) > [data-fui-btn] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  > [data-fui-btn]:nth-child(n + 3),
+  > :not(.btnCheck) + [data-fui-btn],
+  > .btnGroup:not(:first-child) > [data-fui-btn] {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// ============================================
+// BUTTON GROUP SIZES
+// ============================================
+
+.sm > [data-fui-btn] {
+  padding: $spacer-xs $spacer-sm;
+  font-size: $font-size-sm;
+  border-radius: $border-radius-sm;
+}
+
+.lg > [data-fui-btn] {
+  padding: $spacer-sm $spacer-lg;
+  font-size: $font-size-lg;
+  border-radius: $border-radius-lg;
+}
+
+// ============================================
+// VERTICAL BUTTON GROUP
+// ============================================
+
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  > [data-fui-btn],
+  > .btnGroup {
+    width: 100%;
+  }
+
+  > [data-fui-btn]:not(:first-child),
+  > .btnGroup:not(:first-child) {
+    margin-top: calc(-1 * #{$border-width});
+    margin-left: 0;
+  }
+
+  > [data-fui-btn]:not(:last-child):not(.dropdownToggle),
+  > .btnGroup:not(:last-child) > [data-fui-btn] {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > [data-fui-btn] ~ [data-fui-btn],
+  > .btnGroup:not(:first-child) > [data-fui-btn] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+// ============================================
+// BUTTON TOOLBAR
+// ============================================
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
