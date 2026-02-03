@@ -3,7 +3,16 @@ __pycache__
 db.sqlite3
 *.tfstate
 *.tfstate*
+*.log
 .terraform
 /env
 terraform-credentials.json
 .terraform-credentials.json
+tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Playwright MCP
+.playwright-mcp/
+
+# Storybook test results
+packages/fantasion-ui/test-results.json
