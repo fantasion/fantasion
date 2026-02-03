@@ -122,7 +122,7 @@ class YearFilter(DefaultListFilter):
 
     def format_date(self, field, year):
         if isinstance(field, models.DateTimeField):
-            return f"{year}-01-01T00:00:00"
+            return f"{year}-01-01T00:00:00"  # noqa: E231
         return f"{year}-01-01"
 
     def queryset(self, request, queryset):

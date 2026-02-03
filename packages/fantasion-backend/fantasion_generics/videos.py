@@ -88,7 +88,7 @@ class VideoField(FileField):
             return [
                 checks.Error(
                     'Cannot use VideoField, because ffmpeg is not installed.',
-                    hint=('Install ffmpeg library using poetry'),
+                    hint=('Install ffmpeg library using uv'),
                     obj=self,
                     id='fields.E210',
                 )

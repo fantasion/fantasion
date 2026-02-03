@@ -105,16 +105,16 @@ def generate_payment_qr_png_data_uri(
         except (ValueError, TypeError):
             amount_value = float(str(amount).replace(',', '.'))
 
-    amount_formatted = f"{amount_value:.2f}"
+    amount_formatted = f"{amount_value:.2f}"  # noqa: E231
     message_escaped = str(message).replace('*', '%2A')
 
     emv_header = "SPD*1.0*"
     code_vars = [
-        f"ACC:{iban}",
-        f"AM:{amount_formatted}",
-        f"CC:{currency}",
-        f"MSG:{message_escaped}",
-        f"X-VS:{variable_symbol}",
+        f"ACC:{iban}",  # noqa: E231
+        f"AM:{amount_formatted}",  # noqa: E231
+        f"CC:{currency}",  # noqa: E231
+        f"MSG:{message_escaped}",  # noqa: E231
+        f"X-VS:{variable_symbol}",  # noqa: E231
     ]
     code = emv_header + "*".join(code_vars)
     buffer = BytesIO()
@@ -132,7 +132,7 @@ def generate_payment_qr_png_data_uri(
     img.save(buffer, format='PNG', optimize=False)
     buffer.seek(0)
     img_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
-    return f"data:image/png;base64,{img_data}"
+    return f"data:image/png;base64,{img_data}"  # noqa: E231,E702
 
 
 class EnabledField(BooleanField):
