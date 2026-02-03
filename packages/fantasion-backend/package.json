@@ -16,14 +16,16 @@
   "files": [],
   "scripts": {
     "build": "npm run build:messages && npm run build:py && npm run build:requirements",
-    "build:py": "poetry build -f sdist",
-    "build:messages": "poetry run python ./manage.py compilemessages",
-    "build:requirements": "poetry export -f requirements.txt --output requirements.txt",
-    "collectstatic": "poetry run python ./manage.py collectstatic --no-input",
-    "dev": "poetry run python ./manage.py runserver",
-    "lint": "poetry run flake8",
-    "migrate": "poetry run python ./manage.py migrate",
-    "python-install": "poetry install"
+    "build:py": "uv build --sdist",
+    "build:messages": "uv run python ./manage.py compilemessages",
+    "build:requirements": "uv export --no-hashes --no-emit-project -o requirements.txt",
+    "collectstatic": "uv run python ./manage.py collectstatic --no-input",
+    "db:seed": "uv run python ./manage.py create_test_data",
+    "dev": "uv run python ./manage.py runserver",
+    "lint": "uv run flake8",
+    "migrate": "uv run python ./manage.py migrate",
+    "shell": "uv run python ./manage.py shell",
+    "python-install": "uv sync"
   },
   "repository": {
     "type": "git",
