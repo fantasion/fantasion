@@ -63,6 +63,36 @@ jobs:
             packages/fantasion-web/*.tgz
             packages/fantasion-web/package-lock.json
 
+  storybook_tests:
+    name: Storybook Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run Storybook tests
+        run: pnpm --filter @fantasion/ui run test:storybook-ci
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: storybook-test-results
+          path: packages/fantasion-ui/test-results.json
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: storybook-screenshots
+          path: packages/fantasion-ui/.storybook/screenshots/
+
   build_backend:
     name: Build backend
     runs-on: ubuntu-latest
@@ -77,31 +107,29 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: 1.8.3
+      - uses: astral-sh/setup-uv@v5
       - uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/pypoetry
-          key: ${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+            ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
       - name: Install dependencies
         working-directory: ${{env.dir_backend}}
         run: |
-          poetry install
+          uv sync
           sudo apt-get install -y gettext
       - name: Check coding style
         working-directory: ${{env.dir_backend}}
-        run: poetry run flake8
+        run: uv run flake8
       - name: Test
         working-directory: ${{env.dir_backend}}
-        run: poetry run ./manage.py test
+        run: uv run ./manage.py test
       - name: Build
         working-directory: ${{env.dir_backend}}
         run: |
-          poetry run ./manage.py compilemessages
-          poetry build -f sdist
-          poetry export -f requirements.txt --output requirements.txt
+          uv run ./manage.py compilemessages
+          uv build --sdist
+          uv export --no-hashes --no-emit-project -o requirements.txt
       - name: Store artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -186,17 +214,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: 1.8.3
+      - uses: astral-sh/setup-uv@v5
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
           path: |
-            ~/.npm
-            ~/.cache/pypoetry
-            .next/cache
-          key: ${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+            ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
       - uses: actions/cache@v4
         with:
           path: |
@@ -206,7 +230,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          npm run poetry-install
+          npm run uv-install
       - uses: actions/download-artifact@v5
         with:
           name: backend-dist
