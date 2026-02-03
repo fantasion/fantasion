@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 
 def get_schemed_netloc(url):
     parsed = urlparse(url)
-    return f"{parsed.scheme}://{parsed.netloc}"
+    return f"{parsed.scheme}://{parsed.netloc}"  # noqa: E231
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

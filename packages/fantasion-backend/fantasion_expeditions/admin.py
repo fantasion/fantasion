@@ -268,7 +268,7 @@ class ExpeditionBatchAdmin(BaseAdmin):
         wr.writerows(data)
         buffer.seek(0)
         response = HttpResponse(buffer, content_type='text/csv; charset=utf-8')
-        disposition = f'attachment; filename=dukladny-prehled-{batch.pk}.csv'
+        disposition = f'attachment; filename=dukladny-prehled-{batch.pk}.csv'  # noqa: E702
         response['Content-Disposition'] = disposition
         return response
 
