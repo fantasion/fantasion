@@ -1,15 +1,29 @@
-@import './variables.scss';
-@import 'bootstrap/scss/bootstrap.scss';
+@import '@fantasion/ui/styles';
 @import 'react-phone-input-2/lib/style.css';
+
+#nprogress .bar {
+  background: var(--fui-color-primary);
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
   font-family: 'Raleway';
   min-width: 320px;
+  overflow-x: hidden;
 }
 
 a {
@@ -17,9 +31,25 @@ a {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    var(--fui-color-primary) 0%,
+    var(--fui-color-primary) 50%,
+    var(--fui-color-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
   a {
     text-decoration: none;
+    color: inherit;
 
     &:active,
     &:hover {
@@ -28,7 +58,8 @@ h2 {
   }
 }
 
-address, p {
+address,
+p {
   margin-bottom: 0;
 }
 
@@ -38,10 +69,23 @@ address, p {
 
 p,
 .alert {
-  max-width: $paragraph-max-width;
+  max-width: 40rem;
 }
 
 .above-decoration {
   position: relative;
   z-index: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+  opacity: hidden;
 }

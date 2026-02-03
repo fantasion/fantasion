@@ -1,4 +1,3 @@
-@import '../styles/variables.scss';
 
 .navbar {
   transition: all 0.2s;
@@ -6,7 +5,7 @@
 
   .navbarBrand,
   .navbarToggle {
-    color: $primary;
+    /* color: var(--fui-navbar-color); */
     font-weight: bold;
   }
 
@@ -16,73 +15,34 @@
     align-items: center;
   }
 
-  :global(.navbar-nav) + :global(.navbar-toggler) {
-    margin-left: calc($spacer / 2);
-  }
-
-  :global(.navbar-nav) :global(.nav-link) {
-    color: $primary;
-    font-weight: bold;
-
-    &:hover,
-    &:focus {
-      color: lighten($primary, 20%);
-    }
-  }
-
-  &:global(.fixed-top) {
-    opacity: 0.66;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   &.navbarInverse {
     opacity: 1;
   }
 
-  &:global(.fixed-top),
   &.navbarInverse,
   &.navbarExpanded {
-    background-color: $primary;
-    box-shadow: 0 0 $spacer rgba(darken($secondary, 33%), 0.5);
+    background-color: var(--fui-color-primary);
+    box-shadow: 0 0 var(--fui-spacer) rgba(#906e00, 0.5);
+    --fui-nav-link-color: #{var(--fui-color-white)};
+    --fui-nav-link-hover-color: #{rgba(var(--fui-color-white), 0.66)};
 
     .navbarBrand,
     .navbarToggle {
-      color: $white;
-    }
-
-    :global(.navbar-nav) :global(.nav-link) {
-      color: $white;
-
-      &:hover,
-      &:focus {
-        color: $white;
-        opacity: .66;
-      }
-    }
-  }
-
-  &.navbarExpanded {
-    :global(.navbar-collapse) :global(.navbar-nav) {
-      border-top: 1px solid rgba($white, 0.2);
-      margin-top: calc($spacer / 2);
-      padding-top: calc($spacer / 2);
+      color: var(--fui-color-white);
     }
   }
 }
 
 .basketIcon {
   display: inline-flex;
-  margin-right: calc($spacer / 2);
+  margin-right: calc(var(--fui-spacer) / 2);
   position: relative;
   vertical-align: top;
 }
 
 .basketBadge {
-  left: calc(-0.75 * $spacer);
-  top: calc(-0.5 * $spacer);
+  left: calc(-0.75 * var(--fui-spacer));
+  top: calc(-0.5 * var(--fui-spacer));
   pointer-events: none;
   position: absolute;
   transform: scale(0);
@@ -97,15 +57,15 @@
 }
 
 .logo {
-  margin-right: calc($spacer / 2);
+  margin-right: calc(var(--fui-spacer) / 2);
   width: 30px;
   height: 30px;
 }
 
 .content {
-  background-color: $color-early-dawn;
-  background-image: url(../public/bg-texture.gif);
-  padding-bottom: $spacer;
+  /* background-color: var(--fui-color-early-dawn); */
+  /* background-image: url(../public/bg-texture.gif); */
+  padding-bottom: var(--fui-spacer);
 }
 
 .galleryPageRow {
@@ -117,16 +77,32 @@
 .runes {
   display: flex;
   justify-content: center;
-  margin: calc($spacer * 1.5) 0 $spacer;
+  margin: calc(calc(var(--fui-spacer) * 1.5)) 0 var(--fui-spacer);
 }
 
 @keyframes rune-01 {
-  0% { color: $primary; }
-  20% { color: lighten($primary, 50%); filter: drop-shadow(0 0 calc($spacer / 4) darken($primary, 33%)); }
-  40% { color: $secondary; filter: drop-shadow(0 0 calc($spacer / 4) $secondary); }
-  60% { color: #e12; filter: drop-shadow(0 0 calc($spacer / 4) #e12); }
-  80% { color: #39e; filter: drop-shadow(0 0 calc($spacer / 4) #39e); }
-  100% { color: $primary; }
+  0% {
+    color: var(--fui-color-primary);
+  }
+  20% {
+    color: #c4b5e0;
+    filter: drop-shadow(0 0 calc(var(--fui-spacer) / 4) #2d1c51);
+  }
+  40% {
+    color: var(--fui-color-secondary);
+    filter: drop-shadow(0 0 calc(var(--fui-spacer) / 4) var(--fui-color-secondary));
+  }
+  60% {
+    color: #e12;
+    filter: drop-shadow(0 0 calc(var(--fui-spacer) / 4) #e12);
+  }
+  80% {
+    color: #39e;
+    filter: drop-shadow(0 0 calc(var(--fui-spacer) / 4) #39e);
+  }
+  100% {
+    color: var(--fui-color-primary);
+  }
 }
 
 .rune {
@@ -134,59 +110,67 @@
   background-repeat: no-repeat;
   background-size: contain;
   display: block;
-  filter: drop-shadow(0 0 calc($spacer / 4) rgba($primary, 0.66));
-  margin: calc($spacer / 4);
+  filter: drop-shadow(0 0 calc(var(--fui-spacer) / 4) rgba(var(--fui-color-primary), 0.66));
+  margin: calc(var(--fui-spacer) / 4);
   transition: 0.4s opacity;
-  color: $primary;
-  height: calc($spacer * 2);
-  width: calc($spacer * 2);
+  color: var(--fui-color-primary);
+  height: calc(calc(var(--fui-spacer) * 2));
+  width: calc(calc(var(--fui-spacer) * 2));
   animation: 42s rune-01 infinite;
 
-  &:nth-child(2) { animation-delay: 15s; }
-  &:nth-child(3) { animation-delay: 63s; }
-  &:nth-child(4) { animation-delay: 27s; }
-  &:nth-child(5) { animation-delay: -31s; }
+  &:nth-child(2) {
+    animation-delay: 15s;
+  }
+  &:nth-child(3) {
+    animation-delay: 63s;
+  }
+  &:nth-child(4) {
+    animation-delay: 27s;
+  }
+  &:nth-child(5) {
+    animation-delay: -31s;
+  }
 }
 
 .menuWidget {
   align-items: center;
   display: flex;
   bottom: 0;
-  height: calc($spacer * 2.5);
-  right: $spacer;
+  height: calc(calc(var(--fui-spacer) * 2.5));
+  right: var(--fui-spacer);
   top: 0;
   position: absolute;
 }
 
 .menuUserName {
-  font-size: $font-size-base;
-  margin-right: calc($spacer / 2);
-  max-width: calc($spacer * 12);
+  font-size: var(--fui-font-size-base);
+  margin-right: calc(var(--fui-spacer) / 2);
+  max-width: calc(calc(var(--fui-spacer) * 12));
   text-overflow: ellipsis;
   overflow: hidden;
   display: none;
   white-space: nowrap;
 }
 
-@media (min-width: map-get($grid-breakpoints, 'sm')) {
+@media (min-width: 576px) {
   .menuUserName {
     display: block;
   }
 
   .rune {
-    height: calc($spacer * 2.5);
-    width: calc($spacer * 2.5);
+    height: calc(calc(var(--fui-spacer) * 2.5));
+    width: calc(calc(var(--fui-spacer) * 2.5));
   }
 }
 
-@media (min-width: map-get($grid-breakpoints, 'md')) {
+@media (min-width: 768px) {
   .rune {
-    height: calc($spacer * 2.5);
-    width: calc($spacer * 2.5);
+    height: calc(calc(var(--fui-spacer) * 2.5));
+    width: calc(calc(var(--fui-spacer) * 2.5));
   }
 }
 
-@media (min-width: map-get($grid-breakpoints, 'lg')) {
+@media (min-width: 992px) {
   .menuWidget {
     position: static;
 
@@ -200,39 +184,25 @@
   }
 
   .navbar {
-    &.navbarExpanded {
-      :global(.navbar-collapse) {
-        &:global(.collapsing) {
-          height: auto !important;
-        }
-        :global(.navbar-nav) {
-          border-top: none;
-          margin-top: 0;
-          padding-top: 0;
-        }
-      }
-    }
-    
     .userMenu {
-      background: $primary;
-      border-radius: $border-radius-lg;
+      background: var(--fui-color-primary);
+      border-radius: 0.375rem-lg;
       flex-direction: column;
       opacity: 0;
-      padding: calc($spacer / 2) !important;
+      padding: calc(var(--fui-spacer) / 2) !important;
       pointer-events: none;
       position: absolute;
-      right: calc($spacer);
-      top: calc($spacer * 3.5);
+      right: calc(var(--fui-spacer));
+      top: calc(calc(var(--fui-spacer) * 3.5));
       transition: opacity 0.2s;
 
       a:link,
       a:visited {
-        color: $white;
+        color: var(--fui-color-white);
       }
     }
 
-    :global(.show),
-    :global(.collapsing) {
+    &.navbarExpanded {
       .userMenu {
         opacity: 1;
         pointer-events: all;

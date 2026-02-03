@@ -1,0 +1,96 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "@cookielab.io/biome-config/next"
+  ],
+  "root": false,
+  "files": {
+    "includes": [
+      "!.next",
+      "!node_modules",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "performance": {
+        "noImgElement": "off"
+      },
+      "style": {
+        "useExportsLast": "off",
+        "useNamingConvention": "off"
+      },
+      "nursery": {
+        "noJsxPropsBind": "off",
+        "noLeakedRender": "off",
+        "useDestructuring": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "scripts/**/*.ts",
+        "server/**/*.ts",
+        "server.ts",
+        "next.config.js"
+      ],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noNodejsModules": "off",
+            "noUndeclaredDependencies": "off"
+          },
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "i18n/request.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "app/**/*.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off",
+            "useComponentExportOnlyModules": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "components/context.tsx",
+        "components/expeditions/batches.tsx",
+        "components/expeditions/troops.tsx",
+        "components/expeditions/expeditions.tsx",
+        "components/search.tsx",
+        "lib/i18n-context.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useComponentExportOnlyModules": "off"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+
+.markdown {
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: var(--fui-spacer);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--fui-color-primary) 0%, var(--fui-color-primary) 50%, var(--fui-color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  p {
+    margin-top: calc(var(--fui-spacer) / 2);
+  }
+}

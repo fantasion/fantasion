@@ -1,9 +1,8 @@
-@import '../../styles/variables.scss';
 
 .paymentRow {
   display: flex;
   align-items: baseline;
-  border-bottom: 1px solid $gray-100;
+  border-bottom: 1px solid #f8f9fa;
 
   &:last-child {
     border-bottom: none;
@@ -12,7 +11,7 @@
   .orderRowLabel {
     display: inline-block;
     font-weight: bold;
-    width: $spacer * 9;
+    width: calc(var(--fui-spacer) * 9);
     vertical-align: middle;
     flex-shrink: 1;
   }
@@ -27,5 +26,5 @@
 
 .copyPasta {
   display: inline-block;
-  padding: calc($spacer / 4) $spacer;
+  padding: calc(var(--fui-spacer) / 4) var(--fui-spacer);
 }

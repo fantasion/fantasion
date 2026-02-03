@@ -1,0 +1,5 @@
+export const DEFAULT_CURRENCY = "CZK";
+export const ACCOUNT_BANK = "Fio Banka";
+export const ACCOUNT_BIC = "FIOBCZPPXXX";
+export const ACCOUNT_IBAN = "CZ1520100000002902175896";
+export const ACCOUNT_NUMBER = "2902175896/2010";

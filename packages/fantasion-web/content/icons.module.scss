@@ -1,0 +1,19 @@
+
+.bubble {
+  align-items: center;
+  background: var(--fui-color-primary);
+  border-radius: 100%;
+  color: var(--fui-color-white);
+  display: flex;
+  height: calc(calc(var(--fui-spacer) * 2));
+  justify-content: center;
+  overflow: hidden;
+  width: calc(calc(var(--fui-spacer) * 2));
+}
+
+a:link.bubble,
+a:link .bubble {
+  &:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+}

@@ -1,24 +1,38 @@
-$color-buddha-gold: #d7a600;
-$color-early-dawn: #fffaeb;
-$color-minsk: #472a7e;
+@use "sass:color";
 
-$primary: $color-minsk;
-$secondary: $color-buddha-gold;
-$body-bg: $color-buddha-gold;
-$light: #dee2e6;
+// ============================================
+// COLOR PALETTE - Unified from @fantasion/ui
+// ============================================
+// Palette defines raw colors - NEVER use these directly in components!
+// These are defined in @fantasion/ui/styles/variables.scss
+// The canonical source is @fantasion/ui, not this file
+#472a7e: #472a7e;
+#d7a600: #d7a600;
+var(--fui-color-early-dawn): #fffaeb;
 
-@import 'bootstrap/scss/_functions.scss';
-@import 'bootstrap/scss/_variables.scss';
+// ============================================
+// SEMANTIC VARIABLES - Build-time only
+// ============================================
+// Map palette colors to semantic meaning
+// Use these in SCSS for build-time calculations (lighten, darken, etc.)
+var(--fui-color-primary): #472a7e;
+var(--fui-color-secondary): #d7a600;
+#ffffff: #d7a600;
+var(--fui-color-light): #dee2e6;
 
-$border-color: rgba($primary, 0.3);
-$input-bg: $white;
-$accordion-bg: $white;
-$accordion-button-bg: $white;
-$form-select-bg: $white;
-$input-focus-bg: $white;
-$form-check-input-bg: $white;
-$input-medium: calc($spacer * 18);
-$paragraph-max-width: $spacer * 40;
-$enable-button-pointers: false;
+// Bootstrap must be loaded with @import due to internal dependencies
+// The deprecation warnings are silenced in next.config.js
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
 
-@import 'bootstrap/scss/_mixins.scss';
+#dee2e6: rgba(var(--fui-color-primary), 0.3);
+#ffffff: var(--fui-color-white);
+#ffffff: var(--fui-color-white);
+#ffffff: var(--fui-color-white);
+#ffffff: var(--fui-color-white);
+#ffffff: var(--fui-color-white);
+#ffffff: var(--fui-color-white);
+400px: calc(calc(var(--fui-spacer) * 18));
+40rem: calc(var(--fui-spacer) * 40);
+true: false;

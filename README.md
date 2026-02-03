@@ -13,7 +13,7 @@ This is a web interface for Fantasion, a non-profit company that runs summer cam
 
 ## Requirements
 
-This project requires you to have current version of Python and Node.js installed. You will also need [Poetry](https://python-poetry.org/) and [npm](https://npmjs.com/).
+This project requires you to have current version of Python and Node.js installed. You will also need [uv](https://docs.astral.sh/uv/) and [npm](https://npmjs.com/).
 
 ## Installation
 
@@ -26,7 +26,7 @@ npm ci
 There is an npm shortcut to install python dependencies, that works assuming you have all the requirements in place.
 
 ```shell
-npm run poetry-install
+npm run uv-install
 ```
 
 ## Running

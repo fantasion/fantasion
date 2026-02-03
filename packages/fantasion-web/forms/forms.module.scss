@@ -1,0 +1,66 @@
+
+input,
+select {
+  &.default,
+  &.default + :global(.form-text) {
+    max-width: 400px;
+  }
+}
+
+.label {
+  margin-bottom: 0;
+}
+
+.phoneInput {
+  max-width: calc(var(--fui-spacer) * 14);
+  position: relative;
+
+  &:global(.form-control) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  :global(.flag-dropdown) {
+    left: 0;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+
+    :global(.country) {
+      cursor: default;
+
+      &:hover {
+        background: #e6e6e6;
+      }
+
+      &:global(.highlight) {
+        background: #5d3c9e;
+        color: var(--fui-color-white);
+
+        &:hover {
+          background: #7350b8;
+        }
+      }
+    }
+  }
+
+  :global(input.form-control) {
+    border: none;
+    min-width: 0;
+    padding-left: calc(var(--fui-spacer) * 2.5);
+    width: auto;
+
+    &:focus,
+    &:hover {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+form .postalCodeInput {
+  max-width: calc(var(--fui-spacer) * 6);
+}
+
+form .streetNumberInput {
+  max-width: calc(var(--fui-spacer) * 7);
+}

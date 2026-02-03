@@ -1,0 +1,42 @@
+
+
+.baseStamp {
+  font-size: var(--fui-font-size-base);
+  font-weight: normal;
+}
+
+.batch {
+  border-top: 1px solid #dee2e6;
+  margin-top: var(--fui-spacer);
+  padding-top: var(--fui-spacer);
+}
+
+.batchButtons {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: calc(var(--fui-spacer) / 2);
+
+  .detailsButton {
+    margin-left: auto;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .batchButtons {
+    align-items: end;
+    flex-direction: column;
+    margin-top: 0;
+
+    .signupButton {
+      padding: 0.5rem 1rem;
+      font-size: 1.25rem;
+      border-radius: 0.5rem;
+      margin-bottom: calc(var(--fui-spacer) / 4);
+    }
+
+    .detailsButton {
+      margin-left: 0;
+    }
+  }
+}

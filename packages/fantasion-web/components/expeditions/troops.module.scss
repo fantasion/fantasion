@@ -1,0 +1,13 @@
+
+.priceIncludes {
+  font-size: calc(var(--fui-font-size-base) / 1.2);
+
+  h3 {
+    font-size: calc(var(--fui-h3-font-size) / 1.5);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--fui-color-primary) 0%, var(--fui-color-primary) 50%, var(--fui-color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}

@@ -1,7 +1,0 @@
-@import '../../styles/variables.scss';
-
-@include media-breakpoint-up(xl) {
-  .page {
-    max-width: 960px;
-  }
-}

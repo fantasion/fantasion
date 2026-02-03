@@ -1,0 +1,22 @@
+
+
+.caretaker {
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--fui-spacer) / 2);
+
+  .avatar {
+    display: block;
+    margin-right: var(--fui-spacer);
+    width: calc(calc(var(--fui-spacer) * 7));
+    min-width: calc(calc(var(--fui-spacer) * 7));
+    max-width: calc(calc(var(--fui-spacer) * 7));
+    height: calc(calc(var(--fui-spacer) * 7));
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .role {
+    font-size: var(--fui-h5-font-size);
+  }
+}

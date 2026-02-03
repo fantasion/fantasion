@@ -1,4 +1,3 @@
-@import '../styles/variables.scss';
 
 div.canvas {
   min-height: 20vh;
@@ -18,15 +17,15 @@ div.canvas {
 
 .quickForm {
   display: flex;
-  margin-top: $spacer;
+  margin-top: var(--fui-spacer);
 
   button {
     flex-grow: 1;
-    font-size: $font-size-base;
+    font-size: var(--fui-font-size-base);
   }
 
   button:last-child {
-    margin-left: $spacer;
+    margin-left: var(--fui-spacer);
     font-weight: bold;
   }
 }
