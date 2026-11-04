@@ -80,7 +80,8 @@ class StaticArticle(WebsiteModel):
         unique=True,
         verbose_name=_("Article key"),
         help_text=_(
-            "Unique key used to reference the article directly on the API"),
+            "Unique key used on the API and for event pages at "
+            "/akce/<key> (e.g. halloween → /akce/halloween)"),
     )
     text = MarkdownField(
         verbose_name=_("Article text"),

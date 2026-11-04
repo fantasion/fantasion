@@ -113,6 +113,10 @@ const cs = {
     source: '/kodex',
     destination: '/codex',
   },
+  eventArticle: {
+    source: '/akce/:articleKey',
+    destination: '/events/:articleKey',
+  },
   orderDetail: {
     source: '/objednavky/:orderId',
     destination: '/orders/:orderId',
