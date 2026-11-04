@@ -45,8 +45,6 @@ const EventSignupPage = ({ article }) => {
     setSubmitted(true)
   }
 
-  const signupFields = article.signupFields || []
-
   return (
     <GenericPage>
       <MetaPage title={article.title} description={article.description} />
@@ -78,7 +76,7 @@ const EventSignupPage = ({ article }) => {
                     {t('event-signup-heading')}
                   </Heading>
                   <EventSignupForm
-                    fields={signupFields}
+                    fields={article.signupFields}
                     onSubmit={handleSignup}
                   />
                 </Col>
