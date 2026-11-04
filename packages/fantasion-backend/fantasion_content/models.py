@@ -1,6 +1,6 @@
 from django_extensions.db.models import TimeStampedModel
 from django.utils.translation import gettext_lazy as _
-from django.db.models import CharField, TextField
+from django.db.models import CharField, JSONField, TextField
 
 from fantasion_generics.upload_path import kebab
 from fantasion_generics.media import MediaParentField
@@ -13,6 +13,64 @@ from fantasion_generics.models import (
     VisibilityModel,
     WebsiteModel,
 )
+
+# Default event signup form when StaticArticle.signup_fields is empty.
+DEFAULT_SIGNUP_FIELDS = [
+    {
+        'key': 'name',
+        'label': 'Jméno a příjmení',
+        'required': True,
+        'type': 'text',
+    },
+    {
+        'key': 'email',
+        'label': 'E-mail',
+        'required': True,
+        'type': 'email',
+    },
+    {
+        'key': 'phone',
+        'label': 'Telefon',
+        'required': False,
+        'type': 'tel',
+    },
+    {
+        'key': 'note',
+        'label': 'Poznámka',
+        'required': False,
+        'type': 'textarea',
+    },
+]
+
+SIGNUP_FIELD_TYPES = ('text', 'email', 'tel', 'textarea')
+
+
+def normalize_signup_fields(raw):
+    """Return a cleaned list of signup field dicts, or the default set."""
+    if not raw:
+        return [dict(field) for field in DEFAULT_SIGNUP_FIELDS]
+
+    normalized = []
+    seen_keys = set()
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        key = str(item.get('key') or '').strip()
+        label = str(item.get('label') or '').strip()
+        if not key or not label or key in seen_keys:
+            continue
+        field_type = str(item.get('type') or 'text').strip().lower()
+        if field_type not in SIGNUP_FIELD_TYPES:
+            field_type = 'text'
+        normalized.append({
+            'key': key[:64],
+            'label': label[:120],
+            'required': bool(item.get('required')),
+            'type': field_type,
+        })
+        seen_keys.add(key)
+
+    return normalized or [dict(field) for field in DEFAULT_SIGNUP_FIELDS]
 
 
 class FlavourText(TimeStampedModel):
@@ -88,6 +146,20 @@ class StaticArticle(WebsiteModel):
         verbose_name=_("Article text"),
         help_text=_("Your article content formatted in Markdown"),
     )
+    signup_fields = JSONField(
+        blank=True,
+        default=list,
+        verbose_name=_("Signup form fields"),
+        help_text=_(
+            "JSON list of form fields for /akce/<key>. Each item: "
+            '{"key": "email", "label": "E-mail", "required": true, '
+            '"type": "email"}. Types: text, email, tel, textarea. '
+            "Empty list uses the default name/email/phone/note fields."
+        ),
+    )
+
+    def get_signup_fields(self):
+        return normalize_signup_fields(self.signup_fields)
 
 
 class StaticArticleMedia(MediaObjectModel):

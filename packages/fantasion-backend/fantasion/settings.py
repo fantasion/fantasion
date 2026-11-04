@@ -329,6 +329,13 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 CSRF_COOKIE_SECURE = False
 EVENT_SIGNUP_SHEET_ID = os.environ.get("EVENT_SIGNUP_SHEET_ID", "")
 EVENT_SIGNUP_SHEET_TAB = os.environ.get("EVENT_SIGNUP_SHEET_TAB", "Sheet1")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "fantasion-default",
+    },
+}
 BANK_ACCOUNT_NUMBER = os.environ.get("BANK_ACCOUNT_NUMBER", "2902175896/2010")
 BANK_ACCOUNT_IBAN = os.environ.get("BANK_ACCOUNT_IBAN", "CZ1520100000002902175896")
 BANK_ACCOUNT_BIC = os.environ.get("BANK_ACCOUNT_BIC", "FIOBCZPPXXX")

@@ -50,5 +50,12 @@ class StaticArticleAdmin(TranslatedAdmin):
     model = models.StaticArticle
     list_display = ('key', 'title', 'modified')
     list_filter = ('visibility', )
-    fields = ('key', 'title', 'description', 'text', 'visibility')
+    fields = (
+        'key',
+        'title',
+        'description',
+        'text',
+        'signup_fields',
+        'visibility',
+    )
     inlines = (StaticArticleMediaAdmin, )

@@ -51,7 +51,20 @@ class StaticArticleSerializer(HyperlinkedModelSerializer):
 
     class Meta:
         model = models.StaticArticle
-        fields = ['id', 'title', 'description', 'text', 'key', 'media']
+        fields = [
+            'id',
+            'title',
+            'description',
+            'text',
+            'key',
+            'media',
+            'signup_fields',
+        ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['signup_fields'] = instance.get_signup_fields()
+        return data
 
 
 class StaticArticleView(ReadOnlyModelViewSet):
