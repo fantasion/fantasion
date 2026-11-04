@@ -25,7 +25,8 @@
   "scripts": {
     "backend": "lerna run dev --stream --no-prefix --scope fantasion-backend",
     "build": "lerna run build --stream --parallel",
-    "poetry-install": "lerna run python-install --stream --parallel",
+    "python-install": "lerna run python-install --stream --parallel",
+    "poetry-install": "npm run python-install",
     "test": "jest",
     "web": "lerna run dev --stream --no-prefix --scope fantasion-web"
   },
