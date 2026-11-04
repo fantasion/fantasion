@@ -1,20 +1,15 @@
-import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
-import React from 'react'
+import React, { useState } from 'react'
 import Row from 'react-bootstrap/Row'
 
 import { Article } from '../../components/articles'
 import { asPage, MetaPage } from '../../components/meta'
+import { EventSignupForm } from '../../components/eventSignup'
 import { GenericPage } from '../../components/layout'
 import { Heading } from '../../components/media'
-import { Link } from '../../components/links'
-import { LoginForm } from '../../components/login'
 import { getArticleByKey } from '../../server/articles'
-import { reverse } from '../../routes'
-import { setCookies } from 'cookies-next'
-import { TOKEN_COOKIE } from '../../api'
-import { useRouter } from 'next/router'
 import { useSite } from '../../components/context'
 import { useTranslation } from 'next-i18next'
 import { withPageProps } from '../../server/props'
@@ -27,22 +22,22 @@ export const getServerSideProps = withPageProps(
   })
 )
 
-const EventLoginPage = ({ article }) => {
+const EventSignupPage = ({ article }) => {
   const { t } = useTranslation()
-  const { lang, fetch } = useSite()
-  const router = useRouter()
+  const { fetch } = useSite()
+  const [submitted, setSubmitted] = useState(false)
 
-  const handleLogin = async (values) => {
-    const { token } = await fetch.post('/users/get-token', {
-      body: values,
+  const handleSignup = async (values) => {
+    await fetch.post('/event-signups', {
+      body: {
+        article_key: article.key,
+        name: values.name,
+        email: values.email,
+        phone: values.phone || '',
+        note: values.note || '',
+      },
     })
-    setCookies(TOKEN_COOKIE, token, {
-      sameSite: 'strict',
-    })
-    const redirectTo =
-      localStorage.getItem('redirectTo') || reverse(lang, 'status')
-    router.push(redirectTo)
-    localStorage.removeItem('redirectTo')
+    setSubmitted(true)
   }
 
   return (
@@ -57,17 +52,12 @@ const EventLoginPage = ({ article }) => {
           afterText={
             <Row className="mt-4">
               <Col md={6} lg={5} xl={4}>
-                <Heading relativeLevel={2}>{t('event-login-heading')}</Heading>
-                <LoginForm onSubmit={handleLogin} />
-              </Col>
-              <Col md={6} lg={5} xl={4}>
-                <Heading relativeLevel={2}>{t('login-register')}</Heading>
-                <p>{t('event-login-register-info')}</p>
-                <div className="mt-2">
-                  <Link as={Button} route="register">
-                    {t('login-create-account')}
-                  </Link>
-                </div>
+                <Heading relativeLevel={2}>{t('event-signup-heading')}</Heading>
+                {submitted ? (
+                  <Alert variant="success">{t('event-signup-success')}</Alert>
+                ) : (
+                  <EventSignupForm onSubmit={handleSignup} />
+                )}
               </Col>
             </Row>
           }
@@ -77,4 +67,4 @@ const EventLoginPage = ({ article }) => {
   )
 }
 
-export default asPage(EventLoginPage)
+export default asPage(EventSignupPage)
