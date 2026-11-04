@@ -34,32 +34,30 @@ const buildValidatorShape = (fields, t) => {
   return shape
 }
 
-export const EventSignupForm = ({ fields, onSubmit }) => {
+const EMPTY_FIELDS = []
+
+export const EventSignupForm = ({ fields = EMPTY_FIELDS, onSubmit }) => {
   const { t } = useTranslation()
   const startedAt = useRef(Date.now())
-  const signupFields = fields || []
 
   useEffect(() => {
     startedAt.current = Date.now()
   }, [])
 
-  const shape = useMemo(
-    () => buildValidatorShape(signupFields, t),
-    [signupFields, t]
-  )
+  const shape = useMemo(() => buildValidatorShape(fields, t), [fields, t])
   const resolver = useValidator(shape)
 
   const defaultValues = useMemo(() => {
     const values = { website: '' }
-    for (const field of signupFields) {
+    for (const field of fields) {
       values[field.key] = ''
     }
     return values
-  }, [signupFields])
+  }, [fields])
 
   const handleSubmit = (values) => {
     const answers = {}
-    for (const field of signupFields) {
+    for (const field of fields) {
       answers[field.key] = values[field.key] || ''
     }
     return onSubmit({
@@ -77,7 +75,7 @@ export const EventSignupForm = ({ fields, onSubmit }) => {
       onSubmit={handleSubmit}
       resolver={resolver}
     >
-      {signupFields.map((field) => (
+      {fields.map((field) => (
         <Input
           key={field.key}
           label={field.label}
