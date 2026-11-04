@@ -15,13 +15,11 @@ import { useSite } from '../../components/context'
 import { useTranslation } from 'next-i18next'
 import { withPageProps } from '../../server/props'
 
-export const getServerSideProps = withPageProps(
-  async ({ fetch, params }) => ({
-    props: {
-      article: await getArticleByKey(fetch, params.articleKey),
-    },
-  })
-)
+export const getServerSideProps = withPageProps(async ({ fetch, params }) => ({
+  props: {
+    article: await getArticleByKey(fetch, params.articleKey),
+  },
+}))
 
 const EventSignupPage = ({ article }) => {
   const { t } = useTranslation()
