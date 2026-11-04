@@ -3,4 +3,3 @@
 requirements.txt
 *.mo
 /.env
-event_signups_local.csv

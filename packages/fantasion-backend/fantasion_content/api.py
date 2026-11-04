@@ -58,12 +58,12 @@ class StaticArticleSerializer(HyperlinkedModelSerializer):
             'text',
             'key',
             'media',
-            'signup_fields',
+            'signup_form_url',
         ]
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['signup_fields'] = instance.get_signup_fields()
+        data['signup_form_embed_url'] = instance.get_signup_form_embed_url()
         return data
 
 

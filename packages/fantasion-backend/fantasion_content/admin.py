@@ -55,7 +55,7 @@ class StaticArticleAdmin(TranslatedAdmin):
         'title',
         'description',
         'text',
-        'signup_fields',
+        'signup_form_url',
         'visibility',
     )
     inlines = (StaticArticleMediaAdmin, )

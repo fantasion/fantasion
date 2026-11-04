@@ -1,6 +1,6 @@
 from django_extensions.db.models import TimeStampedModel
 from django.utils.translation import gettext_lazy as _
-from django.db.models import CharField, JSONField, TextField
+from django.db.models import CharField, TextField, URLField
 
 from fantasion_generics.upload_path import kebab
 from fantasion_generics.media import MediaParentField
@@ -14,63 +14,20 @@ from fantasion_generics.models import (
     WebsiteModel,
 )
 
-# Default event signup form when StaticArticle.signup_fields is empty.
-DEFAULT_SIGNUP_FIELDS = [
-    {
-        'key': 'name',
-        'label': 'Jméno a příjmení',
-        'required': True,
-        'type': 'text',
-    },
-    {
-        'key': 'email',
-        'label': 'E-mail',
-        'required': True,
-        'type': 'email',
-    },
-    {
-        'key': 'phone',
-        'label': 'Telefon',
-        'required': False,
-        'type': 'tel',
-    },
-    {
-        'key': 'note',
-        'label': 'Poznámka',
-        'required': False,
-        'type': 'textarea',
-    },
-]
 
-SIGNUP_FIELD_TYPES = ('text', 'email', 'tel', 'textarea')
-
-
-def normalize_signup_fields(raw):
-    """Return a cleaned list of signup field dicts, or the default set."""
-    if not raw:
-        return [dict(field) for field in DEFAULT_SIGNUP_FIELDS]
-
-    normalized = []
-    seen_keys = set()
-    for item in raw:
-        if not isinstance(item, dict):
-            continue
-        key = str(item.get('key') or '').strip()
-        label = str(item.get('label') or '').strip()
-        if not key or not label or key in seen_keys:
-            continue
-        field_type = str(item.get('type') or 'text').strip().lower()
-        if field_type not in SIGNUP_FIELD_TYPES:
-            field_type = 'text'
-        normalized.append({
-            'key': key[:64],
-            'label': label[:120],
-            'required': bool(item.get('required')),
-            'type': field_type,
-        })
-        seen_keys.add(key)
-
-    return normalized or [dict(field) for field in DEFAULT_SIGNUP_FIELDS]
+def google_form_embed_url(url):
+    """Normalize a Google Form link for iframe embed."""
+    value = (url or '').strip()
+    if not value:
+        return ''
+    if '/edit' in value:
+        value = value.split('/edit', 1)[0] + '/viewform'
+    elif '/viewform' not in value and '/forms/d/' in value:
+        value = value.rstrip('/') + '/viewform'
+    if 'embedded=true' not in value:
+        sep = '&' if '?' in value else '?'
+        value = f'{value}{sep}embedded=true'
+    return value
 
 
 class FlavourText(TimeStampedModel):
@@ -139,27 +96,26 @@ class StaticArticle(WebsiteModel):
         verbose_name=_("Article key"),
         help_text=_(
             "Unique key used on the API and for event pages at "
-            "/akce/<key>. Signups from that page are appended to the "
-            "configured Google Sheet (e.g. halloween → /akce/halloween)."),
+            "/akce/<key> (e.g. halloween → /akce/halloween)."
+        ),
     )
     text = MarkdownField(
         verbose_name=_("Article text"),
         help_text=_("Your article content formatted in Markdown"),
     )
-    signup_fields = JSONField(
+    signup_form_url = URLField(
         blank=True,
-        default=list,
-        verbose_name=_("Signup form fields"),
+        default='',
+        max_length=500,
+        verbose_name=_("Signup form URL"),
         help_text=_(
-            "JSON list of form fields for /akce/<key>. Each item: "
-            '{"key": "email", "label": "E-mail", "required": true, '
-            '"type": "email"}. Types: text, email, tel, textarea. '
-            "Empty list uses the default name/email/phone/note fields."
+            "Google Form URL embedded on /akce/<key>. Paste the share or "
+            "edit link; leave empty to show only the article."
         ),
     )
 
-    def get_signup_fields(self):
-        return normalize_signup_fields(self.signup_fields)
+    def get_signup_form_embed_url(self):
+        return google_form_embed_url(self.signup_form_url)
 
 
 class StaticArticleMedia(MediaObjectModel):
