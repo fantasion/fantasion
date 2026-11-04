@@ -160,10 +160,6 @@ module "backend_cloudrun" {
       value = var.GS_CREDENTIALS,
     },
     {
-      name = "EVENT_SIGNUP_SHEET_ID",
-      value = var.EVENT_SIGNUP_SHEET_ID,
-    },
-    {
       name = "PROJECT_ENVIRONMENT",
       value = var.PROJECT_ENVIRONMENT,
     },
