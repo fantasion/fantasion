@@ -75,6 +75,12 @@ variable "GS_CREDENTIALS" {
   type = string
 }
 
+variable "EVENT_SIGNUP_SHEET_ID" {
+  type = string
+  default = ""
+  description = "Google Sheet ID for event signup form submissions"
+}
+
 variable "ADMIN_SSO_CLIENT_ID" {
   type = string
   default = ""

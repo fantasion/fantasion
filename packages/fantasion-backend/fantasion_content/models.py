@@ -81,7 +81,8 @@ class StaticArticle(WebsiteModel):
         verbose_name=_("Article key"),
         help_text=_(
             "Unique key used on the API and for event pages at "
-            "/akce/<key> (e.g. halloween → /akce/halloween)"),
+            "/akce/<key>. Signups from that page are appended to the "
+            "configured Google Sheet (e.g. halloween → /akce/halloween)."),
     )
     text = MarkdownField(
         verbose_name=_("Article text"),

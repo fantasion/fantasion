@@ -9,7 +9,7 @@ from fantasion_expeditions import api as expeditions
 from fantasion_people import api as people
 from fantasion_signups import api as signups
 
-from . import users
+from . import event_signups, users
 
 
 class NoSlashRouter(routers.DefaultRouter):
@@ -140,5 +140,6 @@ router.register(
 urlpatterns = [
     path('', include(router.urls)),
     path('users/', include(users.urlpatterns)),
+    path('', include(event_signups.urlpatterns)),
     path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
