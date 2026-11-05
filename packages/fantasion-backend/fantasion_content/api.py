@@ -67,7 +67,7 @@ class StaticArticleSerializer(HyperlinkedModelSerializer):
         return data
 
 
-class StaticArticleView(ReadOnlyModelViewSet):
+class StaticArticleView(PublicInfoViewSet):
     queryset = models.StaticArticle.objects.all()
     serializer_class = StaticArticleSerializer
     lookup_field = 'key'

@@ -8,6 +8,19 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterField(
+            model_name='staticarticle',
+            name='key',
+            field=models.CharField(
+                help_text=(
+                    'Unique key used on the API and for event pages at '
+                    '/akce/<key> (e.g. halloween → /akce/halloween).'
+                ),
+                max_length=32,
+                unique=True,
+                verbose_name='Article key',
+            ),
+        ),
         migrations.AddField(
             model_name='staticarticle',
             name='signup_form_url',
@@ -15,9 +28,8 @@ class Migration(migrations.Migration):
                 blank=True,
                 default='',
                 help_text=(
-                    'Google Form URL for /akce/<key>. Paste the form link '
-                    '(edit or viewform); the site embeds it on the event page. '
-                    'Leave empty to show only the article text.'
+                    'Google Form URL embedded on /akce/<key>. Paste the share or '
+                    'edit link; leave empty to show only the article.'
                 ),
                 max_length=500,
                 verbose_name='Signup form URL',
