@@ -46,6 +46,10 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+# Include compiled translations in both sdists and wheels despite *.mo in .gitignore.
+artifacts = ["**/*.mo"]
+
 [tool.hatch.build.targets.wheel]
 packages = [
   "fantasion",
@@ -75,5 +79,4 @@ include = [
   "fantasion_people/",
   "fantasion_signups/",
   "manage.py",
-  "**/*.mo",
 ]
